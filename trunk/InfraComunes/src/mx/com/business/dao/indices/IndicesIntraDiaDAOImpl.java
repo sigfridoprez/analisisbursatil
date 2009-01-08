@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -63,4 +64,12 @@ public class IndicesIntraDiaDAOImpl extends BaseDAO implements
 		this.insert(indicesIntraDia);
 	}
 
+	public int txBorrarIndicesIntraDia(Date fecha)throws DataBaseException{
+		StringBuilder sbQuery = new StringBuilder("delete from IndicesIntraDia p where p.id.fecha <= :fecha");
+		Query query = this.getSession().createQuery(sbQuery.toString());
+		
+		query.setDate("fecha", fecha);
+		
+		return query.executeUpdate();
+	}
 }

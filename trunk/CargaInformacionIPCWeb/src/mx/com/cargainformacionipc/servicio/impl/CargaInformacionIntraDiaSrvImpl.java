@@ -1,6 +1,7 @@
 package mx.com.cargainformacionipc.servicio.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class CargaInformacionIntraDiaSrvImpl implements
     private UtilSrv utilSrv;
     private static int SERIE_OPERADA = 1;
     private static int INDICES = 3;
+    private static int DIAS_GUARDAR_INFORMACION = 30;
     
 	public void cargaInformacion()throws BusinessException{
 		logger.debug("En cargaInformacion");
@@ -106,8 +108,14 @@ public class CargaInformacionIntraDiaSrvImpl implements
 		Date fecha = new Date();
 		int idCargaSerie = utilSrv.getMaximaSerieIntraDiaCarga()+1;
 		int idCargaIndice= utilSrv.getMaximaIndiceIntraDiaCarga()+1;
+		Calendar calFechaBorrar = Calendar.getInstance();
 		
 		CreaIntraDiaVO creaVO = new CreaIntraDiaVO(configuracionSplitSrv,utilSrv);
+		
+		logger.debug("Borramos la información intra dia que debe de borrarse");
+		calFechaBorrar.add(Calendar.DAY_OF_MONTH, -DIAS_GUARDAR_INFORMACION);
+		seriesOperadasIntraDiaSrv.txBorrarSerieIntraDia(calFechaBorrar.getTime());
+		indicesIntraDiaSrv.txBorrarIndicesIntraDia(calFechaBorrar.getTime());
 		
 		logger.debug("obtenemos la configuracion de las series operadas del BMV");
 		lstLinkBMV = ciConfLinksSrv.getCiConfLinks(Integer.valueOf(SERIE_OPERADA));

@@ -12,6 +12,8 @@ public interface SeriesOperadasIntraDiaDAO {
 	public List<String> getListSerie(String emisora) throws DataBaseException;
 	public void txInsertSeriesOperadasIntraDia(SeriesOperadasIntraDia seriesOperadas)throws DataBaseException;
 	public void txUpdateSeriesOperadasIntraDia(SeriesOperadasIntraDia seriesOperadas)throws DataBaseException;
+	public int  txBorrarSeriesOperadasIntraDia(Date fecha)throws DataBaseException;
+	
 	public List<String> getListaJList()throws DataBaseException;
 	
 	public SeriesOperadasIntraDia getSerieOperadaIntraDia(int idCarga,String emisora,String serie,Date date)throws DataBaseException;
