@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>jdbc/POOL_POSTGRESQL</value>
+		</property>
+	</bean-->
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>org.postgresql.Driver</value>
+		</property>
+		<property name="url">
+			<value>
+				jdbc:postgresql:ADMIN
+			</value>
+		</property>
+		<property name="username">
+			<value>adm</value>
+		</property>
+		<property name="password">
+			<value>adm</value>
+		</property>
+	</bean>
+	
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="configLocation">
+			<value>classpath:mx/com/analisispreciosmercado/def/hibernate.cfg.xml</value>
+		</property>
+		<property name="hibernateProperties">
+			<ref local="hibernateProperties" />
+		</property>
+	</bean>
+	
+	<bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.PostgreSQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.c3p0.initialPoolSize">1</prop>
+				<prop key="hibernate.c3p0.minPoolSize">1</prop>
+				<prop key="hibernate.c3p0.maxPoolSize">2</prop>
+				<prop key="hibernate.c3p0.acquireIncrement">1</prop>
+				<prop key="hibernate.c3p0.timeout">120</prop>
+				<prop key="hibernate.c3p0.maxStatements">50</prop>
+				<prop key="hibernate.c3p0.testConnectionOnCheckout">
+					false
+				</prop>
+				<prop key="hibernate.c3p0.idleConnectionTestPeriod">
+					90
+				</prop>
+				<prop key="hibernate.c3p0.debugUnreturnedConnectionStackTraces">
+					true
+				</prop>
+				<prop key="hibernate.cglib.use_reflection_optimizer">
+					true
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="hibernateDaoSupport" class="org.springframework.orm.hibernate3.support.HibernateDaoSupport" abstract="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<!-- DAOS DE SERVICIO -->
+	<!-- Aqui configuramos los DAOS -->
+		<bean id="seriesOperadasDAO" class="mx.com.business.dao.seriesoperadas.SeriesOperadasDAOImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+		<bean id="indicesDAO" class="mx.com.business.dao.indices.IndicesDAOImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+		<bean id="seriesOperadasIntraDiaDAO" class="mx.com.business.dao.seriesoperadas.SeriesOperadasIntraDiaDAOImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+		<bean id="indicesIntraDiaDAO" class="mx.com.business.dao.indices.IndicesIntraDiaDAOImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+		<bean id="utilDAO" class="mx.com.business.dao.util.UtilDAOImpl">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+	<!-- DAOS DE SERVICIOS PARSEO HTML FIN -->
+	
+</beans>
