@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  			xmlns:h="http://java.sun.com/jsf/html"
+	  			xmlns:f="http://java.sun.com/jsf/core"
+	  			xmlns:rich="http://richfaces.org/rich"
+	  			xmlns:a4j="http://richfaces.org/a4j"
+	  			template="/WEB-INF/layouts/standardG.xhtml">
+
+<ui:define name="contenido">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<h:outputText value="#{seriesOperadasIntradDiaController.cargaPagina}" />
+
+	<rich:dataTable id="idDataTableID" var="dataTableID" value="#{seriesOperadasIntradDiaController.lstSeriesOperadas}" 
+		width="50%" 
+		onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+		cellpadding="0" cellspacing="0" border="0" render="true">
+			
+		<f:facet name="header">
+			<rich:columnGroup>
+				<rich:column>
+                	<rich:spacer /> 
+		        </rich:column>
+                <rich:column>
+                	<h:outputText value="Emisora" /> 
+		        </rich:column>
+		        <rich:column>
+	                <h:outputText value="Serie" /> 
+		        </rich:column>
+		        <rich:column>
+	                <h:outputText value="Cierre" /> 
+		        </rich:column>
+		        <rich:column>
+	                <h:outputText value="Precio Último" /> 
+		        </rich:column>
+		        <rich:column>
+	                <h:outputText value="% Variaciòn" /> 
+		        </rich:column>
+	        </rich:columnGroup>
+        </f:facet>
+	    <rich:column>
+      		<h:selectBooleanCheckbox />
+		</rich:column>
+        <rich:column>
+        	<h:outputText value="#{dataTableID.emisora}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText value="#{dataTableID.serie}" />
+		</rich:column>
+		<rich:column style="text-align:right;">
+			<h:outputText value="#{dataTableID.ppp}">
+				<f:convertNumber pattern="#,##0.00"/>
+			</h:outputText>
+		</rich:column>
+		<rich:column style="text-align:right;">
+			<h:outputLink value="#'" id="linkPrecioUltimo" >
+               	<h:outputText value="#{dataTableID.ultimo}">
+                    <f:convertNumber pattern="#,##0.00"/>
+                </h:outputText>
+		    </h:outputLink>
+		</rich:column>
+		<rich:column style="text-align:right;">
+			<h:outputText value="#{dataTableID.pct}">
+				<f:convertNumber pattern="0.00"/>
+			</h:outputText>
+		</rich:column>
+	</rich:dataTable>
+			
+</ui:define>
+</ui:composition>
