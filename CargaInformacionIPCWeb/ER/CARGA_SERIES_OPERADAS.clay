@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.0">
+<database-model alias="" author="" begin-script="" end-script="" name="CARGA_SERIES_OPERADAS" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="e326a9:11b22d4af8f:-7f96" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="Public" name="public" remarks="" uid="f0941c:11b48fa7cef:-7ff3">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="" name="ip_conf_propiedades_tabla" remarks="" uid="eca4be:11b53683859:-7fe9">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="534" y="327"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="id_tabla" remarks="" uid="eca4be:11b53683859:-7fe7">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="id_propiedad_tabla" remarks="" uid="eca4be:11b53683859:-7fe6">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="true" name="nombre_propiedad" remarks="" uid="eca4be:11b53683859:-7fe5">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="false" name="clase_html" remarks="" uid="eca4be:11b53683859:-7fe4">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="true" name="nombre_propiedad_objeto" remarks="" uid="eca4be:11b53683859:-7fe3">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="tipo_dato" remarks="" uid="eca4be:11b53683859:-7fe2">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="pk_ip_conf_propiedades_tabla" remarks="" uid="eca4be:11b53683859:-7fe8">
+<primary-key-description/>
+<primary-key-column name="id_tabla"/>
+<primary-key-column name="id_propiedad_tabla"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="fk_propiedades_1" on-delete="NO ACTION" on-update="NO ACTION" referenced-key="pk_ip_conf_tablas_html_parsear" referenced-table="ip_conf_tablas_html_parsear" referenced-table-schema="public" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="eca4be:11b53683859:-7fdb">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="id_tabla" referenced-key-column-name="id_tabla"/>
+</foreign-key>
+</foreign-key-list>
+<index-list/>
+</table>
+<table alias="" name="ip_conf_tablas_html_parsear" remarks="" uid="eca4be:11b53683859:-7fe1">
+<table-description/>
+<table-figure-bounds height="-1" width="-1" x="564" y="170"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="id_tabla" remarks="" uid="eca4be:11b53683859:-7fdf">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="true" name="nombre_tabla" remarks="" uid="eca4be:11b53683859:-7fde">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="true" name="formato_tabla" remarks="" uid="eca4be:11b53683859:-7fdd">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="500" decimal-digits="0" default-value="" mandatory="true" name="objeto_regresar" remarks="" uid="eca4be:11b53683859:-7fdc">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="pk_ip_conf_tablas_html_parsear" remarks="" uid="eca4be:11b53683859:-7fe0">
+<primary-key-description/>
+<primary-key-column name="id_tabla"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list/>
+</table>
+<table alias="Carga de Informacion, Configuracion de Links" name="CI_CONF_LINKS" remarks="" uid="eca4be:11b53683859:-7fda">
+<table-description>Tabla que contiene la configuracion pertinente a los links con los que se hace la carga</table-description>
+<table-figure-bounds height="-1" width="-1" x="571" y="17"/>
+<column-list>
+<column alias="Id Conf" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_CONF" remarks="" uid="eca4be:11b53683859:-7fd4">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="Link" auto-increment="false" column-size="200" decimal-digits="0" default-value="" mandatory="true" name="LINK" remarks="" uid="eca4be:11b53683859:-7fd3">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_TABLA" remarks="" uid="eca4be:11b53683859:-7fd2">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_CI_CONF_LINKS" remarks="" uid="eca4be:11b53683859:-7fd9">
+<primary-key-description/>
+<primary-key-column name="ID_CONF"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_CI_CONF_LINKS_1" on-delete="" on-update="" referenced-key="pk_ip_conf_tablas_html_parsear" referenced-table="ip_conf_tablas_html_parsear" referenced-table-schema="public" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="eca4be:11b53683859:-7fc1">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="ID_TABLA" referenced-key-column-name="id_tabla"/>
+</foreign-key>
+</foreign-key-list>
+<index-list>
+<index alias="Ix Ci Conf Links 1" name="IX_CI_CONF_LINKS_1" remarks="" uid="eca4be:11b53683859:-7f74" unique="false">
+<index-description/>
+<index-column name="ID_CONF" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="" name="SERIES_OPERADAS" remarks="" uid="eca4be:11b53683859:-7f88">
+<table-description>Contiene la informacion de las series operadas a una fecha dada.</table-description>
+<table-figure-bounds height="-1" width="-1" x="5" y="114"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="FECHA" remarks="" uid="eca4be:11b53683859:-7f86">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="25" decimal-digits="0" default-value="" mandatory="true" name="EMISORA" remarks="" uid="eca4be:11b53683859:-7f85">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="SERIE" remarks="" uid="eca4be:11b53683859:-7f84">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA" remarks="" uid="eca4be:11b53683859:-7f83">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ULTIMO" remarks="" uid="eca4be:11b53683859:-7f82">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="false" name="PPP" remarks="" uid="eca4be:11b53683859:-7f81">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ANTERIOR" remarks="" uid="eca4be:11b53683859:-7f80">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MAXIMO" remarks="" uid="eca4be:11b53683859:-7f7f">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MINIMO" remarks="" uid="eca4be:11b53683859:-7f7e">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="12" decimal-digits="0" default-value="" mandatory="false" name="VOLUMEN" remarks="" uid="eca4be:11b53683859:-7f7d">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="false" name="IMPORTE" remarks="" uid="eca4be:11b53683859:-7f7c">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="0" default-value="" mandatory="false" name="OPERACIONES" remarks="" uid="eca4be:11b53683859:-7f7b">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="8" decimal-digits="2" default-value="" mandatory="false" name="PUNTOS" remarks="" uid="eca4be:11b53683859:-7f7a">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="4" decimal-digits="2" default-value="" mandatory="false" name="PORCENTAJE" remarks="" uid="eca4be:11b53683859:-7f79">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Dia Habil" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="true" name="DIA_HABIL" remarks="" uid="2418a8:11ca7ebb6d8:-7ff2">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Split" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="SPLIT" remarks="" uid="2418a8:11ca7ebb6d8:-7ff1">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual Precio" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_PRECIO" remarks="" uid="6e4826:11cabe33564:-7fe6">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual Maximo" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="true" name="VAR_PCT_MAXIMO" remarks="" uid="6e4826:11cabe33564:-7ff1">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual Minimo" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="true" name="VAR_PCT_MINIMO" remarks="" uid="6e4826:11cabe33564:-7ff0">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="true" name="VAR_PCT" remarks="" uid="6e4826:11cabe33564:-7fef">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Rendimiento" auto-increment="false" column-size="4" decimal-digits="3" default-value="" mandatory="false" name="RENDIMIENTO" remarks="" uid="c867da:11ccfa79740:-7ff8">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Indice de Bursatilidad" auto-increment="false" column-size="9" decimal-digits="6" default-value="" mandatory="false" name="IND_BURSATILIDAD" remarks="" uid="87ab25:11cb0c01a57:-7ff6">
+<column-description>Lo captura el usuario, se captura  cada mes</column-description>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Tipo Indice Bursatilidad" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="TIPO_IND_BURSATILIDAD" remarks="" uid="61b67f:11da8664f88:-7fea">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="series_operadas_pkey" remarks="" uid="eca4be:11b53683859:-7f87">
+<primary-key-description/>
+<primary-key-column name="FECHA"/>
+<primary-key-column name="EMISORA"/>
+<primary-key-column name="SERIE"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="" name="IX_SERIES_OPERADAS" remarks="" uid="eca4be:11b53683859:-7f6f" unique="false">
+<index-description/>
+<index-column name="FECHA" sort="ASC"/>
+<index-column name="EMISORA" sort="ASC"/>
+<index-column name="SERIE" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="" name="DIAS_FESTIVOS" remarks="" uid="8d5ec2:11caac7be1f:-7ffc">
+<table-description>Tabla que contiene los dias festivos del año</table-description>
+<table-figure-bounds height="49" width="190" x="12" y="13"/>
+<column-list>
+<column alias="Fecha" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="FECHA" remarks="" uid="8d5ec2:11caac7be1f:-7ff8">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="Descripcion" auto-increment="false" column-size="200" decimal-digits="0" default-value="" mandatory="false" name="DESCRIPCION" remarks="" uid="8d5ec2:11caac7be1f:-7ff7">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_DIAS_FESTIVOS" remarks="" uid="8d5ec2:11caac7be1f:-7ffb">
+<primary-key-description/>
+<primary-key-column name="FECHA"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="Ix Dias Festivos" name="IX_DIAS_FESTIVOS" remarks="" uid="8d5ec2:11caac7be1f:-7ff4" unique="false">
+<index-description/>
+<index-column name="FECHA" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="Configuracion Split" name="CONFIGURACION_SPLIT" remarks="" uid="8d5ec2:11caac7be1f:-7fe9">
+<table-description>Aqui se configura el split</table-description>
+<table-figure-bounds height="-1" width="-1" x="237" y="8"/>
+<column-list>
+<column alias="Fecha Alta" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="FECHA_ALTA" remarks="" uid="8d5ec2:11caac7be1f:-7fdf">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="Emisora" auto-increment="false" column-size="25" decimal-digits="0" default-value="" mandatory="true" name="EMISORA" remarks="" uid="8d5ec2:11caac7be1f:-7fe1">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Serie" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="SERIE" remarks="" uid="8d5ec2:11caac7be1f:-7fe0">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Fecha Aplicacion" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="FECHA_APLICACION" remarks="" uid="8d5ec2:11caac7be1f:-7fde">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="Split" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="SPLIT" remarks="" uid="8d5ec2:11caac7be1f:-7fdd">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_CONFIGURACION_SPLIT" remarks="" uid="8d5ec2:11caac7be1f:-7fe8">
+<primary-key-description/>
+<primary-key-column name="EMISORA"/>
+<primary-key-column name="SERIE"/>
+<primary-key-column name="FECHA_ALTA"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="" name="IX_CONFIGURACION_SPLIT" remarks="" uid="8d5ec2:11caac7be1f:-7fd8" unique="false">
+<index-description/>
+<index-column name="FECHA_ALTA" sort="ASC"/>
+<index-column name="EMISORA" sort="ASC"/>
+<index-column name="SERIE" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="" name="INDICES" remarks="" uid="b25cb3:11d17866d18:-7ffa">
+<table-description>Contiene la información resumida de los indices del mercado de valores</table-description>
+<table-figure-bounds height="-1" width="-1" x="266" y="126"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="FECHA" remarks="" uid="b25cb3:11d17866d18:-7ff8">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="25" decimal-digits="0" default-value="" mandatory="true" name="INDICE" remarks="" uid="b25cb3:11d17866d18:-7ff7">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ULTIMO" remarks="" uid="b25cb3:11d17866d18:-7ff4">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA" remarks="" uid="b25cb3:11d17866d18:-7ff5">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ANTERIOR" remarks="" uid="b25cb3:11d17866d18:-7ff2">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="4" decimal-digits="2" default-value="" mandatory="false" name="PORCENTAJE" remarks="" uid="b25cb3:11d17866d18:-7feb">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="8" decimal-digits="2" default-value="" mandatory="false" name="PUNTOS" remarks="" uid="b25cb3:11d17866d18:-7fec">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MAXIMO" remarks="" uid="b25cb3:11d17866d18:-7ff1">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA_MAXIMO" remarks="" uid="b25cb3:11d17866d18:-7fdd">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MINIMO" remarks="" uid="b25cb3:11d17866d18:-7ff0">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA_MINIMO" remarks="" uid="b25cb3:11d17866d18:-7fda">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="Dia Habil" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="true" name="DIA_HABIL" remarks="" uid="b25cb3:11d17866d18:-7fea">
+<column-description/>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual del Ultimo Precio" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_ULTIMO" remarks="" uid="b25cb3:11d17866d18:-7fe8">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual Maximo" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="true" name="VAR_PCT_MAXIMO" remarks="" uid="b25cb3:11d17866d18:-7fe7">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual Minimo" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="true" name="VAR_PCT_MINIMO" remarks="" uid="b25cb3:11d17866d18:-7fe6">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Variacion Porcentual" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="true" name="VAR_PCT" remarks="" uid="b25cb3:11d17866d18:-7fe5">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Rendimiento" auto-increment="false" column-size="4" decimal-digits="3" default-value="" mandatory="false" name="RENDIMIENTO" remarks="" uid="b25cb3:11d17866d18:-7fe4">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="indices_pkey" remarks="" uid="b25cb3:11d17866d18:-7fe1">
+<primary-key-description/>
+<primary-key-column name="FECHA"/>
+<primary-key-column name="INDICE"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="" name="IX_INDICES" remarks="" uid="b25cb3:11d17866d18:-7fc6" unique="false">
+<index-description/>
+<index-column name="FECHA" sort="ASC"/>
+<index-column name="INDICE" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="" name="SERIES_OPERADAS_INTRA_DIA" remarks="" uid="f5a519:11d94d1fba4:-7ff9">
+<table-description>Contiene la informacion de las series operadas a una fecha dada.</table-description>
+<table-figure-bounds height="-1" width="-1" x="11" y="485"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="FECHA" remarks="" uid="f5a519:11d94d1fba4:-7ff7">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_CARGA" remarks="" uid="51c603:11e21dbbd29:-7fec">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="25" decimal-digits="0" default-value="" mandatory="true" name="EMISORA" remarks="" uid="f5a519:11d94d1fba4:-7ff6">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="10" decimal-digits="0" default-value="" mandatory="true" name="SERIE" remarks="" uid="f5a519:11d94d1fba4:-7ff5">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="HORA" remarks="" uid="f5a519:11d94d1fba4:-7ff4">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ULTIMO" remarks="" uid="f5a519:11d94d1fba4:-7ff3">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="PPP" remarks="" uid="f5a519:11d94d1fba4:-7ff2">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ANTERIOR" remarks="" uid="f5a519:11d94d1fba4:-7ff1">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MAXIMO" remarks="" uid="f5a519:11d94d1fba4:-7ff0">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="HORA_MAXIMO" remarks="" uid="f5a519:11d94d1fba4:-7fbb">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MINIMO" remarks="" uid="f5a519:11d94d1fba4:-7fef">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="HORA_MINIMO" remarks="" uid="f5a519:11d94d1fba4:-7fb8">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="12" decimal-digits="0" default-value="" mandatory="true" name="VOLUMEN" remarks="" uid="f5a519:11d94d1fba4:-7fee">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="IMPORTE" remarks="" uid="f5a519:11d94d1fba4:-7fed">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="0" default-value="" mandatory="true" name="OPERACIONES" remarks="" uid="f5a519:11d94d1fba4:-7fec">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="8" decimal-digits="2" default-value="" mandatory="true" name="PUNTOS" remarks="" uid="f5a519:11d94d1fba4:-7feb">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="4" decimal-digits="2" default-value="" mandatory="true" name="PORCENTAJE" remarks="" uid="f5a519:11d94d1fba4:-7fea">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="Split" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="SPLIT" remarks="" uid="f5a519:11d94d1fba4:-7fe8">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_PRECIO" remarks="" uid="51c603:11e21dbbd29:-7fdd">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_MAXIMO" remarks="" uid="51c603:11e21dbbd29:-7fdc">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_MINIMO" remarks="" uid="51c603:11e21dbbd29:-7fdb">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT" remarks="" uid="51c603:11e21dbbd29:-7fda">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="RENDIMIENTO" remarks="" uid="51c603:11e21dbbd29:-7fd9">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="series_operadas_intra_dia_pkey" remarks="" uid="f5a519:11d94d1fba4:-7fdf">
+<primary-key-description/>
+<primary-key-column name="FECHA"/>
+<primary-key-column name="ID_CARGA"/>
+<primary-key-column name="EMISORA"/>
+<primary-key-column name="SERIE"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="" name="IX_SERIES_OPERADAS_INTRA_DIA" remarks="" uid="f5a519:11d94d1fba4:-7fde" unique="false">
+<index-description/>
+<index-column name="FECHA" sort="ASC"/>
+<index-column name="ID_CARGA" sort="ASC"/>
+<index-column name="EMISORA" sort="ASC"/>
+<index-column name="SERIE" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="" name="INDICES_INTRA_DIA" remarks="" uid="f5a519:11d94d1fba4:-7fdd">
+<table-description>Contiene la información resumida de los indices del mercado de valores</table-description>
+<table-figure-bounds height="-1" width="-1" x="239" y="485"/>
+<column-list>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="FECHA" remarks="" uid="f5a519:11d94d1fba4:-7fdb">
+<column-description/>
+<data-type jdbc-type="91" name="DATE" selected-variant-pattern="DATE">
+<variant type-name-pattern="DATE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_CARGA" remarks="" uid="51c603:11e21dbbd29:-7fe9">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="25" decimal-digits="0" default-value="" mandatory="true" name="INDICE" remarks="" uid="f5a519:11d94d1fba4:-7fda">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ULTIMO" remarks="" uid="f5a519:11d94d1fba4:-7fd9">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA" remarks="" uid="f5a519:11d94d1fba4:-7fd8">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="ANTERIOR" remarks="" uid="f5a519:11d94d1fba4:-7fd7">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="4" decimal-digits="2" default-value="" mandatory="false" name="PORCENTAJE" remarks="" uid="f5a519:11d94d1fba4:-7fd6">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="8" decimal-digits="2" default-value="" mandatory="false" name="PUNTOS" remarks="" uid="f5a519:11d94d1fba4:-7fd5">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MAXIMO" remarks="" uid="f5a519:11d94d1fba4:-7fd4">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA_MAXIMO" remarks="" uid="f5a519:11d94d1fba4:-7fd3">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="16" decimal-digits="2" default-value="" mandatory="true" name="MINIMO" remarks="" uid="f5a519:11d94d1fba4:-7fd2">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="false" name="HORA_MINIMO" remarks="" uid="f5a519:11d94d1fba4:-7fd1">
+<column-description/>
+<data-type jdbc-type="92" literal-prefix="'" literal-suffix="'" name="TIME" selected-variant-pattern="TIME">
+<variant type-name-pattern="TIME"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p)"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITH TIME ZONE"/>
+<variant precision-max="9" precision-min="1" precision-variable="%p" type-name-pattern="TIME(%p) WITHOUT TIME ZONE"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_ULTIMO" remarks="" uid="51c603:11e21dbbd29:-7fd2">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_MAXIMO" remarks="" uid="51c603:11e21dbbd29:-7fd1">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT_MINIMO" remarks="" uid="51c603:11e21dbbd29:-7fd0">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="VAR_PCT" remarks="" uid="51c603:11e21dbbd29:-7fcb">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="6" decimal-digits="4" default-value="" mandatory="false" name="RENDIMIENTO" remarks="" uid="51c603:11e21dbbd29:-7fca">
+<column-description/>
+<data-type jdbc-type="2" name="NUMERIC" selected-variant-pattern="NUMERIC(%p,%s)">
+<variant precision-max="38" precision-min="1" precision-variable="%p" scale-max="127" scale-min="-84" scale-variable="%s" type-name-pattern="NUMERIC(%p,%s)"/>
+<variant type-name-pattern="NUMERIC"/>
+<variant precision-max="38" precision-min="1" precision-variable="%p" type-name-pattern="NUMERIC(%p)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="indices_intra_dia_pkey" remarks="" uid="f5a519:11d94d1fba4:-7fc9">
+<primary-key-description/>
+<primary-key-column name="FECHA"/>
+<primary-key-column name="ID_CARGA"/>
+<primary-key-column name="INDICE"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="" name="IX_INDICES_INTRA_DIA" remarks="" uid="f5a519:11d94d1fba4:-7fc8" unique="false">
+<index-description/>
+<index-column name="FECHA" sort="ASC"/>
+<index-column name="ID_CARGA" sort="ASC"/>
+<index-column name="INDICE" sort="ASC"/>
+</index>
+</index-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>
