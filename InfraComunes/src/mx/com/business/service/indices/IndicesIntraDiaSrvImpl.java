@@ -43,6 +43,19 @@ public class IndicesIntraDiaSrvImpl implements IndicesIntraDiaSrv{
 			}
 		}
 	}
+	
+	public int txBorrarIndicesIntraDia(Date fecha)throws BusinessException{
+		int intResult = 0;
+		
+		try {
+			intResult = indicesIntraDiaDAO.txBorrarIndicesIntraDia(fecha);
+		} catch (DataBaseException e) {
+			e.printStackTrace();
+		}
+		
+		return intResult;
+	}
+	
 
 	public void txInsertIndicesIntraDia(IndicesIntraDia indices) throws BusinessException {
 		try {

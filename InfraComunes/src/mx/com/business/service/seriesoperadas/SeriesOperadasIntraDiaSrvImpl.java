@@ -121,6 +121,22 @@ public class SeriesOperadasIntraDiaSrvImpl implements SeriesOperadasIntraDiaSrv 
 	}
 	
 	/**
+	 * Borra la información intra dia que se encuentre a una fecha dada
+	 * @param fecha Fecha a borrar la información
+	 */
+	public int txBorrarSerieIntraDia(Date fecha)throws BusinessException{
+		int intResult = 0;
+		
+		try {
+			intResult = seriesOperadasIntraDiaDAO.txBorrarSeriesOperadasIntraDia(fecha);
+		} catch (DataBaseException e) {
+			e.printStackTrace();
+		}
+		
+		return intResult;
+	}
+	
+	/**
 	 * Recupera la ultima carga de la informaci˜n intradia
 	 */
 	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(

@@ -10,6 +10,7 @@ public interface SeriesOperadasIntraDiaSrv {
 	public void txInsertLstSeriesOperadasIntraDia(List<SeriesOperadasIntraDia> lstSeriesOperadas)throws BusinessException;
 	public void txUpdateLstSeriesOperadasIntraDia(List<SeriesOperadasIntraDia> lstSeriesOperadas)throws BusinessException;
 	public void txUpdateSeriesOperadasIntraDia(SeriesOperadasIntraDia seriesOperadas)throws BusinessException;
+	public int  txBorrarSerieIntraDia(Date fecha)throws BusinessException;
 	
 	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(String emisora,String serie,Date fechaInicio,Date fechaFin,char diaHabil,boolean blnGrafica)throws BusinessException;
 	public List<String> getListEmisora() throws BusinessException;
