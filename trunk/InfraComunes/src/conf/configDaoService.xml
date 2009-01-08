@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	
+	<!-- DAO SERVICE INICIA -->
+		<bean id="seriesOperadasSrv" parent="txProxyTemplate">
+			<property name="proxyInterfaces">
+				<value>mx.com.business.service.seriesoperadas.SeriesOperadasSrv</value>
+			</property>
+			<property name="target">
+				<bean class="mx.com.business.service.seriesoperadas.SeriesOperadasSrvImpl">
+					<property name="seriesOperadasDAO">
+						<ref bean="seriesOperadasDAO"/>
+					</property>
+				</bean>
+			</property>
+		</bean>
+		<bean id="indicesSrv" parent="txProxyTemplate">
+			<property name="proxyInterfaces">
+				<value>mx.com.business.service.indices.IndicesSrv</value>
+			</property>
+			<property name="target">
+				<bean class="mx.com.business.service.indices.IndicesSrvImpl">
+					<property name="indicesDAO">
+						<ref bean="indicesDAO"/>
+					</property>
+				</bean>
+			</property>
+		</bean>
+		<bean id="seriesOperadasIntraDiaSrv" parent="txProxyTemplate">
+			<property name="proxyInterfaces">
+				<value>mx.com.business.service.seriesoperadas.SeriesOperadasIntraDiaSrv</value>
+			</property>
+			<property name="target">
+				<bean class="mx.com.business.service.seriesoperadas.SeriesOperadasIntraDiaSrvImpl">
+					<property name="seriesOperadasIntraDiaDAO">
+						<ref bean="seriesOperadasIntraDiaDAO"/>
+					</property>
+				</bean>
+			</property>
+		</bean>
+		<bean id="indicesIntraDiaSrv" parent="txProxyTemplate">
+			<property name="proxyInterfaces">
+				<value>mx.com.business.service.indices.IndicesIntraDiaSrv</value>
+			</property>
+			<property name="target">
+				<bean class="mx.com.business.service.indices.IndicesIntraDiaSrvImpl">
+					<property name="indicesIntraDiaDAO">
+						<ref bean="indicesIntraDiaDAO"/>
+					</property>
+				</bean>
+			</property>
+		</bean>
+		<bean id="utilSrv" parent="txProxyTemplate">
+			<property name="proxyInterfaces">
+				<value>mx.com.business.service.util.UtilSrv</value>
+			</property>
+			<property name="target">
+				<bean class="mx.com.business.service.util.UtilSrvImpl">
+					<property name="utilDAO">
+						<ref bean="utilDAO"/>
+					</property>
+					<property name="indicesIntraDiaSrv">
+						<ref bean="indicesIntraDiaSrv"/>
+					</property>
+					<property name="seriesOperadasIntraDiaSrv">
+						<ref bean="seriesOperadasIntraDiaSrv"/>
+					</property>
+				</bean>
+			</property>
+		</bean>
+	<!-- DAO SERVICE FIN    -->
+</beans>
