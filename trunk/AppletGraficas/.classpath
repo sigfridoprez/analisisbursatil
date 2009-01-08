@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InfraComunes"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/InfraProyectoHibernateMapin"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/activation.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/commons-collections.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/commons-digester.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/facelets-1.1.14.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/hibernate-entitymanager.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/hibernate-validator.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/hibernate3.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/htmlparser.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/Infraestructura.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/jcalendar-1.3.2.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/jcommon-1.0.14.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/jfreechart-1.0.11-applet-demo.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/jfreechart-1.0.11-experimental.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/jfreechart-1.0.11.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/jta.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/quartz-1.6.0.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/richfaces-api-3.2.2.GA.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/richfaces-impl-3.2.2.GA.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/richfaces-ui-3.2.2.GA.jar"/>
+	<classpathentry kind="lib" path="/Users/sigfridoperezcoapango/TITULACION/libs/spring.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
