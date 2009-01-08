@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  			xmlns:h="http://java.sun.com/jsf/html"
+	  			xmlns:f="http://java.sun.com/jsf/core"
+	  			xmlns:rich="http://richfaces.org/rich"
+	  			xmlns:a4j="http://richfaces.org/a4j"
+				template="/WEB-INF/layouts/standard.xhtml">
+
+<ui:define name="content">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<a4j:region id="ajaxRegion">
+	<a4j:form id="Filtros">
+	
+		<h:outputText value="#{seriesOperadasIntradDiaController.cargaPagina}" />
+		<div id="bodytopPan">
+			
+			<rich:panel>
+		        <f:facet name="header">Monitor de Emisoras</f:facet>
+		        
+		        <h:panelGrid id="panelId" columns="1">
+				  <h:panelGrid columns="9">
+				    <h:outputText value="Ver Emisoras:" />
+				    <rich:comboBox defaultLabel="Todas">
+				    	<f:selectItem itemValue="Seleccionadas"/>
+				        <f:selectItem itemValue="Operadas"/>
+				        <f:selectItem itemValue="Todas"/>
+				    </rich:comboBox>
+				     <h:outputLink value="#" id="link">
+				        Ver Emisoras
+				        <rich:componentControl for="panelSeleccionEmosoras" attachTo="link" operation="show" event="onclick"/>
+				    </h:outputLink>
+	              </h:panelGrid>
+	              <a4j:commandButton value="Actualizar" reRender="idDataTableID" />
+		        </h:panelGrid>
+		    </rich:panel>
+		    <BR />
+		    
+			<rich:dataTable id="idDataTableID" var="dataTableID" value="#{seriesOperadasIntradDiaController.lstSeriesOperadas}" 
+				width="100%" 
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				cellpadding="0" cellspacing="0" border="0" render="true">
+					
+					<f:facet name="header">
+	                    <rich:columnGroup>
+	                        <rich:column rowspan="2">
+				                <h:outputText value="Emisora" /> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="Serie" /> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="Cierre" /> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="Precio Último" /> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="% Variaciòn" /> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="Hora"/> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="Volumen" /> 
+					        </rich:column>
+					        <rich:column rowspan="2">
+				                <h:outputText value="Operaciones" /> 
+					        </rich:column>
+				        
+                            <rich:column colspan="2">
+                                <h:outputText value="Máximo" />
+                            </rich:column>
+                            <rich:column colspan="2">
+                                <h:outputText value="Mínimo" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <rich:spacer />
+                            </rich:column>
+                            
+                            <rich:column breakBefore="true">
+                                <h:outputText value="Precio" />
+                            </rich:column>
+                            <rich:column>
+                                <h:outputText value="Hora" />
+                            </rich:column>
+                            <rich:column >
+                                <h:outputText value="Precio" />
+                            </rich:column>
+                            <rich:column>
+                                <h:outputText value="Hora" />
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+                    
+                    <rich:column>
+                    	<h:outputLink value="#'" id="linkEmisora" >
+		                	<h:outputText value="#{dataTableID.emisora}" />
+					    </h:outputLink>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{dataTableID.serie}" />
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{dataTableID.ppp}">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputLink value="#'" id="linkPrecioUltimo" >
+		                	<h:outputText value="#{dataTableID.ultimo}">
+			                    <f:convertNumber pattern="#,##0.00"/>
+			                </h:outputText>
+					    </h:outputLink>
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{dataTableID.pct}">
+							<f:convertNumber pattern="0.00"/>
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{dataTableID.hora}" />
+					</rich:column>
+					
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{dataTableID.volumen}">
+							<f:convertNumber pattern="#,##0"/>
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{dataTableID.ops}">
+							<f:convertNumber pattern="#,##0"/>
+						</h:outputText>
+					</rich:column>
+					
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{dataTableID.maximo}">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{dataTableID.horaMaximo}" />
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{dataTableID.minimo}">
+							<f:convertNumber pattern="#,##0.00"/>
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{dataTableID.horaMinimo}" />
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputLink value="#'" id="linkGrafica" style="text-decoration: none;color: #FFFFFF" >
+		                	<img src="${request.contextPath}/images/chart_curve.jpg" />
+					    </h:outputLink>
+					</rich:column>
+					
+			</rich:dataTable>
+		
+		</div>
+	</a4j:form>
+</a4j:region>
+
+	<rich:modalPanel id="panelSeleccionEmosoras" width="930" height="550" moveable="false" resizeable="false">
+		
+	    <f:facet name="header">
+	        <h:panelGroup>
+	        	Selección de Emisoras
+	        </h:panelGroup>
+	    </f:facet>
+	    <f:facet name="controls">
+	        <h:panelGroup>
+	            <h:graphicImage value="/images/modal/close.png" style="cursor:pointer" id="hidelink"/>
+	            <rich:componentControl for="panelSeleccionEmosoras" attachTo="hidelink" operation="hide" event="onclick"/>
+	        </h:panelGroup>
+	    </f:facet>
+	    
+	    <ui:include src="seleccionEmisoras.xhtml" />
+		
+	</rich:modalPanel>
+
+</ui:define>
+
+</ui:composition>

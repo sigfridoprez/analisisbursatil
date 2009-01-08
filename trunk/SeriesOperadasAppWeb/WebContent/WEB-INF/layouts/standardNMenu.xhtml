@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  >
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>Sistema de Análisis Bursatil Técnico</title>
+	
+	<link type="text/css" rel="stylesheet" href="${request.contextPath}/styles/style.css"   />	
+	<ui:insert name="headIncludes"/>
+	
+</head>
+
+<body>
+
+<div id="topPan">
+	<ul class="dropdown">
+		<table width="100%">
+			<tr>
+				<td width="10%">&nbsp;</td>
+    			<td width="50%">&nbsp;</td>
+				<td width="20%">&nbsp;</td>
+				<td width="20%">Fecha : <b> #{skinBean.fecha}</b> </td>
+			</tr>
+		</table>
+	</ul>
+</div>
+
+<div id="bodytopmainPan">
+	<ui:insert name="content"/>
+</div>
+
+<div id="footermainPan">
+  	<div id="footerPan">
+	  	<p class="copyright">Geniousweb. all right reserved.</p>
+	  	<ul class="templateworld">
+	  		<table>
+	  			<tr>
+	  				<td>
+	  					Design By:
+						<li><a href="http://www.templateworld.com" target="_blank">Template World</a></li>
+					</td>
+					<td>
+						<li><a href="http://www.springframework.org"><img src="${request.contextPath}/images/powered-by-spring.png" /></a></li>
+					</td>
+	  			</tr>
+	  		</table>
+	    </ul>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//ES" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	    		xmlns:ui="http://java.sun.com/jsf/facelets"
+	  			xmlns:h="http://java.sun.com/jsf/html"
+	  			xmlns:f="http://java.sun.com/jsf/core"
+	  			xmlns:rich="http://richfaces.org/rich"
+	  			xmlns:a4j="http://richfaces.org/a4j"
+	  			template="/WEB-INF/layouts/standardG.xhtml">
+
+<ui:define name="contenido">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+	<script type="text/javascript" src="${request.contextPath}/js/grafica.js"></script>
+
+<a4j:region id="ajaxRegionG">	
+	<a4j:form id="Graficas">
+		
+		<h:inputHidden id="idBEmisora"     value="#{seriesOperadasGraficarController.serie}"/>
+		<h:inputHidden id="idBSerie"       value="#{seriesOperadasGraficarController.emisora}"/>
+		<h:inputHidden id="idBFechaInicio" value="#{seriesOperadasGraficarController.fechaInicio}"/>
+		
+		<rich:panel>
+			<table style="width: 100%">
+			  <tbody>
+			    <tr>
+			      <td rowspan="3">
+			      	<rich:pickList value="#{seriesOperadasGraficarController.lstBuscar}" id="lstSeries" title="Lista de Series a Graficar" listsHeight="100">
+						<f:selectItems value="#{seriesOperadasController.lstOrigen}"/>
+					</rich:pickList>
+					<rich:hotKey selector="#lstSeries" key="right" handler="#{rich:component('lstSeries')}.copy()"/>
+					<rich:hotKey selector="#lstSeries" key="left" handler="#{rich:component('lstSeries')}.remove()"/>
+					<rich:hotKey selector="#lstSeries" key="end" handler="#{rich:component('lstSeries')}.copyAll()"/>
+					<rich:hotKey selector="#lstSeries" key="home" handler="#{rich:component('lstSeries')}.removeAll()"/>
+			      </td>
+			      <td>&nbsp;</td>
+			      <td>
+			      	<h:outputText value="Desde:" />
+					<a4j:outputPanel id="calendarDesde" layout="block">
+					<rich:calendar value="#{seriesOperadasGraficarController.desde}" popup="true" datePattern="dd/MM/yyyy" 
+									showApplyButton="false" required="tue" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+		            </a4j:outputPanel>
+			      </td>
+			      <td>&nbsp;</td>
+			      <td>
+			      	<h:outputText value="Hasta:" />
+		            <a4j:outputPanel id="calendarHasta" layout="block">
+		            <rich:calendar value="#{seriesOperadasGraficarController.hasta}" popup="true" datePattern="dd/MM/yyyy"
+		                     showApplyButton="false" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+		            </a4j:outputPanel>
+			      </td>
+			    </tr>
+			    <tr>
+			      <td>&nbsp;</td>
+			      <td>
+			      	<h:outputText value="Imprimir IPC:" />
+			      	<h:selectBooleanCheckbox value="#{seriesOperadasGraficarController.blnImprimeIPC}"/>	
+			      </td>
+			      <td>&nbsp;</td>
+			      <td>&nbsp;</td>
+			    </tr>
+			    <tr>
+			      <td>&nbsp;</td>
+			      <td>
+			      	<a4j:commandButton id="idBtnAjax" value="Graficar"
+							data="#{seriesOperadasGraficarController.strJSON}"
+							action="#{seriesOperadasGraficarController.doGraficar}"
+							oncomplete="graficaJONSON(data);"
+							reRender='idBFechaInicio'>
+					</a4j:commandButton>
+					<a4j:status for="ajaxRegionG"> 
+					    <f:facet name="start"> 
+					    	<img src="${request.contextPath}/images/ajax/ajax_process.gif" />
+					    </f:facet>
+					</a4j:status>
+			      </td>
+			      <td>&nbsp;</td>
+			      <td>
+			      	<input type='button'  id="reset-btn" value="Reset"></input>
+			      </td>
+			    </tr>
+			    
+			  </tbody>
+			</table>
+		</rich:panel>
+	
+		<div id="container" style="width:910px;height:350px;"></div>
+	
+	</a4j:form>
+</a4j:region>
+</ui:define>
+</ui:composition>

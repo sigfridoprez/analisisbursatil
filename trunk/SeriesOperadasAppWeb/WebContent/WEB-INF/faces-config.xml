@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+  
+<faces-config>
+    <managed-bean>
+        <managed-bean-name>skinBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.SkinBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <application>
+    	<variable-resolver>org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<locale-config>
+	      <default-locale>es_MX</default-locale>
+	    </locale-config>    
+	</application>
+	
+	
+    <managed-bean>
+    	<description>Controller de la pagina de series operadas</description>
+    	<managed-bean-name>seriesOperadasController</managed-bean-name>
+    	<managed-bean-class>mx.com.faces.seriesoperadas.SeriesOperadasController</managed-bean-class>
+    	<managed-bean-scope>session</managed-bean-scope>
+    	<managed-property>
+			<property-name>seriesOperadasMainSrv</property-name>
+			<value>#{seriesOperadasMainSrv}</value>
+		</managed-property>
+    </managed-bean>
+    <managed-bean>
+    	<description>Controller del reporte de series operadas</description>
+    	<managed-bean-name>reporteSeriesOperadasController</managed-bean-name>
+    	<managed-bean-class>mx.com.faces.reporteseriesoperadas.ReporteSeriesOperadasController</managed-bean-class>
+    	<managed-bean-scope>session</managed-bean-scope>
+    	<managed-property>
+			<property-name>seriesOperadasMainSrv</property-name>
+			<value>#{seriesOperadasMainSrv}</value>
+		</managed-property>
+    </managed-bean>
+    <managed-bean>
+    	<managed-bean-name>seriesOperadasGraficarController</managed-bean-name>
+    	<managed-bean-class>mx.com.faces.seriesoperadas.SeriesOperadasGraficarController</managed-bean-class>
+    	<managed-bean-scope>session</managed-bean-scope>
+    	<managed-property>
+			<property-name>seriesOperadasMainSrv</property-name>
+			<value>#{seriesOperadasMainSrv}</value>
+		</managed-property>
+    </managed-bean>
+    <managed-bean>
+    	<managed-bean-name>seriesOperadasIntradDiaController</managed-bean-name>
+    	<managed-bean-class>mx.com.faces.seriesoperadasintradia.SeriesOperadasIntradDiaController</managed-bean-class>
+    	<managed-bean-scope>session</managed-bean-scope>
+    	<managed-property>
+			<property-name>seriesOperadasIntradiaMainSrv</property-name>
+			<value>#{seriesOperadasIntradiaMainSrv}</value>
+		</managed-property>
+    </managed-bean>
+    
+    <navigation-rule>
+		<from-view-id>/seriesintradia/seriesOperadasIntradia.xhtml</from-view-id>
+	</navigation-rule>
+    
+    <navigation-rule>
+		<from-view-id>/seriesoperadas/listadoSeriesOperadas.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/seriesoperadas/reporteSeriesOperadas.xhtml</from-view-id>
+	</navigation-rule>
+	
+</faces-config>
