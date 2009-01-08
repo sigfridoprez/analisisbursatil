@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="1.4.0">
+<database-model alias="" author="" begin-script="" end-script="" name="INFRA_PARSE_HTML" remarks="" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" uid="e326a9:11b22d4af8f:-8000" version="1.0">
+<database-model-description/>
+<schema-list>
+<schema alias="Admin" name="ADMIN" remarks="" uid="e326a9:11b22d4af8f:-7ffd">
+<schema-description/>
+<domain-list/>
+<table-list>
+<table alias="Infra Parceo Configuracion Tablas Html Parsear" name="IP_CONF_TABLAS_HTML_PARSEAR" remarks="" uid="e326a9:11b22d4af8f:-7fe4">
+<table-description>Datos de las tablas HTML que van a ser parseadas</table-description>
+<table-figure-bounds height="-1" width="-1" x="337" y="34"/>
+<column-list>
+<column alias="Id Tabla" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_TABLA" remarks="" uid="e326a9:11b22d4af8f:-7fe0">
+<column-description>El Id de la tabla</column-description>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="Nombre de la tabla" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="true" name="NOMBRE_TABLA" remarks="" uid="e326a9:11b22d4af8f:-7fdf">
+<column-description>Nombre de la tabla a parsear</column-description>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Formato Tabla" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="true" name="FORMATO_TABLA" remarks="" uid="1eec0c5:11b432a9e26:-7ffb">
+<column-description>Forma en como se parceara la tabla, si es un grid o es una tabla con datos&#13;
+&#13;
+VALORES:&#13;
+'G' = Grid&#13;
+'D' = Datos</column-description>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+<column alias="" auto-increment="false" column-size="500" decimal-digits="0" default-value="" mandatory="true" name="OBJETO_REGRESAR" remarks="" uid="1eec0c5:11b432a9e26:-7ff4">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_IP_CONF_TABLAS_HTML_PARSEAR" remarks="" uid="e326a9:11b22d4af8f:-7fe3">
+<primary-key-description/>
+<primary-key-column name="ID_TABLA"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list/>
+<index-list>
+<index alias="" name="IX_IP_CONF_TABLAS_HTML_PARSEAR_1" remarks="" uid="eca4be:11b53683859:-7f6c" unique="false">
+<index-description/>
+<index-column name="ID_TABLA" sort="ASC"/>
+</index>
+</index-list>
+</table>
+<table alias="Infra Parceo Configuracion Propiedades Tabla" name="IP_CONF_PROPIEDADES_TABLA" remarks="" uid="e326a9:11b22d4af8f:-7fbc">
+<table-description>Propiedades de la tabla que van a ser extraidas</table-description>
+<table-figure-bounds height="101" width="268" x="309" y="184"/>
+<column-list>
+<column alias="Id Tabla" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_TABLA" remarks="" uid="e326a9:11b22d4af8f:-7fad">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="Id Propiedad Tabla" auto-increment="false" column-size="0" decimal-digits="0" default-value="" mandatory="true" name="ID_PROPIEDAD_TABLA" remarks="" uid="e326a9:11b22d4af8f:-7fa1">
+<column-description/>
+<data-type jdbc-type="4" name="INTEGER" selected-variant-pattern="INTEGER">
+<variant type-name-pattern="INTEGER"/>
+</data-type>
+</column>
+<column alias="Nombre Propiedad" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="true" name="NOMBRE_PROPIEDAD" remarks="" uid="e326a9:11b22d4af8f:-7fa0">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Clase Html" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="false" name="CLASE_HTML" remarks="" uid="a5bfcc:11b4bc23007:-7ff0">
+<column-description/>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Nombre Propiedad Objeto" auto-increment="false" column-size="100" decimal-digits="0" default-value="" mandatory="true" name="NOMBRE_PROPIEDAD_OBJETO" remarks="" uid="1eec0c5:11b432a9e26:-7fed">
+<column-description>Nombre de la propiedad del objeto a regresar</column-description>
+<data-type jdbc-type="12" literal-prefix="'" literal-suffix="'" name="VARCHAR" selected-variant-pattern="VARCHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="VARCHAR(%n)"/>
+</data-type>
+</column>
+<column alias="Tipo Dato" auto-increment="false" column-size="1" decimal-digits="0" default-value="" mandatory="false" name="TIPO_DATO" remarks="" uid="e326a9:11b22d4af8f:-7f9f">
+<column-description>Tipo de dato de la propiedad&#13;
+VALORES:&#13;
+&#13;
+'I'  = java.lang.Integer&#13;
+'D' = java.lang.Double&#13;
+'S =  java.lang.String&#13;
+'F' = java.lang.Float</column-description>
+<data-type jdbc-type="1" literal-prefix="'" literal-suffix="'" name="CHAR" selected-variant-pattern="CHAR(%n)">
+<variant precision-max="2147483647" precision-min="1" precision-variable="%n" type-name-pattern="CHAR(%n)"/>
+</data-type>
+</column>
+</column-list>
+<primary-key alias="" name="PK_IP_CONF_PROPIEDADES_TABLA" remarks="" uid="e326a9:11b22d4af8f:-7fbb">
+<primary-key-description/>
+<primary-key-column name="ID_TABLA"/>
+<primary-key-column name="ID_PROPIEDAD_TABLA"/>
+</primary-key>
+<unique-key-list/>
+<foreign-key-list>
+<foreign-key alias="" name="FK_PROPIEDADES_1" on-delete="" on-update="" referenced-key="PK_IP_CONF_TABLAS_HTML_PARSEAR" referenced-table="IP_CONF_TABLAS_HTML_PARSEAR" referenced-table-schema="ADMIN" remarks="" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="" uid="e326a9:11b22d4af8f:-7fae">
+<foreign-key-description/>
+<foreign-key-figure>
+<fk-fig-bendpoint-list/>
+</foreign-key-figure>
+<foreign-key-column column-name="ID_TABLA" referenced-key-column-name="ID_TABLA"/>
+</foreign-key>
+</foreign-key-list>
+<index-list>
+<index alias="" name="IX_IP_CONF_PROPIEDADES_TABLA_1" remarks="" uid="eca4be:11b53683859:-7f69" unique="false">
+<index-description/>
+<index-column name="ID_TABLA" sort="ASC"/>
+<index-column name="ID_PROPIEDAD_TABLA" sort="ASC"/>
+</index>
+</index-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+</clay-model>
