@@ -18,9 +18,9 @@ import mx.com.faces.reporteseriesoperadas.util.DataSuggestionBoxBuilder;
 import mx.com.faces.seriesoperadas.util.SerieGraficarVO;
 import mx.com.faces.seriesoperadas.util.SeriesOperadasBuilder;
 import mx.com.faces.seriesoperadas.util.SeriesOperadasList;
-import mx.com.faces.seriesoperadas.util.ValorVO;
 import mx.com.infraestructura.exceptions.BusinessException;
 import mx.com.util.Constantes;
+import mx.com.util.UtilsGrafica;
 
 public class SeriesOperadasMainSrvImpl implements SeriesOperadasMainSrv {
 	private Logger logger = Logger.getLogger(this.getClass());
@@ -65,23 +65,23 @@ public class SeriesOperadasMainSrvImpl implements SeriesOperadasMainSrv {
 	}
 
 	/**
-	 * Debo de cambiar la forma en como se carga el eje de las X porque esta mal en este momento
-	 * ya que las series siempre empiezan con cero y eso esta mal
+	 * Metodo para graficar el Rendimiento
 	 */
 	public HashMap<String, Object> getGrafica(List<String> lstSeriesGraficar,
 			Date desde, Date hasta, boolean blnImprimeIPC)
 			throws BusinessException {
 		logger.debug("En getGrafica");
 		HashMap<String, Object> hsmReturn = new HashMap<String, Object>();
-		StringBuffer sbGrafica = null;
+		StringBuilder sbGrafica = null;
 		StringTokenizer strtksTokens = null;
 		List<SeriesOperadas> lstSeries = null;
 		List<List<SeriesOperadas>> lstTodasSeriesGraficar = null;
 		int intNoCols = 0;
 		SimpleDateFormat sdfFecha = new SimpleDateFormat("dd/MM/yyyy");
+		UtilsGrafica util = new UtilsGrafica();
 		
 		if(lstSeriesGraficar!=null && !lstSeriesGraficar.isEmpty()){
-			sbGrafica = new StringBuffer("{");
+			sbGrafica = new StringBuilder("{");
 			
 			logger.debug("Primero recuperamos todas las series");
 			lstTodasSeriesGraficar = new ArrayList<List<SeriesOperadas>>();
@@ -93,10 +93,10 @@ public class SeriesOperadasMainSrvImpl implements SeriesOperadasMainSrv {
 			logger.debug("Ya tenemos todas las series que se van a graficar");
 			if(!lstTodasSeriesGraficar.isEmpty()){
 				intNoCols = lstTodasSeriesGraficar.size();
-				sbGrafica.append(getSeries(getSeriesGraficar(lstTodasSeriesGraficar,desde),blnImprimeIPC,desde, hasta, 'S'));
+				sbGrafica.append(getSeries(getSeriesGraficar(lstTodasSeriesGraficar,desde),blnImprimeIPC,desde, hasta, 'S',util));
 			}
 			sbGrafica.append(",");
-			sbGrafica.append(getOpciones(intNoCols));
+			sbGrafica.append(util.getOpciones(intNoCols));
 			sbGrafica.append("}");
 			hsmReturn.put(Constantes.SERIE_GRAFICAR, sbGrafica.toString());
 			if(dateMinima!=null){
@@ -104,48 +104,17 @@ public class SeriesOperadasMainSrvImpl implements SeriesOperadasMainSrv {
 			}
 		}
 		
+		util=null;
 		return hsmReturn;
 	}
 	
-	private String getOpciones(int intNoCols){
-		StringBuffer sbOpciones = new StringBuffer("options:{");
-
 		
-		sbOpciones.append(" mouse:{");
-		sbOpciones.append("   track: true,");
-		sbOpciones.append("   lineColor: 'purple',");
-		sbOpciones.append("   sensibility: 1,");
-		sbOpciones.append("   trackDecimals: 3,");
-		sbOpciones.append("   position: 'sw',");	
-		//sbOpciones.append("   trackFormatter: function(obj){ return obj.label + ' : (' + obj.x + ' , ' + obj.y + ')' ; } ");
-		sbOpciones.append("   trackFormatter: function(obj){ return getTrackFormat(obj); } ");
-		sbOpciones.append(" },");
-		
-		sbOpciones.append(" selection:{mode:'x'},");
-		
-		sbOpciones.append(" legend: { ");
-		sbOpciones.append(" 	show: true,	");
-		sbOpciones.append(" 	noColumns: "+intNoCols+", ");
-		//sbOpciones.append(" 	labelFormatter: null,	");
-		//sbOpciones.append(" 	labelBoxBorderColor: ‘#ccc’, ");
-		//sbOpciones.append(" 	container: null,	");
-		sbOpciones.append(" 	position: 'sw',	");
-		sbOpciones.append(" 	margin: 20	");
-		//sbOpciones.append(" 	backgroundColor: null,	");
-		//sbOpciones.append(" 	backgroundOpacity: 0.85	");
-		sbOpciones.append(" } ");
-		
-		sbOpciones.append("}");
-		
-		return sbOpciones.toString();
-	}
-		
-	private String getSeries(List<SerieGraficarVO> lstSeries,boolean blnImprimeIPC,Date fechaInicio,Date fechaFin,char diaHabil){
-		StringBuffer sbSeries = new StringBuffer("series:[");
+	private String getSeries(List<SerieGraficarVO> lstSeries,boolean blnImprimeIPC,Date fechaInicio,Date fechaFin,char diaHabil,UtilsGrafica util){
+		StringBuilder sbSeries = new StringBuilder("series:[");
 		int intContador = 0;
 		
 		for(SerieGraficarVO vo:lstSeries){
-			sbSeries.append(getSerie(vo));
+			sbSeries.append(util.getSerie(vo));
 			if(intContador < lstSeries.size()-1){
 				sbSeries.append(",");
 			}
@@ -160,7 +129,7 @@ public class SeriesOperadasMainSrvImpl implements SeriesOperadasMainSrv {
 	}
 	
 	private String getIndice(String indice,Date fechaInicio,Date fechaFin,char diaHabil){
-		StringBuffer sbIndice = new StringBuffer();
+		StringBuilder sbIndice = new StringBuilder();
 		List<Indices> lstIndice;
 		int intContador=0;
 		
@@ -188,24 +157,6 @@ public class SeriesOperadasMainSrvImpl implements SeriesOperadasMainSrv {
 			logger.error("Error:: en getIndice:::", e);
 		}
 		return sbIndice.toString();
-	}
-	
-	private String getSerie(SerieGraficarVO vo){
-		StringBuffer sbSerie = new StringBuffer("{");
-		int intContador = 0;
-		
-		sbSerie.append("data:[");
-		for(ValorVO val:vo.getLstValores()){
-			sbSerie.append("["+val.getIntX()+","+val.getDblRendimiento()+"]");
-			if(intContador<vo.getLstValores().size()-1){
-				sbSerie.append(",");
-			}
-			intContador++;
-		}
-		sbSerie.append("],");
-		sbSerie.append("label: '"+vo.getStrNombreSerie()+"' ");		
-		sbSerie.append("}");
-		return sbSerie.toString();
 	}
 	
 	private List<SerieGraficarVO> getSeriesGraficar(List<List<SeriesOperadas>> lstTodasSeriesGraficar,Date desde){
