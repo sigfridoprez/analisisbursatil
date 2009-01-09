@@ -20,4 +20,5 @@ public interface SeriesOperadasIntraDiaDAO {
 	
 	//Pantalla
 	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(int idCarga)throws DataBaseException;
+	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(String emisora,String serie)throws DataBaseException;
 }

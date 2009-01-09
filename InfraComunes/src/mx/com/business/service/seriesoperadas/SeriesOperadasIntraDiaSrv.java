@@ -21,4 +21,5 @@ public interface SeriesOperadasIntraDiaSrv {
 	
 	//Pantalla
 	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(int idCarga)throws BusinessException;
+	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(String emisora,String serie)throws BusinessException;
 }
