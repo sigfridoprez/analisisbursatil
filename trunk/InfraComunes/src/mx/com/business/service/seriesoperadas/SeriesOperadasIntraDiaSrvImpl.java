@@ -151,6 +151,18 @@ public class SeriesOperadasIntraDiaSrvImpl implements SeriesOperadasIntraDiaSrv 
 		}
 	}
 	
+	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(
+			String emisora, String serie) throws BusinessException {
+		logger.debug("getListaSeriesOperadasIntraDia:::" + "emisora::" + emisora + "  serie::" + serie);
+		try {
+			return seriesOperadasIntraDiaDAO.getListaSeriesOperadasIntraDia(emisora, serie);
+		} catch (DataBaseException e) {
+			e.printStackTrace();
+			throw new BusinessException("ERROR::::" + e.getMessage());
+		}
+	}
+	
+	
 	public SeriesOperadasIntraDiaDAO getSeriesOperadasIntraDiaDAO() {
 		return seriesOperadasIntraDiaDAO;
 	}

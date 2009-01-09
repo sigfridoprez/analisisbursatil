@@ -149,6 +149,17 @@ public class SeriesOperadasIntraDiaDAOImpl extends BaseDAO implements
 		
 		return (List<SeriesOperadasIntraDia>)criteria.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<SeriesOperadasIntraDia> getListaSeriesOperadasIntraDia(String emisora,String serie)throws DataBaseException {
+		Criteria criteria = this.getSession().createCriteria(SeriesOperadasIntraDia.class);
+		criteria.add(Restrictions.eq("id.fecha", new Date()));
+		criteria.add(Restrictions.eq("id.emisora", emisora));
+		criteria.add(Restrictions.eq("id.serie", serie));
+		criteria.addOrder(Order.asc("id.idCarga"));
+		
+		return (List<SeriesOperadasIntraDia>)criteria.list();
+	}
 
 	public void txInsertSeriesOperadasIntraDia(
 			SeriesOperadasIntraDia seriesOperadas) throws DataBaseException {
