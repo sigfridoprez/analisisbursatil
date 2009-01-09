@@ -15,7 +15,7 @@
 		</property>
 		<property name="url">
 			<value>
-				jdbc:postgresql:ADMIN2
+				jdbc:postgresql:ADMIN
 			</value>
 		</property>
 		<property name="username">
