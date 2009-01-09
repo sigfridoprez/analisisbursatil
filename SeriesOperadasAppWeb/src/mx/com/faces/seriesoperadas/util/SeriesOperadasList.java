@@ -18,6 +18,7 @@ public class SeriesOperadasList {
 	private Double puntos;
 	private Double pct;
 	private String habil;
+	private boolean blnSeleccionada;
 	
 	public String getSerie() {
 		return serie;
@@ -120,6 +121,12 @@ public class SeriesOperadasList {
 	}
 	public void setHoraMinimo(String horaMinimo) {
 		this.horaMinimo = horaMinimo;
+	}
+	public boolean isBlnSeleccionada() {
+		return blnSeleccionada;
+	}
+	public void setBlnSeleccionada(boolean blnSeleccionada) {
+		this.blnSeleccionada = blnSeleccionada;
 	}
 	
 	
