@@ -13,10 +13,26 @@
 <ui:define name="content">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
+<script>
+	function cargaEmisoraSerie(emisora,serie){
+		document.getElementById('idEmisora').textContent = emisora;
+		document.getElementById('idSerie').textContent = serie;
+		
+		document.getElementById('GraficasIntradia:hiddenEmisora').value = emisora;
+		document.getElementById('GraficasIntradia:hiddenSerie').value = serie;
+		
+		try{
+			document.getElementById('container').textContent = '';
+		}catch(e){}
+		
+	}
+</script>
+
 <a4j:region id="ajaxRegion">
 	<a4j:form id="Filtros">
 	
 		<h:outputText value="#{seriesOperadasIntradDiaController.cargaPagina}" />
+		
 		<div id="bodytopPan">
 			
 			<rich:panel>
@@ -30,9 +46,9 @@
 				        <f:selectItem itemValue="Operadas"/>
 				        <f:selectItem itemValue="Todas"/>
 				    </rich:comboBox>
-				     <h:outputLink value="#" id="link">
+				     <h:outputLink value="#" id="linkSeleccionGrafica">
 				        Ver Emisoras
-				        <rich:componentControl for="panelSeleccionEmosoras" attachTo="link" operation="show" event="onclick"/>
+				        <rich:componentControl for="panelSeleccionEmisoras" attachTo="linkSeleccionGrafica" operation="show" event="onclick"/>
 				    </h:outputLink>
 	              </h:panelGrid>
 	              <a4j:commandButton value="Actualizar" reRender="idDataTableID" />
@@ -155,9 +171,13 @@
 					<rich:column style="text-align:center;">
 						<h:outputText value="#{dataTableID.horaMinimo}" />
 					</rich:column>
+					
 					<rich:column style="text-align:center;">
-						<h:outputLink value="#'" id="linkGrafica" style="text-decoration: none;color: #FFFFFF" >
+					    <h:outputLink value="#'" id="linkGraficaSerie"  
+					    			  style="text-decoration: none;color: #FFFFFF"
+					    			  onclick="cargaEmisoraSerie('#{dataTableID.emisora}','#{dataTableID.serie}');">
 		                	<img src="${request.contextPath}/images/chart_curve.jpg" />
+					        <rich:componentControl for="panelGraficaSerieIntradia" attachTo="linkGraficaSerie" operation="show" event="onclick"/>
 					    </h:outputLink>
 					</rich:column>
 					
@@ -167,8 +187,7 @@
 	</a4j:form>
 </a4j:region>
 
-	<rich:modalPanel id="panelSeleccionEmosoras" width="930" height="550" moveable="false" resizeable="false">
-		
+	<rich:modalPanel id="panelSeleccionEmisoras" width="500" height="500" moveable="false" resizeable="false">
 	    <f:facet name="header">
 	        <h:panelGroup>
 	        	Selección de Emisoras
@@ -177,13 +196,37 @@
 	    <f:facet name="controls">
 	        <h:panelGroup>
 	            <h:graphicImage value="/images/modal/close.png" style="cursor:pointer" id="hidelink"/>
-	            <rich:componentControl for="panelSeleccionEmosoras" attachTo="hidelink" operation="hide" event="onclick"/>
+	            <rich:componentControl for="panelSeleccionEmisoras" attachTo="hidelink" operation="hide" event="onclick"/>
 	        </h:panelGroup>
 	    </f:facet>
-	    
 	    <ui:include src="seleccionEmisoras.xhtml" />
-		
 	</rich:modalPanel>
+	
+	
+	<rich:modalPanel id="panelGraficaSerieIntradia" width="930" height="550" moveable="false" resizeable="false">
+	    <f:facet name="header">
+	        <h:panelGroup>
+	        <table width="50%">
+	        	<tr>
+	        		<TD width="40%">Gráfica de Serie Intradia</TD>
+	        		<TD width="30%">&nbsp;</TD>
+	        		<TD width="10%">Emisora:&nbsp;&nbsp;<span id='idEmisora'></span></TD>
+	        		<TD width="10%">&nbsp;</TD>
+	        		<TD width="10%">Serie:&nbsp;&nbsp;<span id='idSerie'></span></TD>
+	        		<TD width="10%">&nbsp;</TD>
+	        	</tr>
+	        </table>
+	        </h:panelGroup>
+	    </f:facet>
+	    <f:facet name="controls">
+	        <h:panelGroup>
+	            <h:graphicImage value="/images/modal/close.png" style="cursor:pointer" id="hidelinkGrafica"/>
+	            <rich:componentControl for="panelGraficaSerieIntradia" attachTo="hidelinkGrafica" operation="hide" event="onclick"/>
+	        </h:panelGroup>
+	    </f:facet>
+	    <ui:include src="graficasSerieIntradia.xhtml" />
+	</rich:modalPanel>
+	
 
 </ui:define>
 

@@ -13,63 +13,92 @@
 <ui:define name="contenido">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
-<h:outputText value="#{seriesOperadasIntradDiaController.cargaPagina}" />
+<style type="text/css">
+	.dr-sdt-c-0 {
+		text-align:left;
+	}
+	.dr-sdt-c-1 {
+		text-align:left;
+	}
+	.dr-sdt-c-2 {
+		text-align:left;
+	}
+	.rich-sdt-column-cell{
+		text-align:right;
+	}
+</style>
 
-	<rich:dataTable id="idDataTableID" var="dataTableID" value="#{seriesOperadasIntradDiaController.lstSeriesOperadas}" 
-		width="50%" 
+<a4j:form id="Seleccion">
+
+	<rich:scrollableDataTable 
+		id="idDataTableID" 
+		var="dataTableID" 
+		value="#{seriesOperadasIntradDiaController.lstSeriesOperadasSeleccionadas}" 
+		width="100%"
+		height="400px" 
 		onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-		cellpadding="0" cellspacing="0" border="0" render="true">
-			
-		<f:facet name="header">
-			<rich:columnGroup>
-				<rich:column>
-                	<rich:spacer /> 
-		        </rich:column>
-                <rich:column>
-                	<h:outputText value="Emisora" /> 
-		        </rich:column>
-		        <rich:column>
-	                <h:outputText value="Serie" /> 
-		        </rich:column>
-		        <rich:column>
-	                <h:outputText value="Cierre" /> 
-		        </rich:column>
-		        <rich:column>
-	                <h:outputText value="Precio Último" /> 
-		        </rich:column>
-		        <rich:column>
-	                <h:outputText value="% Variaciòn" /> 
-		        </rich:column>
-	        </rich:columnGroup>
-        </f:facet>
-	    <rich:column>
-      		<h:selectBooleanCheckbox />
+		frozenColCount="1" 
+        first="0" 
+        rows="400"
+        sortMode="single">
+        
+	    <rich:column width="30" sortable="false">
+	    	<f:facet name="header">
+                <rich:spacer />
+            </f:facet>
+      		<h:selectBooleanCheckbox value="#{dataTableID.blnSeleccionada}" />
 		</rich:column>
-        <rich:column>
+		
+        <rich:column width="60" sortable="false">
+   			<f:facet name="header">
+   				<h:outputText value="Emisora" />
+            </f:facet>
         	<h:outputText value="#{dataTableID.emisora}" />
 		</rich:column>
-		<rich:column>
+		<rich:column width="40" sortable="false">
+			<f:facet name="header">
+				<h:outputText value="Serie" />
+            </f:facet>
 			<h:outputText value="#{dataTableID.serie}" />
 		</rich:column>
-		<rich:column style="text-align:right;">
+		
+		
+		<rich:column type="text-align:right;" sortable="false">
+			<f:facet name="header">
+				<h:outputText value="Cierre" />
+            </f:facet>
 			<h:outputText value="#{dataTableID.ppp}">
 				<f:convertNumber pattern="#,##0.00"/>
 			</h:outputText>
 		</rich:column>
-		<rich:column style="text-align:right;">
-			<h:outputLink value="#'" id="linkPrecioUltimo" >
-               	<h:outputText value="#{dataTableID.ultimo}">
-                    <f:convertNumber pattern="#,##0.00"/>
-                </h:outputText>
-		    </h:outputLink>
+		<rich:column style="text-align:right;" sortable="false">
+			<f:facet name="header">
+				<h:outputText value="Precio Último" />
+            </f:facet>
+           	<h:outputText value="#{dataTableID.ultimo}">
+                <f:convertNumber pattern="#,##0.00"/>
+            </h:outputText>
 		</rich:column>
-		<rich:column style="text-align:right;">
+		<rich:column style="text-align:right;" sortable="false">
+			<f:facet name="header">
+				<h:outputText value="% Variaciòn" />
+            </f:facet>
 			<h:outputText value="#{dataTableID.pct}">
 				<f:convertNumber pattern="0.00"/>
 			</h:outputText>
 		</rich:column>
-	</rich:dataTable>
-			
+	</rich:scrollableDataTable>
+
+	<rich:panel>
+		<a4j:commandButton value="Confirmar">
+		</a4j:commandButton>
+		
+		<input type="button" value="Cerrar" onclick="#{rich:component('panelSeleccionEmisoras')}.hide()" />
+		
+	</rich:panel>
+
+</a4j:form>
+
 </ui:define>
 </ui:composition>
