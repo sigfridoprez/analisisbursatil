@@ -24,6 +24,7 @@ import mx.com.cargainformacionipc.util.SeriesOperadasIntraDiaVOBuilder;
 import mx.com.cargainformacionipc.vo.IndicesIntraDiaVO;
 import mx.com.cargainformacionipc.vo.SeriesOperadasIntraDiaVO;
 import mx.com.infracomunes.impl.vo.IndicesMercadoCapitalesVO;
+//import mx.com.infracomunes.impl.vo.ResumenEmisoraVO;
 import mx.com.infracomunes.impl.vo.SeriesOperadasMercadoCapitalesVO;
 import mx.com.infracomunes.vo.ObjetoTablaVO;
 import mx.com.infracomunes.vo.ObjetoTransportadorVO;
@@ -45,6 +46,7 @@ public class CargaInformacionIntraDiaSrvImpl implements
     private ConfiguracionSplitSrv configuracionSplitSrv;
     private UtilSrv utilSrv;
     private static int SERIE_OPERADA = 1;
+    //private static int SERIE_OPERADA_YAHOO = 2;
     private static int INDICES = 3;
     private static int DIAS_GUARDAR_INFORMACION = 30;
     
@@ -109,6 +111,9 @@ public class CargaInformacionIntraDiaSrvImpl implements
 		int idCargaSerie = utilSrv.getMaximaSerieIntraDiaCarga()+1;
 		int idCargaIndice= utilSrv.getMaximaIndiceIntraDiaCarga()+1;
 		Calendar calFechaBorrar = Calendar.getInstance();
+		//StringBuffer strURLYAHOO;
+		//ResumenEmisoraVO objetoTablaVOYahoo;
+		//CiConfLinks lstLinkYahoo;
 		
 		CreaIntraDiaVO creaVO = new CreaIntraDiaVO(configuracionSplitSrv,utilSrv);
 		
@@ -119,6 +124,7 @@ public class CargaInformacionIntraDiaSrvImpl implements
 		
 		logger.debug("obtenemos la configuracion de las series operadas del BMV");
 		lstLinkBMV = ciConfLinksSrv.getCiConfLinks(Integer.valueOf(SERIE_OPERADA));
+		//lstLinkYahoo = ciConfLinksSrv.getCiConfLinks(Integer.valueOf(SERIE_OPERADA_YAHOO));
 		
 		if(lstLinkBMV!=null){
 			logger.debug("Cargamos las series operadas del BMV");
@@ -131,6 +137,28 @@ public class CargaInformacionIntraDiaSrvImpl implements
 					for(ObjetoTablaVO vo:lstObjetosTablaVO){
 						if(vo!=null){
 							seriesVO = (SeriesOperadasMercadoCapitalesVO)vo;
+							logger.debug("Traemos la información de Yahoo");
+							/*strURLYAHOO = new StringBuffer(lstLinkYahoo.getLink()+(seriesVO.getStrEmisora().replaceAll("&", "%26"))+ (seriesVO.getStrSerie().equals("*")?"":seriesVO.getStrSerie()) + ".MX");
+							
+							if(seriesVO.getDblPPP()==0 && seriesVO.getDblUltimo()==0){
+								logger.debug("Verificamos en yahoo");
+								
+								objetoTablaVOYahoo = (ResumenEmisoraVO)servicioParseoTabla.getTabla(lstLinkYahoo.getIpConfTablasHtmlParsear().getIdTabla(),strURLYAHOO.toString()).getObjetoTablaVO();
+								seriesVO.setDblPPP(objetoTablaVOYahoo.getDblUltimaTransac());
+							}else if(seriesVO.getDblPPP()==0){
+								logger.debug("Verificamos en yahoo");
+								
+								objetoTablaVOYahoo = (ResumenEmisoraVO)servicioParseoTabla.getTabla(lstLinkYahoo.getIpConfTablasHtmlParsear().getIdTabla(),strURLYAHOO.toString()).getObjetoTablaVO();
+								seriesVO.setDblPPP(objetoTablaVOYahoo.getDblUltimaTransac());
+								if(objetoTablaVOYahoo.getDblUltimaTransac()!=seriesVO.getDblUltimo() && objetoTablaVOYahoo.getDblUltimaTransac()!=0){
+									seriesVO.setDblPPP(objetoTablaVOYahoo.getDblUltimaTransac());
+								}else{
+									seriesVO.setDblPPP(seriesVO.getDblUltimo());
+								}
+							}*/
+							if(seriesVO.getDblPPP()==0){
+								seriesVO.setDblPPP(seriesVO.getDblUltimo());
+							}
 							logger.debug("Creamos la lista que se guardara en la BD");
 							lstSeriesOperadasVO.add(creaVO.creaSeriesOperadasVO(idCargaSerie,fecha,seriesVO));
 						}
