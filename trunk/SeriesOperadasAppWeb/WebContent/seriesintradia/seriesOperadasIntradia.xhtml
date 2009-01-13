@@ -115,10 +115,14 @@
                     </f:facet>
                     
                     <rich:column>
-                    	<h:outputLink value="#'" id="linkEmisora" >
+                    	<h:outputLink value="#'" id="linkEmisora" 
+                    				  style="color: #000000"
+					    			  onclick="cargaEmisoraSerie('#{dataTableID.emisora}','#{dataTableID.serie}');">
 		                	<h:outputText value="#{dataTableID.emisora}" />
+							<rich:componentControl for="panelResumenEmisoraSerie" attachTo="linkEmisora" operation="show" event="onclick"/>		                	
 					    </h:outputLink>
 					</rich:column>
+					
 					<rich:column>
 						<h:outputText value="#{dataTableID.serie}" />
 					</rich:column>
@@ -187,6 +191,31 @@
 	</a4j:form>
 </a4j:region>
 
+
+	<rich:modalPanel id="panelResumenEmisoraSerie" width="900" height="500" moveable="false" resizeable="false">
+	    <f:facet name="header">
+	        <h:panelGroup>
+	        	<table width="50%">
+	        	<tr>
+	        		<TD width="40%">Resumen de Emisora</TD>
+	        		<TD width="30%">&nbsp;</TD>
+	        		<TD width="10%">Emisora:&nbsp;&nbsp;<span id='idEmisora'></span></TD>
+	        		<TD width="10%">&nbsp;</TD>
+	        		<TD width="10%">Serie:&nbsp;&nbsp;<span id='idSerie'></span></TD>
+	        		<TD width="10%">&nbsp;</TD>
+	        	</tr>
+	        </table>
+	        </h:panelGroup>
+	    </f:facet>
+	    <f:facet name="controls">
+	        <h:panelGroup>
+	            <h:graphicImage value="/images/modal/close.png" style="cursor:pointer" id="hidelinkPES"/>
+	            <rich:componentControl for="panelResumenEmisoraSerie" attachTo="hidelinkPES" operation="hide" event="onclick"/>
+	        </h:panelGroup>
+	    </f:facet>
+	    <ui:include src="resumenEmisoraIntradia.xhtml" />
+	</rich:modalPanel>
+	
 	<rich:modalPanel id="panelSeleccionEmisoras" width="500" height="500" moveable="false" resizeable="false">
 	    <f:facet name="header">
 	        <h:panelGroup>
