@@ -117,15 +117,12 @@ public class SixsTeam implements Tactica {
     public List<Comando> ejecutar(SituacionPartido sp) {
     	List<Comando> lstComandos = new ArrayList<Comando>();
     	int iJugador;
-    	int iJugadorDestino;
     	
     	//primero vamos al balon
     	iJugador = sp.balon().indiceMasCercano(sp.misJugadores());
     	lstComandos.add(new ComandoIrA(iJugador, sp.balon()));
     	
-    	iJugadorDestino = FuncionesAyuda.ontieneJugadorCercano(sp,iJugador);
-    	
-    	System.out.println("Jugador destino::"+iJugadorDestino);
+    	lstComandos.add(FuncionesAyuda.getComandoPase(sp,iJugador,false));
     	
         return lstComandos;
     }
