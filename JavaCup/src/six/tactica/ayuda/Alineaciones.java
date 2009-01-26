@@ -1,21 +1,10 @@
-package six.tactica;
+package six.tactica.ayuda;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.javahispano.javacup.modelo.Comando;
-import org.javahispano.javacup.modelo.ComandoGolpearBalon;
-import org.javahispano.javacup.modelo.ComandoIrA;
 import org.javahispano.javacup.modelo.Posicion;
-import org.javahispano.javacup.modelo.SituacionPartido;
-import org.javahispano.javacup.modelo.Tactica;
-import org.javahispano.javacup.modelo.TacticaDetalle;
 
-public class PruebaTeam implements Tactica {
-	private static int FACTOR_FUERZA = 10;
-	private int iJugadorAnterior=0;
-	
-    Posicion alineacion1[]=new Posicion[]{
+public class Alineaciones {
+
+	public static Posicion alineacion1[]=new Posicion[]{
         new Posicion(0.2595419847328244,-50.41044776119403),
         new Posicion(-19.46564885496183,-31.6044776119403),
         new Posicion(0.2595419847328244,-31.082089552238806),
@@ -29,7 +18,7 @@ public class PruebaTeam implements Tactica {
         new Posicion(12.717557251908397,29.51492537313433)
     };
 
-    Posicion alineacion2[]=new Posicion[]{
+	public static Posicion alineacion2[]=new Posicion[]{
         new Posicion(0.2595419847328244,-50.41044776119403),
         new Posicion(-11.16030534351145,-31.082089552238806),
         new Posicion(11.16030534351145,-31.6044776119403),
@@ -43,7 +32,7 @@ public class PruebaTeam implements Tactica {
         new Posicion(-0.2595419847328244,35.78358208955224)
     };
 
-    Posicion alineacion3[]=new Posicion[]{
+	public static Posicion alineacion3[]=new Posicion[]{
         new Posicion(0.2595419847328244,-50.41044776119403),
         new Posicion(-11.16030534351145,-31.082089552238806),
         new Posicion(11.16030534351145,-31.6044776119403),
@@ -57,7 +46,7 @@ public class PruebaTeam implements Tactica {
         new Posicion(18.946564885496183,35.26119402985075)
     };
 
-    Posicion alineacion4[]=new Posicion[]{
+	public static Posicion alineacion4[]=new Posicion[]{
         new Posicion(0.2595419847328244,-50.41044776119403),
         new Posicion(-11.16030534351145,-31.082089552238806),
         new Posicion(11.16030534351145,-31.6044776119403),
@@ -71,7 +60,7 @@ public class PruebaTeam implements Tactica {
         new Posicion(25.69465648854962,28.992537313432837)
     };
 
-    Posicion alineacion5[]=new Posicion[]{
+	public static Posicion alineacion5[]=new Posicion[]{
         new Posicion(0.2595419847328244,-50.41044776119403),
         new Posicion(-11.16030534351145,-35.78358208955224),
         new Posicion(12.717557251908397,-35.26119402985075),
@@ -85,7 +74,7 @@ public class PruebaTeam implements Tactica {
         new Posicion(22.580152671755727,-1.3059701492537314)
     };
 
-    Posicion alineacion6[]=new Posicion[]{
+	public static Posicion alineacion6[]=new Posicion[]{
         new Posicion(0.2595419847328244,-50.41044776119403),
         new Posicion(-11.16030534351145,-35.78358208955224),
         new Posicion(12.717557251908397,-35.26119402985075),
@@ -98,51 +87,4 @@ public class PruebaTeam implements Tactica {
         new Posicion(-6.4885496183206115,-6.529850746268657),
         new Posicion(22.580152671755727,-1.3059701492537314)
     };
-
-    PruebaTeamTacticaDetalle detalle=new PruebaTeamTacticaDetalle();
-    public TacticaDetalle getDetalle() {
-        return detalle;
-    }
-
-    public Posicion[] getPosicionSaca(SituacionPartido sp) {
-    return alineacion5;
-    }
-
-    public Posicion[] getPosicionRecive(SituacionPartido sp) {
-    return alineacion6;
-    }
-
-    public List<Comando> ejecutar(SituacionPartido sp) {
-    	List<Comando> lstComandos = new ArrayList<Comando>();
-    	int iJugador;
-    	int iJugadoresD[];
-    	int iJugadorDestino;
-    	double dblFuerza;
-    	double sblDistancia;
-    	
-    	//El jugador anterior se regresa a su posicion
-    	lstComandos.add(new ComandoIrA(iJugadorAnterior, alineacion1[iJugadorAnterior]));
-    	
-    	//primero vamos al balon
-    	iJugador = sp.balon().indiceMasCercano(sp.misJugadores());
-    	lstComandos.add(new ComandoIrA(iJugador, sp.balon()));
-    	
-    	//buscasmos al jugador mas cercano
-    	iJugadoresD = sp.misJugadores()[iJugador].indicesMasCercanos(sp.misJugadores());
-    	iJugadorDestino=(int)(Math.random()*iJugadoresD.length);
-    	//Calculamos la fuerza del remate, para esto, primero verificamos la distancia
-    	sblDistancia = sp.misJugadores()[iJugador].distancia(sp.misJugadores()[iJugadorDestino]);
-    	System.out.println("sblDistancia::"+sblDistancia);
-    	dblFuerza = sblDistancia - (Math.random()*FACTOR_FUERZA)<0?3:sblDistancia - (Math.random()*FACTOR_FUERZA);
-    	                                 
-    	System.out.println("iJugador::"+iJugador);
-    	System.out.println("iJugadorDestino::"+iJugadorDestino);
-    	System.out.println("dblFuerza::"+dblFuerza);
-    	
-    	lstComandos.add(new ComandoGolpearBalon(iJugador,sp.misJugadores()[iJugadorDestino],sblDistancia,false));
-    	
-    	//El jugador actual es el anterior
-    	iJugadorAnterior = iJugador;
-        return lstComandos;
-    }
 }

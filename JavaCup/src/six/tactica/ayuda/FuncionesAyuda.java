@@ -25,19 +25,32 @@ public final class FuncionesAyuda {
 		int iJugadorRivalCercano;
 		List<Integer> lstJugadores = new ArrayList<Integer>();
 		
-		System.out.println("iJugador::"+iJugador);
-		
 		for(int iMiJugadorCercano:arrayJugadoresCercanos){
 			if(iMiJugadorCercano!=iJugador){
 				iJugadorRivalCercano = sp.misJugadores()[iMiJugadorCercano].indiceMasCercano(sp.rivales());
 				iDistancia = (int)sp.misJugadores()[iMiJugadorCercano].distancia(sp.rivales()[iJugadorRivalCercano]);
-				System.out.println("iMiJugadorCercano::" + iMiJugadorCercano + "  iJugadorRivalCercano::"+iJugadorRivalCercano+"  iDistancia::"+iDistancia);
+				//System.out.println("iMiJugadorCercano::" + iMiJugadorCercano + "  iJugadorRivalCercano::"+iJugadorRivalCercano+"  iDistancia::"+iDistancia);
 				if(iDistancia>MAX_ROUND){//Encontramos
 					lstJugadores.add(iMiJugadorCercano);
 				}
 			}
 		}
 		
+		Integer iTmp=new Integer(0);
+		Integer iJugadorMax = new Integer(0);
+		//Buscamos el maximo jugador cercano
+		for(int iJigadorM:lstJugadores){
+			iJugadorMax = iJigadorM;
+			
+			if(iJugadorMax<iTmp){
+				iJugadorMax=iTmp;
+			}else{
+				iTmp=iJugadorMax;
+			}
+		}
+		
+		iJugadorDestino=iJugadorMax;
+		System.out.println("iJugador::"+iJugador+"  iJugadorDestino:::"+iJugadorDestino);
 		return iJugadorDestino;
 	}
 	
@@ -45,13 +58,18 @@ public final class FuncionesAyuda {
 		int iDistanciaOrigen = 0;
 		int iDistanciaDestino = 0;
 		
-		return Math.random();
+		return 1;
 	}
 	
 	public static ComandoGolpearBalon getComandoPase(SituacionPartido sp,int iJugador,boolean blnDespeje){
 		int iJugadorDestino = FuncionesAyuda.ontieneJugadorCercano(sp,iJugador);
 		
 		return new ComandoGolpearBalon(iJugador,getPosicionJugadorCercano(sp, iJugadorDestino),
-				getFuerzaPase(iJugador,iJugadorDestino),blnDespeje);
+				getFuerzaPase(iJugador,iJugadorDestino),true);
+	}
+	
+	public static ComandoGolpearBalon getComandoPase(SituacionPartido sp,int iJugador,int iJugadorDestino,boolean blnDespeje){
+		return new ComandoGolpearBalon(iJugador,getPosicionJugadorCercano(sp, iJugadorDestino),
+				getFuerzaPase(iJugador,iJugadorDestino),true);
 	}
 }
