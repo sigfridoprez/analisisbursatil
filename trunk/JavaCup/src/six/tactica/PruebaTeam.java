@@ -114,7 +114,7 @@ public class PruebaTeam implements Tactica {
 
     public List<Comando> ejecutar(SituacionPartido sp) {
     	List<Comando> lstComandos = new ArrayList<Comando>();
-    	int iJugador;
+    	/*int iJugador;
     	int iJugadoresD[];
     	int iJugadorDestino;
     	double dblFuerza;
@@ -142,7 +142,7 @@ public class PruebaTeam implements Tactica {
     	lstComandos.add(new ComandoGolpearBalon(iJugador,sp.misJugadores()[iJugadorDestino],sblDistancia,false));
     	
     	//El jugador actual es el anterior
-    	iJugadorAnterior = iJugador;
+    	iJugadorAnterior = iJugador;*/
         return lstComandos;
     }
 }
