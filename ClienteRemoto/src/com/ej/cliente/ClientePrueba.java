@@ -25,7 +25,8 @@ public class ClientePrueba {
 			System.out.println(props);
 			
 			Context ctx = new InitialContext(props);
-			obj = ctx.lookup("com.ej.home.HelloHome");
+			obj = ctx.lookup("HelloWorldEJBRemoteHome");
+			//obj = ctx.lookup("HelloWorldEJBLocalHome");
 			
 			HelloHome helloHome = (HelloHome) PortableRemoteObject.narrow(obj,HelloHome.class);
 			hello = helloHome.create();
