@@ -8,7 +8,7 @@
 			<remote>com.ej.Hello</remote>
 			<local-home>com.ej.localhome.HelloLocalHome</local-home>
 			<local>com.ej.local.HelloLocal</local>
-			<ejb-class>com.ej.sessionbean.HelloBean</ejb-class>
+			<ejb-class>com.ej.sessiobean.HelloBean</ejb-class>
 			<session-type>Stateless</session-type>
 			<transaction-type>Container</transaction-type>
 		</session>
