@@ -4,6 +4,11 @@
 
 package pruebasclientes;
 
+import java.awt.AWTException;
+import java.awt.Image;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -38,7 +43,18 @@ public class PruebasClientesApp extends SingleFrameApplication {
     /**
      * Main method launching the application.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AWTException {
+        SystemTray tray;
+        Image image;
+        final TrayIcon trayIcon;
+
+        if(SystemTray.isSupported()){
+            tray = SystemTray.getSystemTray();
+            image = Toolkit.getDefaultToolkit().getImage("tray.gif");
+            trayIcon = new TrayIcon(image, "Tray Demo", null);
+            tray.add(trayIcon);
+            
+        }
         launch(PruebasClientesApp.class, args);
     }
 }

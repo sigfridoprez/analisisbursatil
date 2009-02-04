@@ -248,12 +248,16 @@ private void jbtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                
     } catch (RemoveException ex) {
         Logger.getLogger(PruebasClientesView.class.getName()).log(Level.SEVERE, null, ex);
+        this.jetResponse.setText(ex.toString());
     } catch (RemoteException ex) {
         Logger.getLogger(PruebasClientesView.class.getName()).log(Level.SEVERE, null, ex);
+        this.jetResponse.setText(ex.toString());
     } catch (CreateException ex) {
         Logger.getLogger(PruebasClientesView.class.getName()).log(Level.SEVERE, null, ex);
+        this.jetResponse.setText(ex.toString());
     } catch (NamingException e) {
         e.printStackTrace();
+        this.jetResponse.setText(e.toString());
     }
 
 }//GEN-LAST:event_jbtnEjecutarActionPerformed
