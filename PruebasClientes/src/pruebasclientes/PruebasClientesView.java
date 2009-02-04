@@ -3,6 +3,7 @@
  */
 package pruebasclientes;
 
+import com.ej.Hello;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -239,13 +240,13 @@ private void jbtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
         Context ctx = new InitialContext(props);
         Object ref = ctx.lookup("HelloBeanRemote");
-        //Hello h = (Hello) PortableRemoteObject.narrow(ref, Hello.class);
+        Hello h = (Hello) PortableRemoteObject.narrow(ref, Hello.class);
 
-        //h.sayHello();
-        //h.sayHello();
-        //h.sayHello();
+        h.sayHello();
+        h.sayHello();
+        h.sayHello();
 
-        //this.jetResponse.setText(this.jetResponse.getText()+"\n"+h.sayHello());
+        this.jetResponse.setText(this.jetResponse.getText()+"\n"+h.sayHello());
 
         ref = ctx.lookup("HelloWorldEJBRemoteHome");
         System.out.println("Ref::" + ref);
