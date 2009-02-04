@@ -10,9 +10,11 @@ public class HelloBean implements SessionBean {
 	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unused")
 	private SessionContext ctx;
+	private int i;
 	
 	public void ejbCreate(){
-		System.out.println("ejbCreate");	
+		System.out.println("ejbCreate");
+		i=0;
 	}
 	
 	@Override
@@ -31,6 +33,7 @@ public class HelloBean implements SessionBean {
 	public void ejbRemove() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
 		System.out.println("ejbRemove");
+		i=0;
 	}
 
 	@Override
@@ -42,6 +45,7 @@ public class HelloBean implements SessionBean {
 
 	public String sayHello(){
 		System.out.println("sayHello");
-		return "Hello World!!!!!!SIX";
+		i++;
+		return "Hello World "+i+"  !!!!!!";
 	}
 }
