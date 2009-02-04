@@ -244,6 +244,8 @@ private void jbtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         this.jetResponse.setText(this.jetResponse.getText()+"\n"+hello.sayHello());
         hello.remove();
+
+               
     } catch (RemoveException ex) {
         Logger.getLogger(PruebasClientesView.class.getName()).log(Level.SEVERE, null, ex);
     } catch (RemoteException ex) {
