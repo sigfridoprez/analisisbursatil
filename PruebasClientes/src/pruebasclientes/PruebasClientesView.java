@@ -3,7 +3,6 @@
  */
 package pruebasclientes;
 
-import com.ej.Hello;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +24,6 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-//import org.acme.Hello;
 
 /**
  * The application's main frame.
@@ -232,21 +230,12 @@ public class PruebasClientesView extends FrameView {
 
 private void jbtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEjecutarActionPerformed
     Properties props = new Properties();
-    Object obj;
+    Object ref;
 
     try {
         props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
         props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
-
         Context ctx = new InitialContext(props);
-        Object ref = ctx.lookup("HelloBeanRemote");
-        Hello h = (Hello) PortableRemoteObject.narrow(ref, Hello.class);
-
-        h.sayHello();
-        h.sayHello();
-        h.sayHello();
-
-        this.jetResponse.setText(this.jetResponse.getText()+"\n"+h.sayHello());
 
         ref = ctx.lookup("HelloWorldEJBRemoteHome");
         System.out.println("Ref::" + ref);
@@ -255,7 +244,6 @@ private void jbtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         
         this.jetResponse.setText(this.jetResponse.getText()+"\n"+hello.sayHello());
         hello.remove();
-        
     } catch (RemoveException ex) {
         Logger.getLogger(PruebasClientesView.class.getName()).log(Level.SEVERE, null, ex);
     } catch (RemoteException ex) {
