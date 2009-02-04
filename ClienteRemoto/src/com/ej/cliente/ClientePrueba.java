@@ -23,7 +23,8 @@ public class ClientePrueba {
 		Hello hello;
 		
 		try {
-			props.put("java.naming.factory.initial", "org.apache.openejb.client.RemoteInitialContextFactory");
+			props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+	        props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
 			
 			Context ctx = new InitialContext(props);
 			obj = ctx.lookup("HelloWorldEJBRemoteHome");
