@@ -36,7 +36,6 @@ public class HelloBean implements SessionBean {
 	@Override
 	public void setSessionContext(SessionContext ctx) throws EJBException,
 			RemoteException {
-		// TODO Auto-generated method stub
 		System.out.println("setSessionContext");
 		this.ctx=ctx;
 	}
