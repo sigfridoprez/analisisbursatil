@@ -47,7 +47,7 @@ VALORES:&#13;
 <unique-key-list/>
 <foreign-key-list/>
 <index-list>
-<index alias="" name="IX_IP_CONF_TABLAS_HTML_PARSEAR_1" remarks="" uid="eca4be:11b53683859:-7f6c" unique="false">
+<index alias="" name="IX_IP_CONF_TABLAS_HTML_PARSEAR" remarks="" uid="eca4be:11b53683859:-7f6c" unique="false">
 <index-description/>
 <index-column name="ID_TABLA" sort="ASC"/>
 </index>
