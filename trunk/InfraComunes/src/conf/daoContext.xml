@@ -11,6 +11,23 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>
+				jdbc:mysql://localhost/ADMIN
+			</value>
+		</property>
+		<property name="username">
+			<value>adm</value>
+		</property>
+		<property name="password">
+			<value>adm</value>
+		</property>
+	</bean>
+	
+	<!--bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
 			<value>org.postgresql.Driver</value>
 		</property>
 		<property name="url">
@@ -24,7 +41,8 @@
 		<property name="password">
 			<value>adm</value>
 		</property>
-	</bean>
+	</bean-->
+	
 	
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory"
