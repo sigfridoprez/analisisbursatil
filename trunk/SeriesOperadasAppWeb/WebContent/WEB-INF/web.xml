@@ -10,7 +10,7 @@
   </listener>
   <context-param>
     <param-name>log4jConfigLocation</param-name>
-    <param-value>/WEB-INF/conf/Log4j.properties</param-value>
+    <param-value>/WEB-INF/conf/Log4j_Prod.properties</param-value>
   </context-param>
   <context-param>
 	<param-name>log4jExposeWebAppRoot</param-name>
