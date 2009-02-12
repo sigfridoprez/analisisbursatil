@@ -1,6 +1,6 @@
 package mx.com.analisispreciosmercado.conf;
 
-// Generated 10/12/2008 06:03:50 PM by Hibernate Tools 3.2.1.GA
+// Generated 12-feb-2009 0:14:27 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;

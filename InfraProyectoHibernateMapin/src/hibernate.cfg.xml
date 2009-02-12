@@ -11,14 +11,14 @@
         <property name="hibernate.connection.username">adm</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <mapping class="mx.com.analisispreciosmercado.conf.SeriesOperadas" />
-        <mapping class="mx.com.analisispreciosmercado.conf.ConfiguracionSplit" />
-        <mapping class="mx.com.analisispreciosmercado.conf.CiConfLinks" />
-        <mapping class="mx.com.analisispreciosmercado.conf.SeriesOperadasIntraDia" />
-        <mapping class="mx.com.analisispreciosmercado.conf.IpConfTablasHtmlParsear" />
         <mapping class="mx.com.analisispreciosmercado.conf.IpConfPropiedadesTabla" />
-        <mapping class="mx.com.analisispreciosmercado.conf.SeriesOperadasBk" />
         <mapping class="mx.com.analisispreciosmercado.conf.Indices" />
-        <mapping class="mx.com.analisispreciosmercado.conf.DiasFestivos" />
+        <mapping class="mx.com.analisispreciosmercado.conf.SeriesOperadasIntraDia" />
+        <mapping class="mx.com.analisispreciosmercado.conf.SeriesOperadasBk" />
+        <mapping class="mx.com.analisispreciosmercado.conf.CiConfLinks" />
+        <mapping class="mx.com.analisispreciosmercado.conf.IpConfTablasHtmlParsear" />
         <mapping class="mx.com.analisispreciosmercado.conf.IndicesIntraDia" />
+        <mapping class="mx.com.analisispreciosmercado.conf.ConfiguracionSplit" />
+        <mapping class="mx.com.analisispreciosmercado.conf.DiasFestivos" />
     </session-factory>
 </hibernate-configuration>
