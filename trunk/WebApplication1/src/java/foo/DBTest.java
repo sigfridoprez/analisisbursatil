@@ -20,10 +20,8 @@ public class DBTest {
                 throw new Exception("Boom - No Context");
             }
 
-            DataSource ds =
-                    (DataSource) ctx.lookup(
-                    "java:comp/env/jdbc/JNDI_DERBY");
-
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/JNDI_DERBY");
+            
             if (ds != null) {
                 Connection conn = ds.getConnection();
 
@@ -32,10 +30,10 @@ public class DBTest {
                     Statement stmt = conn.createStatement();
                     ResultSet rst =
                             stmt.executeQuery(
-                            "select id, foo, bar from testdata");
+                            "select hotelid,hotelname from TRAVEL.HOTEL");
                     if (rst.next()) {
                         foo = rst.getString(2);
-                        bar = rst.getInt(3);
+                        bar = rst.getInt(1);
                     }
                     conn.close();
                 }
