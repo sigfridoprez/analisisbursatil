@@ -1,0 +1,55 @@
+La importancia de una gráfica no esta en lo que diga o se muestre en esta, si no en la interpretación que se le dé, sin embargo hay que recalcar que el análisis que pueda provenir de un gráfico no son del todo infalibles. El uso de los gráficos permite, por otra parte, detectar tendencias de los títulos de mercado, lo cual nos ayudara a tomar desiciones bursatíles. Sin embargo, hay bastantes ocaciones, en las cuales el mercado no evoluciona tal y como los gráficos puedan presagiar que lo vayan a hacer y ésto hay que tomarlo en cuenta, antes de tomar cualquier desición basada en este método.
+
+
+Puntos y Figuras
+
+Los gráficos de puntos y figuras se confeccionan solamente a partir de las cotizaciones de cierre de la sesión bursátil del activo financiero correspondiente. En el eje horizontal se reflejan las subidas o bajadas del precio del título a través del tiempo en el que estemos interesados, o del índice de un conjunto de títulos. Por otra parte, en el eje vertical se colocan las cotizaciones de cierre de los mismos.
+
+Los únicos datos que se tienen en cuenta en los gráficos de puntos y figuras son los precios, de la sesión bursatil. Los volúmenes de negociación, por ejemplo, dato en ocaciones importante, no se tiene en consideracion. Tampoco se tienen en cuenta variaciones menores del 3% ó del 5%. Ésta es la gran caracteristica que lo hace diferente con respecto a otro tipo de gráficas. Otra limitante es que no informa de la variable de tiempo ya que atravez del eje horizontal solamente observamos cómo suceden las subidas, o bajadas, sin tener en cuenta la ducación de cada una de ellas.
+
+Las diferentes figuras que se pueden llegar a formar en el gráfico de puntos y figuras son las que vienen señaladas por las líneas de la tencencia. Por lo que se deben tomar en cuenta las líneas de soporte como las líneas resistencia. La línea de soporte se configura al unir dos o más mínimos. Su mision es proporcionar una señal de venta cuando el precio del título franquee esa línea. Indica que una determinada tendencia, si no la rebasa, puede estar llegando a su fin. Por otra parte, la línea de resistencia tiene la misma relación pero con los máximos. Se forma al unir dos o mas máximos y su fin es indicar señales de compra en el mercado de valores cuando es franqueada.
+
+En ciertas ocaciones se deben corregir los valores en el eje vertical del gráfico de puntos y figuras. Esto ocurre, por ejemplo, cuando la empresa que es analizada en dicho gráfico realiza una ampliación de capital, o una reducción de capital.
+
+La forma de detectar de una manera más sencilla oa confirmación de las líneas de resistencia es fijarse si un determinado valor; cuando vaya ascendiendo se cotización, llega a una cotiación en la cual rebota en ese mismo precio es que ha llegado a esa línea de resistencia. Podemos encontrar las causas de esto lógicamente en que una parte importante de los inversores piensan que la cotización ha llegado a un nivel de precio establecido muy alto y que, por lo tanto, cuando un titulo determinado se acerca a ese nivel, están dispuestos a vernder sus acciones. Por esa razón, cuando ese título sobre pase esa línea de resistencia se podra llegar a esperar que se produsca una subida libre, ya que ese precio no tendrá ahora ninguna resistencia en ese momento.
+
+La línea de soporte es en caso contrario a la línea de resistencia: un valor al ir bajando rebota hacia arriba cuando llega al nivel de dicha línea. En esta ocasión los inversores intentarán la venta de esos valores si esta línea es franqueada en un 3% o 5%, aproximadamente.
+
+En los gráficos de puntos y figuras se pueden obtener y contemplar, varias figuras. Las crestas o picos son anunciadores de señales de venta, y los valles o fondos son anunciadores de señales de compra. Existe ademas otra serie de figuras que se suelen dar de una forma bastante común en estos tipos de gráficos. Se trata de los mtriángulos ascendentes y los triángulos descendentes.
+(GRÄFICAS)
+
+
+Gráficas Lineales
+
+Los gráficos de lineales se elaboran fácilmente situando los precios, o la evolución de los índices, en el eje vertical, y situando a su vez el tiempo en el eje horizontal. Este gráfico es bastante útil ya que nos pueden señalar la evolución que se produce con determinado valor, o en un índice de varios títulos, etc., a lo largo de una serie de sesiones que pueden abarcar días, semanas, meses o inluso años. Los gráficos lineales tambien se pueden construir al unir los precios de cierre del título en cada periodo o, tambíen, al juntar los valores de los índices que nos interesan al dinal de cada periodo.
+(GRÄFICA)
+
+
+Gráfica de Barras
+
+Para poder realizar las gráficas de arras, se dibuja una barra vertical. Esta barra indica el rango de los precios que ha tenido ese titulo en la sesión diaria, donde se miestra el precio máximo y el precio mínimo. Al final se establece una barra horizontal perpendicular que establece el precio de cierre. Los gráficos de barras se suelen utilizar habitualmente para anliazar y observar cada titulo en particular en el que estemos interesados. ¨Para ello, se utilizan tres precios más significativos durante el periodo de tiempo que se establesca, que puede ir de una sesión bursatil, una semana, un mes o un año, etc. Los tres precios que se utilizan corresponden al precio máximo, al mínimo y al de cierre de periodo que se establezca con antelación, por lo general un día.
+
+Este gráfico de barras es el mas utilizado y util para predecir los cambios de tendencia cuando después de una prolongada subida, o en su caso tambien, de un prolongado descenso, se derarrolla una sesión con bastante negociación, Esa negociación se puede dar con un precio de cierre alto, tras una dase bajisima o cin un precio de cierree bajo, tras una  fase al alza. Este tipo de sesiones se suelen llamar dias clave o inversión  de llave. Otras caracteristicas de estas sesiones son que la barra que se forma por el precio más alto y el más bajo de la sesion es más amplia que la de las sesión anterior por que el precio del cierre se encuantra por encima de la barra del día anterior, aunque tambien se suele dar el caso de que se encuentre por debajo debido a las sesión precedente.
+
+
+Gráficos Semilogarítmicos.
+
+Los gráficos semilogarítmicos se utilizan por ahora muy poco en los análisis bursatiles, y ello a pesar de que se suele recomendar su uso cuando se realizan los análisis técnicos, ya que en esos análisis sulen predominar los gráficos simétricos.
+
+Se llaman gráficos semilogaritmicos porque tan sólo un eje, por regla general, aunque no siempre, el ehe vertical, el eje de las ordenadas, que representa el precio o la corización de los títulos, tiene una subdivisión logarítmica. Por su parte, el eje horizontal, el ese de las absisas, representa el tiempo y tiene subdiviciones simétricas.
+
+(falta un parrafo que le de sentido al parrafo de abajo)
+
+En un gráfico de estilo simetrico. un incremento de precio conlleva a una similar representación en el gráfico. Los gráficos semilogaritmicos tratan de correguir errores de interpretación. Esta clase de gráficos, a incrementos de precion que no son iguales le corresponden ferentes representaciones gráficas, puesto que se tiene en cuenta el beneficio de manera porcentual Sin embargo para los incrementos porcentuales similares, nos encontramos con similares representaciones gráficas.
+
+
+Volumen.
+
+El volumen se podria considerar como el valor monetario, esto es, la cantidad de dinero, de las trnazacciones que se realizan durante un determinado periodo de tiempo, o tambien podriamos considerar el volumen como el número de títulos que se negocian durante un determinado periodo de tiempo , o tambien podríamos considerar el volumen como el número de títulos que se negocian durante un cierto tiempo. La forma gráfica de representar el volumen es por medio de una simple barra vertical que a su vez representa esos periodos de tiempo.
+
+El volumen nos permite valorar la fuerza o presión que contiene el movimiento del precio o cotización. De aqui proviene que estos gráficos de volúmenes sean analizados y estudiados en conjunto con los gráficos lineales o con los gráficos de barras. Así, conjuntamente, se puede comprobar de una manera muy sencilla que si el volumen aumenta al producirse alzas es sintoma de que existe una superior demanda, que supera la oferta y en consecuencia deducir de ello todas las posibles espectativas que se generen. Pero también, como en casi todo, podemos llegar a tener su contrario. Cuando durante una suida el volumen empieza a bajar, podemos estar casi seguros de que esa subida se encuentra bastante cercana a su término.
+
+En este proceso bien podria darse el caso de que se produjera un parón en la sibida que se pudiera pensar que incluso podría seguir con posterioridad. De esta forma, si el volumen diminuye cuando se producen bajadas suele ser por causa lógicamente de que los inversoresno estén dispuestos a deshacerse ahora de sus calores, ya que se encuentran, según sus previsiones, a la espera de una nueva subida de las cotizaciones. Esta situación, donde el volumen va unido a la tendencia, tiene la denominación por lo expertos bursatíles de volumen concordante. Por el contrario, si aumenta el volumen de contratación en las bajadas y se reduce en las sibidas, se podria llegar a pensar que la evolución de la tendencia puede que nosea la apropiada para nuestras expectativas de inversión. Por lo que se puede llegar a comprar aquellos titulos cuya cotización ha registrado alzas con elevados volúmenes de contratación y no hay que venderlos cuando se produzcan descensos con bajos volúmenes de contratación. Por el contrario, habría que vender aquellos titulos cuya cotización disminuye con fuertes volúmenes de contratación y no comprarlos cuando las subidas de contratación.
+
+
+LA TEORIA DE DOWN
