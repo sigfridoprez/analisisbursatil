@@ -11,6 +11,7 @@ import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import com.sun.appserv.util.cache.Cache;
 
 
 /**
@@ -45,7 +46,7 @@ public class Main {
         Statement stmt = conn.createStatement();
         ResultSet rst =
                 stmt.executeQuery(
-                "select hotelid,hotelname from TRAVEL.HOTEL");
+                "select id_conf,link from ci_conf_links");
         if (rst.next()) {
             foo = rst.getString(2);
             bar = rst.getInt(1);
