@@ -5,6 +5,7 @@
 
 package cafe.modellist;
 
+import java.math.BigDecimal;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 
@@ -49,7 +50,7 @@ public class MiListModel extends AbstractListModel{
         vLista.add(vo);
     }
 
-    public void addElement(long bdId,String cad){
+    public void addElement(BigDecimal bdId,String cad){
         DatoVO vo = new DatoVO(bdId,cad);
         vLista.add(vo);
     }

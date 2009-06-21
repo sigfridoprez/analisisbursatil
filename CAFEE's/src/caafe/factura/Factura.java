@@ -13,7 +13,7 @@ package caafe.factura;
 import caafe.autorizacion.Autoriza;
 import caafes.def.Clientes;
 import caafes.def.Facturas;
-import caafes.def.FacturasId;
+import caafes.def.FacturasPK;
 import clientes.servicio.ServicioCliente;
 import factura.servicio.ServicioFactura;
 import java.math.BigDecimal;
@@ -399,7 +399,7 @@ public class Factura extends MiFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void actualizaForm(int iEstatus, long iDCliente) {
+    public void actualizaForm(int iEstatus, BigDecimal iDCliente) {
         this.iEstatus = iEstatus;
 
         if (iEstatus == CONSULTAR) {
@@ -426,7 +426,7 @@ public class Factura extends MiFrame {
 
 
             nuevo = srvFactura.obtieneFactura(iDCliente);
-            consultaCliente = srvCliente.obtieneCliente(nuevo.getId().getIdCliente(), null);
+            consultaCliente = srvCliente.obtieneCliente(nuevo.getFacturasPK().getIdCliente(), null);
 
             jtxApellido.setText(consultaCliente.getApellidos());
             jtxCalleNum.setText(consultaCliente.getCalleNumero());
@@ -435,20 +435,17 @@ public class Factura extends MiFrame {
             jtxCodigoPost.setText(consultaCliente.getCodigoPostal());
             jtxColonia.setText(consultaCliente.getColonia());
             jtxDelegacionMunicipio.setText(consultaCliente.getDelegacionMunicipio());
-            jtxDescripcion.setText(nuevo.getDescripcion());
-            jtxFolio.setText(String.valueOf(nuevo.getId().getIdFolio()));
-            jtxIVA.setText(nuevo.getCostoTrabajo().multiply(new BigDecimal(".15")).toString());
+//            jtxDescripcion.setText(nuevo.getDescripcion());
+            jtxFolio.setText(String.valueOf(nuevo.getFacturasPK().getIdFolioFactura()));
+            
+//            jtxIVA.setText(nuevo.getCostoTrabajo().multiply(new BigDecimal(".15")).toString());
+
             jtxNombre.setText(consultaCliente.getNombre());
             jtxRFC.setText(consultaCliente.getRfc());
-            jtxTotal.setText(nuevo.getCostoTrabajo().toString());
-            jtxDescripcion.setText(nuevo.getDescripcion());
 
-            colocaValorCB();
-            if (nuevo.getIdAutorizacion() != null) {
-                jbAceptar.setToolTipText("Consultar Autorizacion");
-            } else {
-                jbAceptar.setToolTipText("Agrega Autorizacion");
-            }
+//            jtxTotal.setText(nuevo.getCostoTrabajo().toString());
+//            jtxDescripcion.setText(nuevo.getDescripcion());
+
 
             jbAceptar.setText("Editar");
         }
@@ -496,31 +493,29 @@ public class Factura extends MiFrame {
 }//GEN-LAST:event_jbAceptarActionPerformed
 
     public void modificaFactura(ServicioFactura srvFactura) {
-        nuevo.setCantidad(Long.valueOf(jtxCantidad.getText()));
-        nuevo.setCostoTrabajo(new BigDecimal(jtxTotal.getText()));
-        colocaIdentificador();
+//        nuevo.setCostoTrabajo(new BigDecimal(jtxTotal.getText()));
+//        colocaIdentificador();
         nuevo.setExportado(new Character('N'));
-        nuevo.setValido(new Character('S'));
 
         srvFactura.modificaFactura(nuevo);
         limpiaForma();
     }
 
-    private void colocaValorCB() {
-        String strCheck = nuevo.getDescripcion() != null ? nuevo.getDescripcion() : "";
-
-        if (!strCheck.isEmpty()) {
-            if (nuevo.getDescripcion().startsWith("1")) {
-                jcbDescripcion.setSelectedItem("Otro");
-            }
-            if (nuevo.getDescripcion().startsWith("2")) {
-                jcbDescripcion.setSelectedItem("Factura");
-            }
-            if (nuevo.getDescripcion().startsWith("3")) {
-                jcbDescripcion.setSelectedItem("Nota de Arrendamiento");
-            }
-        }
-    }
+//    private void colocaValorCB() {
+//        String strCheck = nuevo.getDescripcion() != null ? nuevo.getDescripcion() : "";
+//
+//        if (!strCheck.isEmpty()) {
+//            if (nuevo.getDescripcion().startsWith("1")) {
+//                jcbDescripcion.setSelectedItem("Otro");
+//            }
+//            if (nuevo.getDescripcion().startsWith("2")) {
+//                jcbDescripcion.setSelectedItem("Factura");
+//            }
+//            if (nuevo.getDescripcion().startsWith("3")) {
+//                jcbDescripcion.setSelectedItem("Nota de Arrendamiento");
+//            }
+//        }
+//    }
 
     private void limpiaForma() {
         jtxApellido.setText("");
@@ -546,7 +541,7 @@ public class Factura extends MiFrame {
 
         if (bEstado == true) {
             strFactura = jtxFolio.getText();
-            lista = srvFactura.obtieneListaFacturasFolio(Long.valueOf(strFactura));
+            lista = srvFactura.obtieneListaFacturasFolio(new BigDecimal(strFactura));
             if (lista != null) {
                 if (lista.isEmpty()) {
                     creaFactura(srvFactura);
@@ -559,31 +554,30 @@ public class Factura extends MiFrame {
         }
     }
 
-    private void colocaIdentificador() {
-        String cbCheck = "";
-        cbCheck = (String) jcbDescripcion.getSelectedItem();
-        if (!cbCheck.isEmpty()) {
-            if (cbCheck.equals("Otro")) {
-                nuevo.setDescripcion("1" + jtxDescripcion.getText());
-            } else if (cbCheck.equals("Factura")) {
-                nuevo.setDescripcion("");
-                nuevo.setDescripcion("2");
-            } else if (cbCheck.equals("Nota de Arrendamiento")) {
-                nuevo.setDescripcion("");
-                nuevo.setDescripcion("3");
-            }
-        }
-    }
+//    private void colocaIdentificador() {
+//        String cbCheck = "";
+//        cbCheck = (String) jcbDescripcion.getSelectedItem();
+//        if (!cbCheck.isEmpty()) {
+//            if (cbCheck.equals("Otro")) {
+//                nuevo.setDescripcion("1" + jtxDescripcion.getText());
+//            } else if (cbCheck.equals("Factura")) {
+//                nuevo.setDescripcion("");
+//                nuevo.setDescripcion("2");
+//            } else if (cbCheck.equals("Nota de Arrendamiento")) {
+//                nuevo.setDescripcion("");
+//                nuevo.setDescripcion("3");
+//            }
+//        }
+//    }
 
     private void creaFactura(ServicioFactura srvFactura) {
         nuevo = new Facturas();
-        FacturasId iD = new FacturasId(Long.valueOf(jtxFolio.getText()), clienteVO.getIdCliente());
-        nuevo.setId(iD);
-        nuevo.setCantidad(Long.valueOf(jtxCantidad.getText()));
-        nuevo.setCostoTrabajo(new BigDecimal(jtxTotal.getText()));
-        colocaIdentificador();
+        FacturasPK iD = new FacturasPK(new BigDecimal(jtxFolio.getText()), clienteVO.getIdCliente());
+        nuevo.setFacturasPK(iD);
+
+//        nuevo.setCostoTrabajo(new BigDecimal(jtxTotal.getText()));
+//        colocaIdentificador();
         nuevo.setExportado(new Character('N'));
-        nuevo.setValido(new Character('S'));
 
         srvFactura.insertaFactura(nuevo);
 
@@ -593,14 +587,14 @@ public class Factura extends MiFrame {
             jfAutoriza = new Autoriza();
             jfAutoriza.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
-        if (nuevo.getIdAutorizacion() != null) {
-            jfAutoriza.actualizaForm(Factura.CONSULTAR, nuevo.getIdAutorizacion());
-            jbAceptar.setToolTipText("Consultar Autorizacion");
-        } else {
-            jfAutoriza.actualizaForm(Factura.NUEVO, 0);
-            jfAutoriza.creaModelo();
-            jbAceptar.setToolTipText("Agrega Autorizacion");
-        }
+//        if (nuevo.getIdAutorizacion() != null) {
+//            jfAutoriza.actualizaForm(Factura.CONSULTAR, nuevo.getIdAutorizacion());
+//            jbAceptar.setToolTipText("Consultar Autorizacion");
+//        } else {
+//            jfAutoriza.actualizaForm(Factura.NUEVO, 0);
+//            jfAutoriza.creaModelo();
+//            jbAceptar.setToolTipText("Agrega Autorizacion");
+//        }
         jfAutoriza.setVisible(true);
         jfAutoriza.setAlwaysOnTop(true);
         jfAutoriza.setLocationRelativeTo(null);
@@ -652,16 +646,16 @@ public class Factura extends MiFrame {
             jfAutoriza = new Autoriza();
             jfAutoriza.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
-        if (nuevo.getIdAutorizacion() != null) {
-            jfAutoriza.actualizaForm(Factura.CONSULTAR, nuevo.getIdAutorizacion());
-            jfAutoriza.creaModelo();
-            jbAceptar.setToolTipText("Consultar Autorizacion");
-
-        } else {
-            jfAutoriza.actualizaForm(Factura.NUEVO, 0);
-            jfAutoriza.creaModelo();
-            jbAceptar.setToolTipText("Agrega Autorizacion");
-        }
+//        if (nuevo.getIdAutorizacion() != null) {
+//            jfAutoriza.actualizaForm(Factura.CONSULTAR, nuevo.getIdAutorizacion());
+//            jfAutoriza.creaModelo();
+//            jbAceptar.setToolTipText("Consultar Autorizacion");
+//
+//        } else {
+//            jfAutoriza.actualizaForm(Factura.NUEVO, 0);
+//            jfAutoriza.creaModelo();
+//            jbAceptar.setToolTipText("Agrega Autorizacion");
+//        }
         jfAutoriza.setVisible(true);
         jfAutoriza.setAlwaysOnTop(true);
         jfAutoriza.setLocationRelativeTo(null);
@@ -789,7 +783,7 @@ public class Factura extends MiFrame {
     public void regresaId(String iDCliente) {
         System.out.println("iDCliente:::" + iDCliente);
         ServicioCliente cliente = new ServicioCliente();
-        clienteVO = cliente.obtieneCliente(Long.valueOf(iDCliente), null);
+        clienteVO = cliente.obtieneCliente(new BigDecimal(iDCliente), null);
         jtxNombre.setText(clienteVO.getNombre());
         jtxRFC.setText(clienteVO.getRfc());
         jtxApellido.setText(clienteVO.getApellidos());

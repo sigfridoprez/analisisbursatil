@@ -37,6 +37,7 @@ import otro.splash;
 import utils.HibernateUtil;
 import caafe.factura.Factura;
 import caafes.def.Autorizaciones;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -84,21 +85,21 @@ public class MainFram extends MiFrame {
         Long index;
 
         if (listAutoriza != null) {
-            for (Autorizaciones autorizaVO : listAutoriza) {
-                facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(autorizaVO.getIdAutorizacion());
-                clienteVO = srvCliente.obtieneCliente(facturaVO.getId().getIdCliente(), null);
-
-                obRow = new Object[7];
-                obRow[0] = String.valueOf(autorizaVO.getIdAutorizacion());
-                obRow[1] = String.valueOf(facturaVO.getId().getIdFolio());
-                obRow[2] = dateForma.format(autorizaVO.getFechaCreacion());
-                obRow[3] = dateForma.format(autorizaVO.getCaducidad());
-                obRow[4] = autorizaVO.getAutorizo();
-                obRow[5] = clienteVO.getNombre() + "" + clienteVO.getApellidos();
-                obRow[6] = clienteVO.getRfc();
-
-                tableModel.addRow(obRow);
-            }
+//            for (Autorizaciones autorizaVO : listAutoriza) {
+//                facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(autorizaVO.getIdAutorizacion());
+//                clienteVO = srvCliente.obtieneCliente(facturaVO.getId().getIdCliente(), null);
+//
+//                obRow = new Object[7];
+//                obRow[0] = String.valueOf(autorizaVO.getIdAutorizacion());
+//                obRow[1] = String.valueOf(facturaVO.getId().getIdFolio());
+//                obRow[2] = dateForma.format(autorizaVO.getFechaCreacion());
+//                obRow[3] = dateForma.format(autorizaVO.getCaducidad());
+//                obRow[4] = autorizaVO.getAutorizo();
+//                obRow[5] = clienteVO.getNombre() + "" + clienteVO.getApellidos();
+//                obRow[6] = clienteVO.getRfc();
+//
+//                tableModel.addRow(obRow);
+//            }
         }
     }
 
@@ -596,10 +597,7 @@ public class MainFram extends MiFrame {
 
         if (lstFacturas != null) {
             for (Facturas facturas : lstFacturas) {
-                if (facturas.getValido() == 'S') {
-                    System.out.println(facturas.getValido());
-                    lstModeloFactura.addElement(facturas.getId().getIdFolio(), String.valueOf(facturas.getId().getIdFolio()));
-                }
+                    lstModeloFactura.addElement(facturas.getFacturasPK().getIdFolioFactura(), String.valueOf(facturas.getFacturasPK().getIdFolioFactura()));
             }
             jlFacturas.setModel(lstModeloFactura);
         }
@@ -642,23 +640,21 @@ public class MainFram extends MiFrame {
         Long index;
 
         if (listAutoriza != null) {
-            for (Autorizaciones autorizaVO : listAutoriza) {
-                facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(autorizaVO.getIdAutorizacion());
-                clienteVO = srvCliente.obtieneCliente(facturaVO.getId().getIdCliente(), null);
-
-                obRow = new Object[7];
-                obRow[0] = String.valueOf(autorizaVO.getIdAutorizacion());
-                obRow[1] = String.valueOf(facturaVO.getId().getIdFolio());
-                obRow[2] = dateForma.format(autorizaVO.getFechaCreacion());
-                obRow[3] = dateForma.format(autorizaVO.getCaducidad());
-                obRow[4] = autorizaVO.getAutorizo();
-                obRow[5] = clienteVO.getNombre() + "" + clienteVO.getApellidos();
-                obRow[6] = clienteVO.getRfc();
-
-                tableModel.addRow(obRow);
-            }
-
-
+//            for (Autorizaciones autorizaVO : listAutoriza) {
+//                facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(autorizaVO.getIdAutorizacion());
+//                clienteVO = srvCliente.obtieneCliente(facturaVO.getId().getIdCliente(), null);
+//
+//                obRow = new Object[7];
+//                obRow[0] = String.valueOf(autorizaVO.getIdAutorizacion());
+//                obRow[1] = String.valueOf(facturaVO.getId().getIdFolio());
+//                obRow[2] = dateForma.format(autorizaVO.getFechaCreacion());
+//                obRow[3] = dateForma.format(autorizaVO.getCaducidad());
+//                obRow[4] = autorizaVO.getAutorizo();
+//                obRow[5] = clienteVO.getNombre() + "" + clienteVO.getApellidos();
+//                obRow[6] = clienteVO.getRfc();
+//
+//                tableModel.addRow(obRow);
+//            }
         }
 }//GEN-LAST:event_jbUltimosActionPerformed
 
@@ -675,24 +671,22 @@ public class MainFram extends MiFrame {
         SimpleDateFormat dateForma = new SimpleDateFormat("dd/MM/yyyy");
 
         if (listAutoriza != null) {
-            for (Autorizaciones autorizaVO : listAutoriza) {
-                facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(autorizaVO.getIdAutorizacion());
-                clienteVO = srvCliente.obtieneCliente(facturaVO.getId().getIdCliente(), null);
-
-                obRow = new Object[7];
-                obRow[0] = String.valueOf(autorizaVO.getIdAutorizacion());
-                obRow[1] = String.valueOf(facturaVO.getId().getIdFolio());
-                obRow[2] = dateForma.format(autorizaVO.getFechaCreacion());
-                obRow[3] = dateForma.format(autorizaVO.getCaducidad());
-                obRow[4] = autorizaVO.getAutorizo();
-                obRow[5] = clienteVO.getNombre() + " " + clienteVO.getApellidos();
-                obRow[6] = clienteVO.getRfc();
-
-                tableModel.addRow(obRow);
-            }
-
-
-        }// TODO add your handling code here:
+//            for (Autorizaciones autorizaVO : listAutoriza) {
+//                facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(autorizaVO.getIdAutorizacion());
+//                clienteVO = srvCliente.obtieneCliente(facturaVO.getId().getIdCliente(), null);
+//
+//                obRow = new Object[7];
+//                obRow[0] = String.valueOf(autorizaVO.getIdAutorizacion());
+//                obRow[1] = String.valueOf(facturaVO.getId().getIdFolio());
+//                obRow[2] = dateForma.format(autorizaVO.getFechaCreacion());
+//                obRow[3] = dateForma.format(autorizaVO.getCaducidad());
+//                obRow[4] = autorizaVO.getAutorizo();
+//                obRow[5] = clienteVO.getNombre() + " " + clienteVO.getApellidos();
+//                obRow[6] = clienteVO.getRfc();
+//
+//                tableModel.addRow(obRow);
+//            }
+        }
 }//GEN-LAST:event_jbExpiraActionPerformed
 
     private void jlFacturasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlFacturasValueChanged
@@ -718,20 +712,20 @@ public class MainFram extends MiFrame {
         datoVO = lstModelo.getElementVO(index);
 
         factura = srvFactura.obtieneFactura(datoVO.getBdId());
-        if (factura.getIdAutorizacion() != null) {
-            autorizacion = srvAutorizacion.obtieneAutorizacion(factura.getIdAutorizacion());
-        }
+//        if (factura.getIdAutorizacion() != null) {
+//            autorizacion = srvAutorizacion.obtieneAutorizacion(factura.getIdAutorizacion());
+//        }
 
 
         if (autorizacion != null) {
-            lstModelAutorizacion.addElement(autorizacion.getIdAutorizacion(), String.valueOf(autorizacion.getIdAutorizacion()));
+//            lstModelAutorizacion.addElement(autorizacion.getAutorizacionesPK().getIdAutorizacion(), String.valueOf(autorizacion.getIdAutorizacion()));
             jlAutoriza.setModel(lstModelAutorizacion);
         } else {
             lstModelAutorizacion.limpiaModelo();
             jlAutoriza.setModel(lstModelAutorizacion);
         }
         factura = srvFactura.obtieneFactura(datoVO.getBdId());
-        cliente = srvCliente.obtieneCliente(factura.getId().getIdCliente(), null);
+//        cliente = srvCliente.obtieneCliente(factura.getId().getIdCliente(), null);
 
         tblModel.addColumn("Folio");
         tblModel.addColumn("Cliente");
@@ -740,19 +734,20 @@ public class MainFram extends MiFrame {
         tblModel.addColumn("Total");
 
         obRow = new Object[5];
-        obRow[0] = factura.getId().getIdFolio();
-        obRow[1] = cliente.getNombre() + " " + cliente.getApellidos();
-        obRow[2] = factura.getCantidad();
-        if (factura.getDescripcion().startsWith("1")) {
-            obRow[3] = factura.getDescripcion();
-        } else if (factura.getDescripcion().startsWith("2")) {
-            obRow[3] = "Factura";
-        } else if (factura.getDescripcion().startsWith("3")) {
-            obRow[3] = "Nota de Arrendamiento";
-        } else {
-            obRow[3] = "";
-        }
-        obRow[4] = factura.getCostoTrabajo();
+//        obRow[0] = factura.getId().getIdFolio();
+//        obRow[1] = cliente.getNombre() + " " + cliente.getApellidos();
+//        obRow[2] = factura.getCantidad();
+//        if (factura.getDescripcion().startsWith("1")) {
+//            obRow[3] = factura.getDescripcion();
+//        } else if (factura.getDescripcion().startsWith("2")) {
+//            obRow[3] = "Factura";
+//        } else if (factura.getDescripcion().startsWith("3")) {
+//            obRow[3] = "Nota de Arrendamiento";
+//        } else {
+//            obRow[3] = "";
+//        }
+
+//        obRow[4] = factura.getCostoTotal();
         tblModel.addRow(obRow);
 
         jtBusquedas.setModel(tblModel);
@@ -896,8 +891,8 @@ public class MainFram extends MiFrame {
         index = jlAutoriza.getSelectedIndex();
         dato = lstModelo.getElementVO(index);
         Facturas factura = srvFactura.obtieneFacturaFolioAutorizacion(dato.getBdId());
-        Autorizaciones autoriza = srvAutorizacion.obtieneAutorizacion(dato.getBdId());
-        Clientes cliente = srvCliente.obtieneCliente(factura.getId().getIdCliente(), null);
+//        Autorizaciones autoriza = srvAutorizacion.obtieneAutorizacion(dato.getBdId());
+//        Clientes cliente = srvCliente.obtieneCliente(factura.getId().getIdCliente(), null);
 
         tblModel.addColumn("Numero autorización");
         tblModel.addColumn("Folios");
@@ -908,13 +903,13 @@ public class MainFram extends MiFrame {
         tblModel.addColumn("Nombre Cliente");
 
         obRow = new Object[7];
-        obRow[0] = autoriza.getIdAutorizacion();
-        obRow[1] = autoriza.getFolioInicio() + " - " + autoriza.getFolioFinal();
-        obRow[2] = autoriza.getCaducidad();
-        obRow[3] = factura.getId().getIdFolio();
-        obRow[4] = autoriza.getSolicitante();
-        obRow[5] = autoriza.getAutorizo();
-        obRow[6] = cliente.getNombre() + " " + cliente.getApellidos();
+//        obRow[0] = autoriza.getIdAutorizacion();
+//        obRow[1] = autoriza.getFolioInicio() + " - " + autoriza.getFolioFinal();
+//        obRow[2] = autoriza.getCaducidad();
+//        obRow[3] = factura.getId().getIdFolio();
+//        obRow[4] = autoriza.getSolicitante();
+//        obRow[5] = autoriza.getAutorizo();
+//        obRow[6] = cliente.getNombre() + " " + cliente.getApellidos();
         tblModel.addRow(obRow);
 
         jtBusquedas.setModel(tblModel);
@@ -935,7 +930,7 @@ public class MainFram extends MiFrame {
             if (frmAutoriza == null) {
                 frmAutoriza = new Autoriza();
             }
-            frmAutoriza.actualizaForm(Factura.CONSULTAR, Long.valueOf(iD));
+            frmAutoriza.actualizaForm(Factura.CONSULTAR, new BigDecimal(iD));
             frmAutoriza.setAlwaysOnTop(true);
             frmAutoriza.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             frmAutoriza.setLocationRelativeTo(this);
@@ -976,9 +971,10 @@ public class MainFram extends MiFrame {
                 frmCliente = new Cliente();
             }
             srvFactura = new ServicioFactura();
-            facturaVO = srvFactura.obtieneFactura(Long.valueOf(iD));
+            facturaVO = srvFactura.obtieneFactura(new BigDecimal(iD));
 
-            frmCliente.actualizaForm(Factura.CONSULTAR, facturaVO.getId().getIdCliente());
+//            frmCliente.actualizaForm(Factura.CONSULTAR, facturaVO.getFacturasPK().getIdCliente());
+            frmCliente.actualizaForm(Factura.CONSULTAR, facturaVO.getClientes().getIdCliente());
             frmCliente.setAlwaysOnTop(true);
             frmCliente.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             frmCliente.setLocationRelativeTo(this);
@@ -1004,7 +1000,7 @@ public class MainFram extends MiFrame {
             if (frmFactura == null) {
                 frmFactura = new Factura();
             }
-            frmFactura.actualizaForm(Factura.CONSULTAR, Long.valueOf(iD));
+            frmFactura.actualizaForm(Factura.CONSULTAR, new BigDecimal(iD));
             frmFactura.setAlwaysOnTop(true);
             frmFactura.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             frmFactura.setLocationRelativeTo(this);
@@ -1143,7 +1139,7 @@ public class MainFram extends MiFrame {
             if (frmCliente == null) {
                 frmCliente = new Cliente();
             }
-            frmCliente.actualizaForm(Cliente.NUEVO, 0);
+            frmCliente.actualizaForm(Cliente.NUEVO, new BigDecimal(0));
             frmCliente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frmCliente.setVisible(true);
             frmCliente.setAlwaysOnTop(true);
@@ -1153,7 +1149,7 @@ public class MainFram extends MiFrame {
             if (frmFactura == null) {
                 frmFactura = new Factura();
             }
-            frmFactura.actualizaForm(Cliente.NUEVO, 0);
+            frmFactura.actualizaForm(Cliente.NUEVO, new BigDecimal(0));
             frmFactura.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frmFactura.setVisible(true);
             frmFactura.setAlwaysOnTop(true);

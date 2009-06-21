@@ -15,6 +15,7 @@ import caafes.def.Autorizaciones;
 import caafes.def.Facturas;
 import factura.servicio.ServicioFactura;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class Autoriza extends MiFrame {
         }
     }
 
-    public void actualizaForm(int iEstatus, long idAutorizacion) {
+    public void actualizaForm(int iEstatus, BigDecimal idAutorizacion) {
         this.iEstatus = iEstatus;
 
         if (iEstatus == CONSULTAR) {
@@ -77,9 +78,9 @@ public class Autoriza extends MiFrame {
             ServicioFactura srvFactura = new ServicioFactura();
             Facturas facturaVO = srvFactura.obtieneFacturaFolioAutorizacion(idAutorizacion);
 
-            autorizaVO = srvAutorizacion.obtieneAutorizacion(idAutorizacion);
-
-            jtxNumAutoriza.setText(String.valueOf(autorizaVO.getIdAutorizacion()));
+//            autorizaVO = srvAutorizacion.obtieneAutorizacion(idAutorizacion);
+//
+//            jtxNumAutoriza.setText(String.valueOf(autorizaVO.getIdAutorizacion()));
             jtxFolioIncia.setText(String.valueOf(autorizaVO.getFolioInicio()));
             jtxFolioFin.setText(String.valueOf(autorizaVO.getFolioFinal()));
             jtxAutorizo.setText(autorizaVO.getAutorizo());
@@ -88,7 +89,7 @@ public class Autoriza extends MiFrame {
 
             DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
 
-            defaultComboBoxModel.addElement(facturaVO.getId().getIdFolio());
+            defaultComboBoxModel.addElement(facturaVO.getFacturasPK().getIdFolioFactura());
             jcbFactura.setModel(defaultComboBoxModel);
 
             jbAceptar.setText("Modificar");
@@ -356,21 +357,20 @@ public class Autoriza extends MiFrame {
             autoriza = new Autorizaciones();
 
             autoriza.setAutorizo(jtxAutorizo.getText());
-            autoriza.setFolioInicio(jtxFolioIncia.getText());
-            autoriza.setFolioFinal(jtxFolioFin.getText());
+            autoriza.setFolioInicio(new BigInteger(jtxFolioIncia.getText()));
+            autoriza.setFolioFinal(new BigInteger(jtxFolioFin.getText()));
             autoriza.setCaducidad(jcCaduca.getDate());
             autoriza.setFechaCreacion(Calendar.getInstance().getTime());
-            autoriza.setIdAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
+//            autoriza.setIdAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
             autoriza.setSolicitante(jtxSolocitante.getText());
-            autoriza.setValido('S');
             autoriza.setExportado('N');
             strFac = jcbFactura.getSelectedItem().toString();
 
             srvAutoriza.insertaAutorizacion(autoriza);
 
-            factura= srvfFactura.obtieneFactura(Long.valueOf(strFac));
+            factura= srvfFactura.obtieneFactura(new BigDecimal(strFac));
             strFac = jtxNumAutoriza.getText();
-            factura.setIdAutorizacion(Long.valueOf(strFac));
+//            factura.setIdAutorizacion(Long.valueOf(strFac));
             srvfFactura.modificaFactura(factura);
 
             JOptionPane.showMessageDialog(this, "Datos agregados Correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
@@ -387,13 +387,12 @@ public class Autoriza extends MiFrame {
             autoriza = srvAutoriza.obtieneAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
 
             autoriza.setAutorizo(jtxAutorizo.getText());
-            autoriza.setFolioInicio(jtxFolioIncia.getText());
-            autoriza.setFolioFinal(jtxFolioFin.getText());
+            autoriza.setFolioInicio(new BigInteger(jtxFolioIncia.getText()));
+            autoriza.setFolioFinal(new BigInteger(jtxFolioFin.getText()));
             autoriza.setCaducidad(jcCaduca.getDate());
             autoriza.setFechaCreacion(Calendar.getInstance().getTime());
-            autoriza.setIdAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
+//            autoriza.setIdAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
             autoriza.setSolicitante(jtxSolocitante.getText());
-            autoriza.setValido('S');
             autoriza.setExportado('N');
             srvAutoriza.modificaAutorizacion(autoriza);
     }
