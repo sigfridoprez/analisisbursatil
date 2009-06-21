@@ -39,7 +39,7 @@ public class Cliente extends MiFrame {
 
     public void actualizaForm(int iEstatus, BigDecimal iDCliente) {
         this.iEstatus = iEstatus;
-
+        
         if (iEstatus == CONSULTAR) {
             jtxNombre.setEnabled(false);
             jtxApellido.setEnabled(false);
