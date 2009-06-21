@@ -37,7 +37,7 @@ public class Cliente extends MiFrame {
         initComponents();
     }
 
-    public void actualizaForm(int iEstatus, long iDCliente) {
+    public void actualizaForm(int iEstatus, BigDecimal iDCliente) {
         this.iEstatus = iEstatus;
 
         if (iEstatus == CONSULTAR) {
@@ -441,7 +441,6 @@ public class Cliente extends MiFrame {
         nuevo.setDelegacionMunicipio(jtxDelegacion.getText());
         nuevo.setTelefono(jtxTelefono.getText());
         nuevo.setCiudad(jtxCiudad.getText());
-        nuevo.setValido(Character.valueOf('S'));
         nuevo.setExportado(Character.valueOf('N'));
     }
 

@@ -12,39 +12,39 @@ import java.math.BigDecimal;
  * @author Edgar
  */
 public class DatoVO {
-    private long bdId;
+    private BigDecimal bdId;
     private String strDesc;
 
     public DatoVO(){
-        bdId = 0;
+        bdId = new BigDecimal("0");
         strDesc = "";
     }
 
     public DatoVO(String strDesc){
-        this.bdId = 0;
+        this.bdId = new BigDecimal("0");
         this.strDesc = strDesc;
     }
 
-    public DatoVO(long bdId,String strDesc){
+    public DatoVO(BigDecimal bdId,String strDesc){
         this.bdId = bdId;
         this.strDesc = strDesc;
     }
 
     public DatoVO(String bdId,String strDesc){
-        this.bdId = Long.parseLong(bdId);
+        this.bdId = new BigDecimal(bdId);
         this.strDesc = strDesc;
     }
 
      public DatoVO(int bdId,String strDesc){
-        this.bdId = bdId;
+        this.bdId = new BigDecimal(bdId);
         this.strDesc = strDesc;
     }
 
-    public long getBdId() {
+    public BigDecimal getBdId() {
         return bdId;
     }
 
-    public void setBdId(long bdId) {
+    public void setBdId(BigDecimal bdId) {
         this.bdId = bdId;
     }
 

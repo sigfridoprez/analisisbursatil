@@ -13,6 +13,7 @@ package caafe.factura;
 import caafe.cliente.Cliente;
 import caafes.def.Clientes;
 import clientes.servicio.ServicioCliente;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
@@ -224,7 +225,7 @@ public class SeleccionaCliente extends javax.swing.JFrame {
 if (frmCliente == null) {
             frmCliente = new Cliente();
         }
-        frmCliente.actualizaForm(Cliente.NUEVO, 0);
+        frmCliente.actualizaForm(Cliente.NUEVO, new BigDecimal(0));
         frmCliente.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frmCliente.setVisible(true);
         frmCliente.setAlwaysOnTop(true);
