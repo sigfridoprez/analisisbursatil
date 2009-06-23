@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: mx.com.registro
+OpenIDE-Module-Localizing-Bundle: mx/com/registro/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
