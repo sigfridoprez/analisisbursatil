@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: mx.com.altadatosgenerales
+OpenIDE-Module-Layer: mx/com/altadatosgenerales/layer.xml
+OpenIDE-Module-Localizing-Bundle: mx/com/altadatosgenerales/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

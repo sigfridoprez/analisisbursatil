@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: mx.com.proveedorservicios
+OpenIDE-Module-Localizing-Bundle: mx/com/proveedorservicios/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
