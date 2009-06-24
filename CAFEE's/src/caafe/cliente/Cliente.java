@@ -15,14 +15,14 @@ import clientes.servicio.ServicioCliente;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.JOptionPane;
-import otro.MiFrame;
+import otro.MiJDialog;
 import otro.Pass;
 
 /**
  *
  * @author Edgar
  */
-public class Cliente extends MiFrame {
+public class Cliente extends MiJDialog {
 
     private Clientes nuevo = null;
     private Pass frmPass = null;
@@ -39,8 +39,9 @@ public class Cliente extends MiFrame {
 
     public void actualizaForm(int iEstatus, BigDecimal iDCliente) {
         this.iEstatus = iEstatus;
-        
+
         if (iEstatus == CONSULTAR) {
+            jtxArchivo.setEnabled(false);
             jtxNombre.setEnabled(false);
             jtxApellido.setEnabled(false);
             jtxRFC.setEnabled(false);
@@ -54,6 +55,7 @@ public class Cliente extends MiFrame {
 
             nuevo = srvCliente.obtieneCliente(iDCliente, null);
 
+            jtxArchivo.setText(nuevo.getNumeroArchivo());
             jtxNombre.setText(nuevo.getNombre());
             jtxApellido.setText(nuevo.getApellidos());
             jtxRFC.setText(nuevo.getRfc());
@@ -70,6 +72,7 @@ public class Cliente extends MiFrame {
 
 
         if (iEstatus == NUEVO) {
+            jtxArchivo.setEnabled(true);
             jtxNombre.setEnabled(true);
             jtxApellido.setEnabled(true);
             jtxRFC.setEnabled(true);
@@ -113,6 +116,8 @@ public class Cliente extends MiFrame {
         jLabel9 = new javax.swing.JLabel();
         jtxTelefono = new javax.swing.JTextField();
         jtxCodigoPostal = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jtxArchivo = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -121,7 +126,6 @@ public class Cliente extends MiFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar Cliente");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -131,7 +135,7 @@ public class Cliente extends MiFrame {
 
         jLabel1.setText("Nombre");
 
-        jLabel2.setText("Apellido");
+        jLabel2.setText("Apellidos");
 
         jLabel3.setText("RFC");
 
@@ -159,27 +163,70 @@ public class Cliente extends MiFrame {
             }
         });
 
+        jtxNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxNombreKeyPressed(evt);
+            }
+        });
+
+        jtxApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxApellidoKeyPressed(evt);
+            }
+        });
+
+        jtxRFC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxRFCKeyPressed(evt);
+            }
+        });
+
+        jtxColonia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxColoniaKeyPressed(evt);
+            }
+        });
+
+        jtxDelegacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxDelegacionKeyPressed(evt);
+            }
+        });
+
+        jtxCiudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxCiudadKeyPressed(evt);
+            }
+        });
+
         jLabel9.setText("Telefono");
 
-        jtxTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxTelefonoActionPerformed(evt);
+        jtxTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxTelefonoKeyPressed(evt);
             }
-        });
-        jtxTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtxTelefonoFocusLost(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxTelefonoKeyReleased(evt);
             }
         });
 
-        jtxCodigoPostal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxCodigoPostalActionPerformed(evt);
+        jtxCodigoPostal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxCodigoPostalKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxCodigoPostalKeyReleased(evt);
             }
         });
-        jtxCodigoPostal.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtxCodigoPostalFocusLost(evt);
+
+        jLabel10.setText("Numero en Archivo");
+
+        jtxArchivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxArchivoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxArchivoKeyReleased(evt);
             }
         });
 
@@ -194,6 +241,7 @@ public class Cliente extends MiFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem3.setText("Salir");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,84 +268,107 @@ public class Cliente extends MiFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel9)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxRFC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxCalleNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtxCodigoPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jtxDelegacion, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtxColonia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtxCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(jtxApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(jtxRFC, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(jtxCalleNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtxCodigoPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                .addGap(110, 110, 110))
+                            .addComponent(jtxDelegacion, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(jtxColonia, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jtxTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-                        .addGap(18, 18, 18))
-                    .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                                .addComponent(jbAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jbSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                            .addComponent(jtxTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(jtxNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jtxArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel10)
+                    .addComponent(jtxArchivo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1))
                     .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2))
                     .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel3))
                     .addComponent(jtxRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel4))
                     .addComponent(jtxCalleNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel5))
                     .addComponent(jtxColonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel6))
                     .addComponent(jtxCodigoPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7))
                     .addComponent(jtxDelegacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel9))
                     .addComponent(jtxTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jtxCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -320,7 +391,7 @@ public class Cliente extends MiFrame {
                 break;
             case CONSULTAR:
                 if (frmPass == null) {
-                    frmPass = new Pass(this,1);
+                    frmPass = new Pass(this, 1);
                 }
                 frmPass.limpiaFrame();
                 frmPass.setVisible(true);
@@ -333,6 +404,7 @@ public class Cliente extends MiFrame {
 
     @Override
     public void cbPasswprd() {
+        jtxArchivo.setEnabled(true);
         jtxNombre.setEnabled(true);
         jtxApellido.setEnabled(true);
         jtxRFC.setEnabled(true);
@@ -366,17 +438,60 @@ public class Cliente extends MiFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
-    private void jtxCodigoPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxCodigoPostalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxCodigoPostalActionPerformed
+    private void jtxArchivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxArchivoKeyPressed
+       String cSubstring = jtxArchivo.getText();
+        if (jtxArchivo.getText().length() >= 5&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Archivo solo acepta 5 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxArchivo.setText(cSubstring.substring(0, 5));
+        }
+    }//GEN-LAST:event_jtxArchivoKeyPressed
 
-    private void jtxTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxTelefonoActionPerformed
+    private void jtxNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxNombreKeyPressed
+    String cSubstring = jtxNombre.getText();
+        if (jtxNombre.getText().length() >= 20&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Nombre solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxNombre.setText(cSubstring.substring(0, 20));
+        } 
+    }//GEN-LAST:event_jtxNombreKeyPressed
 
-    private void jtxCodigoPostalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxCodigoPostalFocusLost
-        BigDecimal bdCantidad = null;
+    private void jtxApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxApellidoKeyPressed
+String cSubstring = jtxApellido.getText();
+        if (jtxApellido.getText().length() >= 50&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Apellidos solo acepta 50 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxApellido.setText(cSubstring.substring(0, 50));
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_jtxApellidoKeyPressed
 
+    private void jtxRFCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxRFCKeyPressed
+String cSubstring = jtxRFC.getText();
+        if (jtxRFC.getText().length() >= 13&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo RFC solo acepta 13 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxRFC.setText(cSubstring.substring(0, 13));
+        }         // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxRFCKeyPressed
+
+    private void jtxColoniaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxColoniaKeyPressed
+String cSubstring = jtxColonia.getText();
+        if (jtxColonia.getText().length() >= 20&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Colonia solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxColonia.setText(cSubstring.substring(0, 20));
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_jtxColoniaKeyPressed
+
+    private void jtxCodigoPostalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxCodigoPostalKeyPressed
+String cSubstring = jtxCodigoPostal.getText();
+
+
+        if (jtxCodigoPostal.getText().length() >= 7&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Codigo Postal solo acepta 7 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxCodigoPostal.setText(cSubstring.substring(0, 7));
+            }
+
+         
+    }//GEN-LAST:event_jtxCodigoPostalKeyPressed
+
+    private void jtxCodigoPostalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxCodigoPostalKeyReleased
+  BigDecimal bdCantidad = null;
         if (!jtxCodigoPostal.getText().equals("")) {
             try {
                 bdCantidad = new BigDecimal(jtxCodigoPostal.getText());
@@ -385,11 +500,35 @@ public class Cliente extends MiFrame {
                 JOptionPane.showMessageDialog(this, "El Codigo Postal debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
                 jtxCodigoPostal.setText("");
             }
-        }// TODO add your handling code here:
-    }//GEN-LAST:event_jtxCodigoPostalFocusLost
+        }             // TODO add your handling code here:
+    }//GEN-LAST:event_jtxCodigoPostalKeyReleased
 
-    private void jtxTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxTelefonoFocusLost
-        BigDecimal bdCantidad = null;
+    private void jtxDelegacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxDelegacionKeyPressed
+String cSubstring = jtxDelegacion.getText();
+       if (jtxDelegacion.getText().length() >= 20&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Delegacion O municipio solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxDelegacion.setText(cSubstring.substring(0, 20));
+        }           // TODO add your handling code here:
+    }//GEN-LAST:event_jtxDelegacionKeyPressed
+
+    private void jtxTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxTelefonoKeyPressed
+      String cSubstring = jtxTelefono.getText();
+        if (jtxTelefono.getText().length() >= 15&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Telefono solo acepta 15 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxTelefono.setText(cSubstring.substring(0, 15));
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_jtxTelefonoKeyPressed
+
+    private void jtxCiudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxCiudadKeyPressed
+        String cSubstring = jtxCiudad.getText();
+        if (jtxCiudad.getText().length() >= 20&&ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Ciudad solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxCiudad.setText(cSubstring.substring(0, 20));
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_jtxCiudadKeyPressed
+
+    private void jtxTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxTelefonoKeyReleased
+ BigDecimal bdCantidad = null;
 
         if (!jtxTelefono.getText().equals("")) {
             try {
@@ -399,8 +538,30 @@ public class Cliente extends MiFrame {
                 JOptionPane.showMessageDialog(this, "El Telefono debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
                 jtxTelefono.setText("");
             }
-        }// TODO add your handling code here:
-    }//GEN-LAST:event_jtxTelefonoFocusLost
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxTelefonoKeyReleased
+
+    private void jtxArchivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxArchivoKeyReleased
+  BigDecimal bdCantidad = null;
+        if (!jtxArchivo.getText().equals("")) {
+            try {
+                bdCantidad = new BigDecimal(jtxArchivo.getText());
+
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, "El Numero de Archivo debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+                jtxArchivo.setText("");
+            }
+        }           // TODO add your handling code here:
+    }//GEN-LAST:event_jtxArchivoKeyReleased
+    
+    
+    public boolean  ignoraKey(java.awt.event.KeyEvent evt){
+        if(evt.getKeyCode()==10||evt.getKeyCode()==18||evt.getKeyCode()==17||evt.getKeyCode()==8||evt.getKeyCode()==127||evt.getKeyCode()==155||evt.getKeyCode()==16||evt.getKeyCode()==20||evt.getKeyCode()==33||evt.getKeyCode()==34||evt.getKeyCode()==35||evt.getKeyCode()==36||evt.getKeyCode()==37||evt.getKeyCode()==38||evt.getKeyCode()==39||evt.getKeyCode()==40){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     public void insertaCliente() {
         System.out.println("inserta cliente:");
@@ -431,29 +592,32 @@ public class Cliente extends MiFrame {
         limpiaForma();
 
     }
-    public void insertaClienteReviso(){
-        nuevo.setNombre(jtxNombre.getText());
-        nuevo.setApellidos(jtxApellido.getText());
-        nuevo.setRfc(jtxRFC.getText());
-        nuevo.setCalleNumero(jtxCalleNumero.getText());
-        nuevo.setColonia(jtxColonia.getText());
+
+    public void insertaClienteReviso() {
+        nuevo.setNumeroArchivo(jtxArchivo.getText());
+        nuevo.setNombre(jtxNombre.getText().toUpperCase());
+        nuevo.setApellidos(jtxApellido.getText().toUpperCase());
+        nuevo.setRfc(jtxRFC.getText().toUpperCase());
+        nuevo.setCalleNumero(jtxCalleNumero.getText().toUpperCase());
+        nuevo.setColonia(jtxColonia.getText().toUpperCase());
         nuevo.setCodigoPostal(jtxCodigoPostal.getText());
-        nuevo.setDelegacionMunicipio(jtxDelegacion.getText());
+        nuevo.setDelegacionMunicipio(jtxDelegacion.getText().toUpperCase());
         nuevo.setTelefono(jtxTelefono.getText());
-        nuevo.setCiudad(jtxCiudad.getText());
+        nuevo.setCiudad(jtxCiudad.getText().toUpperCase());
         nuevo.setExportado(Character.valueOf('N'));
     }
 
     public void modificaCliente() {
         System.out.println("inserta cliente:");
 
-        nuevo.setNombre(jtxNombre.getText());
-        nuevo.setApellidos(jtxApellido.getText());
+        nuevo.setNumeroArchivo(jtxArchivo.getText());
+        nuevo.setNombre(jtxNombre.getText().toUpperCase());
+        nuevo.setApellidos(jtxApellido.getText().toUpperCase());
         nuevo.setRfc(jtxRFC.getText());
-        nuevo.setCalleNumero(jtxCalleNumero.getText());
-        nuevo.setColonia(jtxColonia.getText());
+        nuevo.setCalleNumero(jtxCalleNumero.getText().toUpperCase());
+        nuevo.setColonia(jtxColonia.getText().toUpperCase());
         nuevo.setCodigoPostal(jtxCodigoPostal.getText());
-        nuevo.setDelegacionMunicipio(jtxDelegacion.getText());
+        nuevo.setDelegacionMunicipio(jtxDelegacion.getText().toUpperCase());
         nuevo.setTelefono(jtxTelefono.getText());
         nuevo.setCiudad(jtxCiudad.getText());
 
@@ -464,6 +628,7 @@ public class Cliente extends MiFrame {
     }
 
     private void limpiaForma() {
+        jtxArchivo.setText("");
         jtxNombre.setText("");
         jtxApellido.setText("");
         jtxRFC.setText("");
@@ -479,7 +644,10 @@ public class Cliente extends MiFrame {
         StringBuilder sbError = new StringBuilder("");
         boolean bEntra = false;
 
-
+        if (jtxArchivo.getText().length() > 20) {
+            sbError.append("El campo Archivo solo acepta 20 caracteres\n");
+            bEntra = true;
+        }
         if (jtxNombre.getText().length() > 20) {
             sbError.append("El campo Nombre solo acepta 20 caracteres\n");
             bEntra = true;
@@ -594,6 +762,7 @@ public class Cliente extends MiFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -612,6 +781,7 @@ public class Cliente extends MiFrame {
     private javax.swing.JButton jbAceptar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JTextField jtxApellido;
+    private javax.swing.JTextField jtxArchivo;
     private javax.swing.JTextField jtxCalleNumero;
     private javax.swing.JTextField jtxCiudad;
     private javax.swing.JTextField jtxCodigoPostal;
@@ -621,5 +791,4 @@ public class Cliente extends MiFrame {
     private javax.swing.JTextField jtxRFC;
     private javax.swing.JTextField jtxTelefono;
     // End of variables declaration//GEN-END:variables
-
 }

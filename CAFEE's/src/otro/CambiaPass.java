@@ -21,7 +21,7 @@ import usuarios.servicio.ServicioUsuario;
  */
 public class CambiaPass extends MiFrame {
 
-    private long index;
+    private BigDecimal index;
     private String stConfirma;
     private String stNuevo;
     private String stViejo;
@@ -32,7 +32,7 @@ public class CambiaPass extends MiFrame {
     }
 
     public void modelo() {
-        index = jcbUsuarios.getSelectedIndex();
+        index =new BigDecimal(jcbUsuarios.getSelectedIndex());
         limpiaForma();
     }
 
@@ -67,6 +67,11 @@ public class CambiaPass extends MiFrame {
         });
 
         jbAceptar.setText("Aceptar");
+        jbAceptar.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jbAceptarComponentShown(evt);
+            }
+        });
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAceptarActionPerformed(evt);
@@ -156,7 +161,7 @@ public class CambiaPass extends MiFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUsuariosActionPerformed
-        index = jcbUsuarios.getSelectedIndex();       // TODO add your handling code here:
+        index = new BigDecimal(jcbUsuarios.getSelectedIndex());       // TODO add your handling code here:
     }//GEN-LAST:event_jcbUsuariosActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
@@ -197,6 +202,10 @@ public void limpiaForma(){
     private void jpConfirmaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpConfirmaFocusLost
         // TODO add your handling code here:
 }//GEN-LAST:event_jpConfirmaFocusLost
+
+    private void jbAceptarComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jbAceptarComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAceptarComponentShown
 
     /**
      * @param args the command line arguments

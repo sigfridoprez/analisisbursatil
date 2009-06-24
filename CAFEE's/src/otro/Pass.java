@@ -12,6 +12,8 @@ package otro;
 
 import caafe.autorizacion.Autoriza;
 import caafes.def.Usuarios;
+import java.math.BigDecimal;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import usuarios.servicio.ServicioUsuario;
 
@@ -19,21 +21,18 @@ import usuarios.servicio.ServicioUsuario;
  *
  * @author Edgar
  */
-public class Pass extends javax.swing.JFrame {
+public class Pass extends MiJDialog {
 
-    private MiFrame frmCliente;
+    private Object frmCliente;
     private int permiso;
 
-
     /** Creates new form Pass */
-    public Pass(MiFrame frmCliente, int permiso) {
+    public Pass(Object frmCliente, int permiso) {
         this.frmCliente = frmCliente;
         this.permiso = permiso;
         initComponents();
         this.setResizable(false);
     }
-
-
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -56,10 +55,21 @@ public class Pass extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Para Editar es necesario Incertar un Pasword");
 
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
+
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -67,6 +77,11 @@ public class Pass extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton2KeyPressed(evt);
             }
         });
 
@@ -96,7 +111,7 @@ public class Pass extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -106,20 +121,22 @@ public class Pass extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void boton() {
         String strPassBD = "hola";
         String strPassControl = "";
         ServicioUsuario srvUsuario = new ServicioUsuario();
-        Usuarios root = srvUsuario.ObtieneUsuarios(Long.valueOf("0"));
-        Usuarios Usuarios = srvUsuario.ObtieneUsuarios(Long.valueOf("1"));
+        Usuarios root = srvUsuario.ObtieneUsuarios(new BigDecimal("0"));
+        Usuarios Usuarios = srvUsuario.ObtieneUsuarios(new BigDecimal("1"));
 
         if (permiso == 0) {
-
             strPassControl = String.valueOf(jPasswordField1.getPassword());
-
             if (strPassControl.equals(root.getPassword()) || strPassControl.equals(Usuarios.getPassword())) {
-                this.frmCliente.cbPasswprd();
                 this.dispose();
+                if(this.frmCliente instanceof MiJDialog){
+                    ((MiJDialog)this.frmCliente).cbPasswprd();
+                }else if(this.frmCliente instanceof MiFrame){
+                    ((MiFrame)this.frmCliente).cbPasswprd();
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Password invalido", "Verifica Pass", JOptionPane.ERROR_MESSAGE);
                 jPasswordField1.setText("");
@@ -129,7 +146,11 @@ public class Pass extends javax.swing.JFrame {
             strPassControl = String.valueOf(jPasswordField1.getPassword());
 
             if (strPassControl.equals(root.getPassword())) {
-                this.frmCliente.cbPasswprd();
+                if(this.frmCliente instanceof MiJDialog){
+                    ((MiJDialog)this.frmCliente).cbPasswprd();
+                }else if(this.frmCliente instanceof MiFrame){
+                    ((MiFrame)this.frmCliente).cbPasswprd();
+                }
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Password invalido \n Puede que no tengas los permisos\n para realizar la consulta", "Verifica Pass", JOptionPane.ERROR_MESSAGE);
@@ -137,11 +158,39 @@ public class Pass extends javax.swing.JFrame {
                 jPasswordField1.requestFocus();
             }
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boton();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);        // TODO add your handling code here:
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        System.out.println(evt.getKeyCode());
+        if (evt.getKeyCode() == 10) {
+            boton();
+        }
+         if (evt.getKeyCode() == 27) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+       if (evt.getKeyCode() == 10) {
+            boton();
+        }
+         if (evt.getKeyCode() == 27) {
+            this.dispose();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyPressed
+         if (evt.getKeyCode() == 27) {
+            this.dispose();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2KeyPressed
 
     public void limpiaFrame() {
         jPasswordField1.setText("");
@@ -153,4 +202,9 @@ public class Pass extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cbPasswprd() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

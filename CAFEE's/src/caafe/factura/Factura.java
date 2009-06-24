@@ -11,25 +11,39 @@
 package caafe.factura;
 
 import caafe.autorizacion.Autoriza;
+import caafe.table.celleditor.ButtonCellEditor;
+import caafe.table.tablemodel.DetalleFacturaVO;
+import caafes.def.DetalleFactura;
+import caafe.table.tablemodel.TableModelDetalle;
+import caafes.def.Autorizaciones;
 import caafes.def.Clientes;
 import caafes.def.Facturas;
 import caafes.def.FacturasPK;
 import clientes.servicio.ServicioCliente;
 import factura.servicio.ServicioFactura;
+import facturas.util.DetalleFacturaUtil;
+import facturas.util.FacturasUtil;
 import java.math.BigDecimal;
 import java.text.*;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.Locale;
-import otro.MiFrame;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumn;
+import otro.Constantes;
+import otro.MiJDialog;
 import otro.Pass;
 
 /**
  *
  * @author Edgar
  */
-public class Factura extends MiFrame {
+public class Factura extends MiJDialog {
 
     private boolean bEstado;
     private Autoriza jfAutoriza;
@@ -42,6 +56,7 @@ public class Factura extends MiFrame {
     private Facturas nuevo;
     private Clientes consultaCliente;
     private Pass frmPass;
+    private Autoriza jpAutoriza = null;
 
     /** Creates new form OtroFrame */
     public Factura() {
@@ -60,39 +75,27 @@ public class Factura extends MiFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jbAceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jtxNombre = new javax.swing.JTextField();
         jtxRFC = new javax.swing.JTextField();
         jtxApellido = new javax.swing.JTextField();
-        jtxCalleNum = new javax.swing.JTextField();
-        jtxCodigoPost = new javax.swing.JTextField();
-        jtxDelegacionMunicipio = new javax.swing.JTextField();
-        jtxCiudad = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jtxFolio = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jtxCantidad = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jtxSubtotal = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jtxIVA = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jtxColonia = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jtxDescripcion = new javax.swing.JTextField();
-        jbAutorizacion = new javax.swing.JButton();
         jbSelccionaCliente = new javax.swing.JButton();
-        jcbDescripcion = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jtxTotal = new javax.swing.JTextField();
+        jbSelccionaCliente1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtDetalles = new javax.swing.JTable();
+        jbEliminaROw = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -107,19 +110,9 @@ public class Factura extends MiFrame {
 
         jLabel1.setText("Nombre");
 
-        jLabel2.setText("Apellido");
+        jLabel2.setText("Apellidos");
 
         jLabel3.setText("RFC");
-
-        jLabel4.setText("Calle y Numero");
-
-        jLabel5.setText("Colonia");
-
-        jLabel6.setText("Codigo Postal");
-
-        jLabel7.setText("Delegación/Municipio");
-
-        jLabel8.setText("Ciudad");
 
         jbAceptar.setText("Agregar");
         jbAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,14 +134,6 @@ public class Factura extends MiFrame {
 
         jtxApellido.setEnabled(false);
 
-        jtxCalleNum.setEnabled(false);
-
-        jtxCodigoPost.setEnabled(false);
-
-        jtxDelegacionMunicipio.setEnabled(false);
-
-        jtxCiudad.setEnabled(false);
-
         jLabel9.setText("Folio");
 
         jtxFolio.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -156,18 +141,14 @@ public class Factura extends MiFrame {
                 jtxFolioFocusLost(evt);
             }
         });
-
-        jLabel10.setText("Cantidad");
-
-        jtxCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtxCantidadFocusLost(evt);
+        jtxFolio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxFolioKeyReleased(evt);
             }
         });
 
         jLabel11.setText("IVA");
 
-        jtxSubtotal.setEditable(false);
         jtxSubtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtxSubtotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -177,26 +158,11 @@ public class Factura extends MiFrame {
 
         jLabel12.setText("Sub Total");
 
-        jtxIVA.setEditable(false);
         jtxIVA.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jtxIVA.setEnabled(false);
-
-        jLabel13.setText("Descripcion");
-
-        jtxColonia.setEnabled(false);
 
         jLabel15.setText("$");
 
         jLabel16.setText("$");
-
-        jbAutorizacion.setText("Autorizacion");
-        jbAutorizacion.setToolTipText("Agrega Autorizacion");
-        jbAutorizacion.setEnabled(false);
-        jbAutorizacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAutorizacionActionPerformed(evt);
-            }
-        });
 
         jbSelccionaCliente.setText("Seleccionar Cliente");
         jbSelccionaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -205,21 +171,41 @@ public class Factura extends MiFrame {
             }
         });
 
-        jcbDescripcion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Otro", "Factura", "Nota de Arrendamiento" }));
-        jcbDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbDescripcionActionPerformed(evt);
-            }
-        });
-
         jLabel14.setText("Total");
 
         jLabel17.setText("$");
 
         jtxTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jtxTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxTotalActionPerformed(evt);
+            }
+        });
         jtxTotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtxTotalFocusLost(evt);
+            }
+        });
+        jtxTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxTotalKeyReleased(evt);
+            }
+        });
+
+        jbSelccionaCliente1.setText("Agregar Detalle");
+        jbSelccionaCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSelccionaCliente1ActionPerformed(evt);
+            }
+        });
+
+        jtDetalles.setModel(new caafe.table.tablemodel.TableModelDetalle());
+        jScrollPane1.setViewportView(jtDetalles);
+
+        jbEliminaROw.setText("Eliminar renglon");
+        jbEliminaROw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminaROwActionPerformed(evt);
             }
         });
 
@@ -254,73 +240,55 @@ public class Factura extends MiFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(90, 90, 90)
-                                    .addComponent(jbAutorizacion)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jtxDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                                        .addComponent(jcbDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addContainerGap())
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jtxFolio, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jbSelccionaCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                                        .addComponent(jtxApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                        .addComponent(jtxCalleNum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                        .addComponent(jtxNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jtxRFC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jtxCodigoPost, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(160, 160, 160))
-                                        .addComponent(jtxColonia)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jtxTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jtxIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jtxSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(jtxCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtxDelegacionMunicipio, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                                        .addComponent(jtxCiudad, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))))
-                            .addGap(28, 28, 28)))))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxRFC, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(jtxNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(jtxFolio, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbSelccionaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                            .addComponent(jtxApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbSelccionaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbEliminaROw, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtxTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtxSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtxIVA, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(221, 221, 221))))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,72 +296,38 @@ public class Factura extends MiFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jtxFolio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbSelccionaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jtxFolio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbSelccionaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtxRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jtxCalleNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jtxColonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jtxCodigoPost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jtxDelegacionMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jtxCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jtxCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxRFC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbSelccionaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEliminaROw, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel15)
-                    .addComponent(jtxSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel16)
-                    .addComponent(jtxIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel17)
-                    .addComponent(jtxTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13)
-                    .addComponent(jcbDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtxDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                    .addComponent(jtxTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel15)
+                    .addComponent(jtxSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel16)
+                    .addComponent(jtxIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAutorizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -405,20 +339,12 @@ public class Factura extends MiFrame {
         if (iEstatus == CONSULTAR) {
 
             jtxApellido.setEnabled(false);
-            jtxCalleNum.setEnabled(false);
-            jtxCantidad.setEnabled(false);
-            jtxCiudad.setEnabled(false);
-            jtxCodigoPost.setEnabled(false);
-            jtxColonia.setEnabled(false);
-            jtxDelegacionMunicipio.setEnabled(false);
-            jtxDescripcion.setEnabled(false);
             jtxFolio.setEnabled(false);
             jtxIVA.setEnabled(false);
             jtxNombre.setEnabled(false);
             jtxRFC.setEnabled(false);
             jtxTotal.setEnabled(false);
             jbSelccionaCliente.setVisible(false);
-            jcbDescripcion.setEnabled(false);
 
 
             ServicioFactura srvFactura = new ServicioFactura();
@@ -429,15 +355,9 @@ public class Factura extends MiFrame {
             consultaCliente = srvCliente.obtieneCliente(nuevo.getFacturasPK().getIdCliente(), null);
 
             jtxApellido.setText(consultaCliente.getApellidos());
-            jtxCalleNum.setText(consultaCliente.getCalleNumero());
-            jtxCantidad.setText(String.valueOf(nuevo.getCantidad()));
-            jtxCiudad.setText(consultaCliente.getCiudad());
-            jtxCodigoPost.setText(consultaCliente.getCodigoPostal());
-            jtxColonia.setText(consultaCliente.getColonia());
-            jtxDelegacionMunicipio.setText(consultaCliente.getDelegacionMunicipio());
 //            jtxDescripcion.setText(nuevo.getDescripcion());
             jtxFolio.setText(String.valueOf(nuevo.getFacturasPK().getIdFolioFactura()));
-            
+
 //            jtxIVA.setText(nuevo.getCostoTrabajo().multiply(new BigDecimal(".15")).toString());
 
             jtxNombre.setText(consultaCliente.getNombre());
@@ -450,13 +370,10 @@ public class Factura extends MiFrame {
             jbAceptar.setText("Editar");
         }
         if (iEstatus == NUEVO) {
-            jtxDescripcion.setEnabled(true);
             jtxFolio.setEnabled(true);
             jtxIVA.setEnabled(true);
             jtxTotal.setEnabled(true);
             jbSelccionaCliente.setVisible(true);
-            jcbDescripcion.setEnabled(true);
-            jtxCantidad.setEnabled(true);
 
             jbAceptar.setText("Agregar");
             limpiaForma();
@@ -481,7 +398,7 @@ public class Factura extends MiFrame {
                 break;
             case CONSULTAR:
                 if (frmPass == null) {
-                    frmPass = new Pass(this,1);
+                    frmPass = new Pass(this, 1);
                 }
                 frmPass.limpiaFrame();
                 frmPass.setVisible(true);
@@ -516,23 +433,14 @@ public class Factura extends MiFrame {
 //            }
 //        }
 //    }
-
     private void limpiaForma() {
         jtxApellido.setText("");
-        jtxCalleNum.setText("");
-        jtxCantidad.setText("");
-        jtxCiudad.setText("");
-        jtxCodigoPost.setText("");
-        jtxColonia.setText("");
-        jtxDelegacionMunicipio.setText("");
-        jtxDescripcion.setText("");
         jtxFolio.setText("");
         jtxIVA.setText("");
         jtxNombre.setText("");
         jtxRFC.setText("");
         jtxTotal.setText("");
         jtxSubtotal.setText("");
-        jcbDescripcion.setSelectedItem("Otro");
     }
 
     private void agregaFactura(ServicioFactura srvFactura) {
@@ -569,38 +477,54 @@ public class Factura extends MiFrame {
 //            }
 //        }
 //    }
-
     private void creaFactura(ServicioFactura srvFactura) {
         nuevo = new Facturas();
-        FacturasPK iD = new FacturasPK(new BigDecimal(jtxFolio.getText()), clienteVO.getIdCliente());
-        nuevo.setFacturasPK(iD);
+        FacturasUtil nuevoSend = new FacturasUtil();
+        FacturasPK iD = new FacturasPK(clienteVO.getIdCliente(), new BigDecimal(jtxFolio.getText()));
 
-//        nuevo.setCostoTrabajo(new BigDecimal(jtxTotal.getText()));
-//        colocaIdentificador();
+        nuevo.setFacturasPK(iD);
+        nuevo.setFechaCreacion(new Date());
         nuevo.setExportado(new Character('N'));
 
-        srvFactura.insertaFactura(nuevo);
+        nuevoSend.setFacturas(nuevo);
+        nuevoSend.setDetalleFactura(getCollectionDetalle(iD));
 
-
-        if (jfAutoriza == null) {
-
-            jfAutoriza = new Autoriza();
-            jfAutoriza.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-//        if (nuevo.getIdAutorizacion() != null) {
-//            jfAutoriza.actualizaForm(Factura.CONSULTAR, nuevo.getIdAutorizacion());
-//            jbAceptar.setToolTipText("Consultar Autorizacion");
-//        } else {
-//            jfAutoriza.actualizaForm(Factura.NUEVO, 0);
-//            jfAutoriza.creaModelo();
-//            jbAceptar.setToolTipText("Agrega Autorizacion");
-//        }
-        jfAutoriza.setVisible(true);
-        jfAutoriza.setAlwaysOnTop(true);
-        jfAutoriza.setLocationRelativeTo(null);
+        srvFactura.insertaFactura(nuevoSend);
 
         limpiaForma();
     }
+
+    private Collection<DetalleFacturaUtil> getCollectionDetalle(FacturasPK iD) {
+        DetalleFactura voDetalleFactura;
+        DetalleFacturaVO voDetalle;
+        TableModelDetalle modelo = (TableModelDetalle) jtDetalles.getModel();
+        Collection<DetalleFacturaUtil> lstDetalle = new ArrayList<DetalleFacturaUtil>();
+        Autorizaciones autorizaciones;
+        DetalleFacturaUtil detalleFacturaUtil;
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            voDetalle = modelo.getDetalleFacturaVO(i);
+            detalleFacturaUtil = new DetalleFacturaUtil();
+
+            voDetalleFactura = new DetalleFactura(iD.getIdCliente(), iD.getIdFolioFactura(), new BigDecimal(i),
+                    voDetalle.getCantidad(), voDetalle.getAnotaciones(), voDetalle.getTipoTrabajo(),
+                    voDetalle.getCostoTrabajo());
+
+            if (voDetalle.getAutorizacionVO() != null) {
+                autorizaciones = new Autorizaciones(iD.getIdCliente(), iD.getIdFolioFactura(), new BigDecimal(i), voDetalle.getAutorizacionVO().getIdAutorizacion(),
+                        voDetalle.getAutorizacionVO().getFolioInicio(), voDetalle.getAutorizacionVO().getFolioFinal(),
+                        voDetalle.getAutorizacionVO().getCaducidad(),
+                        voDetalle.getAutorizacionVO().getAutorizo(), voDetalle.getAutorizacionVO().getFechaCreacion());
+                detalleFacturaUtil.setAutorizaciones(autorizaciones);
+            }
+
+            detalleFacturaUtil.setDetalleFactura(voDetalleFactura);
+            lstDetalle.add(detalleFacturaUtil);
+        }
+
+        return lstDetalle;
+    }
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     // TODO add your handling code here:
@@ -616,77 +540,156 @@ public class Factura extends MiFrame {
         //}
 }//GEN-LAST:event_jcbDescripcionItemStateChanged
 
-    private void jcbDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDescripcionActionPerformed
-
-        if (String.valueOf(jcbDescripcion.getSelectedItem()).contentEquals("Otro")) {
-            jtxDescripcion.setEnabled(true);
-            jbAutorizacion.setEnabled(false);
-            if (iEstatus != CONSULTAR) {
-                jtxDescripcion.setText("");
-            }
-            if (iEstatus == CONSULTAR) {
-                jtxDescripcion.setEnabled(false);
-            }
-        } else {
-            jtxDescripcion.setEnabled(false);
-            jbAutorizacion.setEnabled(true);
-            if (iEstatus != CONSULTAR) {
-                jtxDescripcion.setText("");
-            }
-            if (iEstatus == CONSULTAR) {
-                jtxDescripcion.setEnabled(false);
-            }
-        }
-}//GEN-LAST:event_jcbDescripcionActionPerformed
-
-    private void jbAutorizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAutorizacionActionPerformed
-
-        if (jfAutoriza == null) {
-
-            jfAutoriza = new Autoriza();
-            jfAutoriza.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-//        if (nuevo.getIdAutorizacion() != null) {
-//            jfAutoriza.actualizaForm(Factura.CONSULTAR, nuevo.getIdAutorizacion());
-//            jfAutoriza.creaModelo();
-//            jbAceptar.setToolTipText("Consultar Autorizacion");
-//
-//        } else {
-//            jfAutoriza.actualizaForm(Factura.NUEVO, 0);
-//            jfAutoriza.creaModelo();
-//            jbAceptar.setToolTipText("Agrega Autorizacion");
-//        }
-        jfAutoriza.setVisible(true);
-        jfAutoriza.setAlwaysOnTop(true);
-        jfAutoriza.setLocationRelativeTo(null);
-}//GEN-LAST:event_jbAutorizacionActionPerformed
-
     private void jbSelccionaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelccionaClienteActionPerformed
         if (seleccionaCliente == null) {
             seleccionaCliente = new SeleccionaCliente(this);
-            seleccionaCliente.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
+        seleccionaCliente.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         seleccionaCliente.setAlwaysOnTop(true);
-        seleccionaCliente.setLocationRelativeTo(this);
+        seleccionaCliente.setLocationRelativeTo(null);
+        seleccionaCliente.setModal(true);
+
         seleccionaCliente.setVisible(true);
     }//GEN-LAST:event_jbSelccionaClienteActionPerformed
 
     private void jtxSubtotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxSubtotalFocusLost
-       
-    // TODO add your handling code here:
+        // TODO add your handling code here:
 }//GEN-LAST:event_jtxSubtotalFocusLost
 
-    private void jtxCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxCantidadFocusLost
-        soloNumeros();         // TODO add your handling code here:
-    }//GEN-LAST:event_jtxCantidadFocusLost
-
     private void jtxFolioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxFolioFocusLost
-        soloNumeros();       // TODO add your handling code here:
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_jtxFolioFocusLost
 
     private void jtxTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxTotalFocusLost
         soloNumeros();
 }//GEN-LAST:event_jtxTotalFocusLost
+
+    private void jbSelccionaCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelccionaCliente1ActionPerformed
+        TableModelDetalle modelo = (TableModelDetalle) jtDetalles.getModel();
+        boolean bRevisa = revisaRenglon();
+
+        if (modelo.getRowCount() == 0) {
+            bRevisa = true;
+        }
+
+        if (bRevisa) {
+            JComboBox comboBox = new JComboBox();
+
+            comboBox.addItem(Constantes.OTRO);
+            comboBox.addItem(Constantes.FACTURA);
+            comboBox.addItem(Constantes.RECIBOS_HONORARIOS);
+            comboBox.addItem(Constantes.RECIBOS_ARRENDAMIENTO);
+            comboBox.addItem(Constantes.RECIBOS_DONATIVOS);
+            comboBox.addItem(Constantes.RECIBOS_PAGO);
+            comboBox.addItem(Constantes.NOTA_CARGO);
+            comboBox.addItem(Constantes.NOTA_CREDITO);
+            comboBox.addItem(Constantes.NOTA_DEVOLUCION);
+            comboBox.addItem(Constantes.BONIFICACION_CONSUMO);
+            comboBox.addItem(Constantes.CARTA_PODER);
+            comboBox.addItem(Constantes.AUTOFACTURAS);
+            comboBox.addItem(Constantes.COMPROVANTE_PAGO);
+            comboBox.addItem(Constantes.BOLETA_EMPEÑO);
+            comboBox.addItem(Constantes.ESTADO_CUENTA_BANCARIO);
+            comboBox.addItem(Constantes.ESTADO_CUENTA_CONSUMIBLE);
+
+            TableColumn colum;
+            colum = jtDetalles.getColumnModel().getColumn(1);
+
+            colum.setCellEditor(new DefaultCellEditor(comboBox));
+
+            colum = jtDetalles.getColumnModel().getColumn(4);
+            colum.setCellEditor(new ButtonCellEditor());
+            modelo.addRow(new DetalleFacturaVO(0, "", new BigDecimal("0"), Constantes.OTRO));
+            jtDetalles.getColumnModel().getColumn(1).setPreferredWidth(220);
+        }
+    }//GEN-LAST:event_jbSelccionaCliente1ActionPerformed
+
+    private boolean revisaRenglon() {
+        boolean bReturn = true;
+        StringBuilder sbMensaje = new StringBuilder("");
+
+        TableModelDetalle modelo = (TableModelDetalle) jtDetalles.getModel();
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            DetalleFacturaVO object = modelo.getDetalleFacturaVO(i);
+
+            if (object.getCostoTrabajo() != null && object.getCostoTrabajo().intValue()==0) {
+                sbMensaje.append("Costo del Trabajo es Requerido. renglon: " + i + "\n");
+                bReturn = false;
+            } else if (object.getCostoTrabajo() == null) {
+                sbMensaje.append("Costo del Trabajo es Requerido. renglon: " + i + "\n");
+                bReturn = false;
+            }
+            if (object.getCantidad()==0) {
+                sbMensaje.append("La Cantidad es Requerida. renglon: " + i + "\n");
+                bReturn = false;
+            }
+//            else if (object.getCantidad() == null) {
+//                sbMensaje.append("La Cantidad es Requerida. renglon: " + i + "\n");
+//                bReturn = false;
+//            }
+        }
+
+        if (!bReturn) {
+            JOptionPane.showMessageDialog(this, sbMensaje.toString(), "Mensaje", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return bReturn;
+    }
+
+    private void jbEliminaROwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminaROwActionPerformed
+        ListSelectionModel listModel = jtDetalles.getSelectionModel();
+        TableModelDetalle modelo = (TableModelDetalle) jtDetalles.getModel();
+
+        for (int i = 0; i < jtDetalles.getModel().getRowCount(); i++) {
+            if (listModel.isSelectedIndex(i)) {
+                modelo.removeRow(i);
+                break;
+            }
+        }
+}//GEN-LAST:event_jbEliminaROwActionPerformed
+
+    private void jtxTotalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxTotalKeyReleased
+        BigDecimal bdTotal = null;
+        BigDecimal bdSub = null;
+        Locale algo = new Locale("es", "MX");
+        NumberFormat nfFormato = NumberFormat.getInstance(algo);
+
+        if (!jtxTotal.getText().equals("")) {
+            try {
+                bdTotal = new BigDecimal(jtxTotal.getText());
+                bdTotal = bdTotal.divide(new BigDecimal("1.15"), 2, BigDecimal.ROUND_DOWN);
+                jtxSubtotal.setText(nfFormato.format(bdTotal));
+
+                bdSub = new BigDecimal(jtxTotal.getText());
+                bdSub = bdSub.subtract(bdTotal);
+                jtxIVA.setText(nfFormato.format(bdSub));
+
+            } catch (Exception exception) {
+                jtxTotal.setText("");
+                JOptionPane.showMessageDialog(this, "El total debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jtxTotalKeyReleased
+
+    private void jtxFolioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxFolioKeyReleased
+        BigDecimal bdFolioFactura;
+        if (!jtxFolio.getText().equals("")) {
+            try {
+                bdFolioFactura = new BigDecimal(jtxFolio.getText());
+            } catch (Exception exception) {
+                jtxFolio.setText("");
+                JOptionPane.showMessageDialog(this, "El Folio de Factura debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        }
+    }//GEN-LAST:event_jtxFolioKeyReleased
+
+    private void jtxTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxTotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -720,25 +723,15 @@ public class Factura extends MiFrame {
 
     public void estado() {
         String sFolio;
-        String sCantidad;
         String sTotal;
         StringBuilder sbFaltantes = new StringBuilder("");
         boolean bFaltan = false;
 
         sFolio = jtxFolio.getText();
-        sCantidad = jtxCantidad.getText();
         sTotal = jtxTotal.getText();
 
         if (sFolio.equals("")) {
             sbFaltantes.append("Folio \n");
-            bFaltan = true;
-        }
-        if (sCantidad.equals("")) {
-            sbFaltantes.append("Cantidad\n");
-            bFaltan = true;
-        }
-        if (sTotal.equals("")) {
-            sbFaltantes.append("Total\n");
             bFaltan = true;
         }
 
@@ -760,17 +753,8 @@ public class Factura extends MiFrame {
             sbError.append("El campo Folio solo acepta 10 caracteres\n");
             bEntra = true;
         }
-        if (jtxCantidad.getText().length() > 10) {
-            sbError.append("El campo Apellido solo acepta 50 caracteres\n");
-            bEntra = true;
-
-        }
         if (jtxTotal.getText().length() > 15) {
-            sbError.append("El campo Total solo acepta 10 caracteres \n");
-            bEntra = true;
-        }
-        if (jtxDescripcion.getText().length() > 40) {
-            sbError.append("El campo Descripcion solo acepta 40 caracteres\n");
+            sbError.append("El campo Total solo acepta 15 caracteres \n");
             bEntra = true;
         }
 
@@ -787,11 +771,6 @@ public class Factura extends MiFrame {
         jtxNombre.setText(clienteVO.getNombre());
         jtxRFC.setText(clienteVO.getRfc());
         jtxApellido.setText(clienteVO.getApellidos());
-        jtxCalleNum.setText(clienteVO.getCalleNumero());
-        jtxCiudad.setText(clienteVO.getCiudad());
-        jtxCodigoPost.setText(String.valueOf(clienteVO.getCodigoPostal()));
-        jtxColonia.setText(clienteVO.getColonia());
-        jtxDelegacionMunicipio.setText(clienteVO.getDelegacionMunicipio());
     }
 
     public void regresaIDFactura() {
@@ -802,9 +781,9 @@ public class Factura extends MiFrame {
         BigDecimal bdTotal = null;
         BigDecimal bdCantidad = null;
         BigDecimal bdSub = null;
-        Locale algo = new Locale("es","MX");
+        Locale algo = new Locale("es", "MX");
         NumberFormat nfFormato = NumberFormat.getInstance(algo);
-        
+
         if (!jtxFolio.getText().equals("")) {
             try {
                 bdFactura = new BigDecimal(jtxFolio.getText());
@@ -818,7 +797,7 @@ public class Factura extends MiFrame {
         if (!jtxTotal.getText().equals("")) {
             try {
                 bdTotal = new BigDecimal(jtxTotal.getText());
-                bdTotal = bdTotal.divide(new BigDecimal("1.15"),2,BigDecimal.ROUND_DOWN);
+                bdTotal = bdTotal.divide(new BigDecimal("1.15"), 2, BigDecimal.ROUND_DOWN);
                 jtxSubtotal.setText(nfFormato.format(bdTotal));
 
                 bdSub = new BigDecimal(jtxTotal.getText());
@@ -832,35 +811,19 @@ public class Factura extends MiFrame {
             }
         }
 
-        if (!jtxCantidad.getText().equals("")) {
-            try {
-                bdCantidad = new BigDecimal(jtxCantidad.getText());
-            } catch (Exception exception) {
-                jtxCantidad.setText("");
-                JOptionPane.showMessageDialog(this, "La cantidad debe de ser numerica", "Error", JOptionPane.ERROR_MESSAGE);
-
-            }
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -869,18 +832,13 @@ public class Factura extends MiFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAceptar;
-    private javax.swing.JButton jbAutorizacion;
+    private javax.swing.JButton jbEliminaROw;
     private javax.swing.JButton jbSelccionaCliente;
-    private javax.swing.JComboBox jcbDescripcion;
+    private javax.swing.JButton jbSelccionaCliente1;
+    private javax.swing.JTable jtDetalles;
     private javax.swing.JTextField jtxApellido;
-    private javax.swing.JTextField jtxCalleNum;
-    private javax.swing.JTextField jtxCantidad;
-    private javax.swing.JTextField jtxCiudad;
-    private javax.swing.JTextField jtxCodigoPost;
-    private javax.swing.JTextField jtxColonia;
-    private javax.swing.JTextField jtxDelegacionMunicipio;
-    private javax.swing.JTextField jtxDescripcion;
     private javax.swing.JTextField jtxFolio;
     private javax.swing.JTextField jtxIVA;
     private javax.swing.JTextField jtxNombre;
@@ -891,20 +849,8 @@ public class Factura extends MiFrame {
 
     @Override
     public void cbPasswprd() {
-        jtxCantidad.setEnabled(true);
         jtxTotal.setEnabled(true);
-        jcbDescripcion.setEnabled(true);
         iEstatus = EDITAR;
         jbAceptar.setText("Guardar");
-
-        String strCheck = jcbDescripcion.getSelectedItem().toString();
-
-        if (!strCheck.isEmpty()) {
-            if (strCheck.equals("Otro")) {
-                jtxDescripcion.setEnabled(true);
-            }
-
-        }
     }
-
 }
