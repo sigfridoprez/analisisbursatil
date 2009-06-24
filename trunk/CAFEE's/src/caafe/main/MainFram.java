@@ -43,6 +43,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import otro.Acerca;
 import otro.CambiaPass;
+import otro.Constantes;
 import otro.MiFrame;
 import otro.Pass;
 
@@ -431,10 +432,10 @@ public class MainFram extends MiFrame {
         jLabel10.setText("Facturas E's");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel11.setText("Crtl+C Para agregar Cliente");
+        jLabel11.setText("Alt+A Para agregar Cliente");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel12.setText("Crtl+F Para agregar Factura");
+        jLabel12.setText("Alt+S Para agregar Factura");
 
         fileMenu.setText("Archivo");
         fileMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -445,7 +446,7 @@ public class MainFram extends MiFrame {
 
         jMenu2.setText("Nuevo");
 
-        jmCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jmCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jmCliente.setText("Cliente");
         jmCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,7 +455,7 @@ public class MainFram extends MiFrame {
         });
         jMenu2.add(jmCliente);
 
-        jmFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jmFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmFactura.setText("Factura");
         jmFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -797,7 +798,7 @@ public class MainFram extends MiFrame {
                 dato = lstModelo.getElementVO(index);
 
                 if (frmAutoriza == null) {
-                    frmAutoriza = new Autoriza();
+                    frmAutoriza = new Autoriza(null);
                 }
                 frmAutoriza.actualizaForm(Factura.CONSULTAR, dato.getBdId());
                 frmAutoriza.setAlwaysOnTop(true);
@@ -852,28 +853,30 @@ public class MainFram extends MiFrame {
     }//GEN-LAST:event_jlAutorizaFocusLost
 
     private void jmClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmClienteActionPerformed
-
+        intMenu = Constantes.MENU_CLIENTE;
         if (frmPass == null) {
             frmPass = new Pass(this, 0);
         }
         frmPass.limpiaFrame();
-        frmPass.setVisible(true);
         frmPass.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frmPass.setAlwaysOnTop(true);
         frmPass.setLocationRelativeTo(this);
-        intMenu = 1;
+        frmPass.setModal(true);
+        frmPass.setVisible(true);
 }//GEN-LAST:event_jmClienteActionPerformed
 
     private void jmFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFacturaActionPerformed
+        intMenu = Constantes.MENU_FACTURA;
+
         if (frmPass == null) {
             frmPass = new Pass(this, 0);
         }
         frmPass.limpiaFrame();
-        frmPass.setVisible(true);
         frmPass.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frmPass.setAlwaysOnTop(true);
         frmPass.setLocationRelativeTo(this);
-        intMenu = 2;
+        frmPass.setModal(true);
+        frmPass.setVisible(true);
     }//GEN-LAST:event_jmFacturaActionPerformed
 
     private void jlAutorizaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlAutorizaValueChanged
@@ -928,7 +931,7 @@ public class MainFram extends MiFrame {
         }
         if (!iD.equals("")) {
             if (frmAutoriza == null) {
-                frmAutoriza = new Autoriza();
+                frmAutoriza = new Autoriza(null);
             }
             frmAutoriza.actualizaForm(Factura.CONSULTAR, new BigDecimal(iD));
             frmAutoriza.setAlwaysOnTop(true);
@@ -1135,25 +1138,26 @@ public class MainFram extends MiFrame {
 
     @Override
     public void cbPasswprd() {
-        if (intMenu == 1) {
+        if (intMenu == Constantes.MENU_CLIENTE) {
             if (frmCliente == null) {
                 frmCliente = new Cliente();
             }
             frmCliente.actualizaForm(Cliente.NUEVO, new BigDecimal(0));
             frmCliente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frmCliente.setVisible(true);
             frmCliente.setAlwaysOnTop(true);
+            frmFactura.setModal(true);
             frmCliente.setLocationRelativeTo(null);
-
-        } else if (intMenu == 2) {
+            frmCliente.setVisible(true);
+        } else if (intMenu == Constantes.MENU_FACTURA) {
             if (frmFactura == null) {
                 frmFactura = new Factura();
             }
             frmFactura.actualizaForm(Cliente.NUEVO, new BigDecimal(0));
             frmFactura.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frmFactura.setVisible(true);
             frmFactura.setAlwaysOnTop(true);
             frmFactura.setLocationRelativeTo(null);
+            frmFactura.setModal(true);
+            frmFactura.setVisible(true);
         }
 
     }

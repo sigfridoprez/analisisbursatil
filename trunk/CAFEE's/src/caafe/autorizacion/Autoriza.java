@@ -11,6 +11,8 @@
 package caafe.autorizacion;
 
 import autorizacion.servicio.ServicioAutorizacion;
+import caafe.table.celleditor.ButtonCellEditor;
+import caafe.table.tablemodel.DetalleAutorizacion;
 import caafes.def.Autorizaciones;
 import caafes.def.Facturas;
 import factura.servicio.ServicioFactura;
@@ -19,17 +21,15 @@ import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import otro.MiFrame;
+import otro.MiJDialog;
 import otro.Pass;
-import utils.vo.UtilVO;
 
 /**
  *
  * @author Edgar
  */
-public class Autoriza extends MiFrame {
+public class Autoriza extends MiJDialog {
 
     public boolean bEstado;
     private int iEstatus = 0;
@@ -39,25 +39,14 @@ public class Autoriza extends MiFrame {
     public Facturas facturaVo;
     public Autorizaciones autorizaVO;
     private Pass frmPass;
+    private ButtonCellEditor buttonCellEditor;
+//    private ButtonCellEditor buttonCellEditor;
 
     /** Creates new form OtroFrame */
-    public Autoriza() {
+    public Autoriza(ButtonCellEditor buttonCellEditor) {
         initComponents();
-
-    }
-
-    public void creaModelo() {
-        List<UtilVO> listvVo;
-        DefaultComboBoxModel cmbModel = new DefaultComboBoxModel();
-        ServicioFactura srvFactura = new ServicioFactura();
-        listvVo = srvFactura.obtieneListaFacturasSinAutorizacion();
-
-        if (listvVo != null) {
-            for (UtilVO utilVO : listvVo) {
-                cmbModel.addElement(utilVO.getLngId());
-            }
-            jcbFactura.setModel(cmbModel);
-        }
+        this.buttonCellEditor = buttonCellEditor;
+//        this.buttonCellEditor = buttonCellEditor;
     }
 
     public void actualizaForm(int iEstatus, BigDecimal idAutorizacion) {
@@ -71,7 +60,7 @@ public class Autoriza extends MiFrame {
             jtxFolioIncia.setEnabled(false);
             jtxNumAutoriza.setEnabled(false);
             jtxSolocitante.setEnabled(false);
-            jcbFactura.setEnabled(false);
+            jcCreada.setEnabled(false);
 
 
             ServicioAutorizacion srvAutorizacion = new ServicioAutorizacion();
@@ -87,11 +76,6 @@ public class Autoriza extends MiFrame {
             jtxSolocitante.setText(autorizaVO.getSolicitante());
             jcCaduca.setDate(autorizaVO.getCaducidad());
 
-            DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
-
-            defaultComboBoxModel.addElement(facturaVO.getFacturasPK().getIdFolioFactura());
-            jcbFactura.setModel(defaultComboBoxModel);
-
             jbAceptar.setText("Modificar");
 
             iEstatus = CONSULTAR;
@@ -103,9 +87,17 @@ public class Autoriza extends MiFrame {
             jtxFolioIncia.setEnabled(true);
             jtxNumAutoriza.setEnabled(true);
             jtxSolocitante.setEnabled(true);
-            jcbFactura.setEnabled(true);
+            jcCreada.setEnabled(true);
+            jcCreada.setEnabled(true);
 
             limpiaForma();
+
+            Calendar fechaActual = Calendar.getInstance();
+            fechaActual.getInstance().getTime();
+            jcCreada.setCalendar(fechaActual);
+            fechaActual.add(Calendar.YEAR, 2);
+            fechaActual.add(Calendar.DAY_OF_WEEK, 1);
+            jcCaduca.setCalendar(fechaActual);
             jbAceptar.setText("Agregar");
         }
     }
@@ -128,13 +120,13 @@ public class Autoriza extends MiFrame {
         jtxNumAutoriza = new javax.swing.JTextField();
         jtxSolocitante = new javax.swing.JTextField();
         jtxAutorizo = new javax.swing.JTextField();
-        jtxFolioIncia = new javax.swing.JFormattedTextField();
         jLabel8 = new javax.swing.JLabel();
-        jtxFolioFin = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jcbFactura = new javax.swing.JComboBox();
         jcCaduca = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        jLabel10 = new javax.swing.JLabel();
+        jcCreada = new com.toedter.calendar.JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        jtxFolioIncia = new javax.swing.JTextField();
+        jtxFolioFin = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -179,10 +171,23 @@ public class Autoriza extends MiFrame {
                 jtxNumAutorizaFocusLost(evt);
             }
         });
+        jtxNumAutoriza.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxNumAutorizaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxNumAutorizaKeyReleased(evt);
+            }
+        });
 
         jtxSolocitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxSolocitanteActionPerformed(evt);
+            }
+        });
+        jtxSolocitante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxSolocitanteKeyPressed(evt);
             }
         });
 
@@ -191,26 +196,62 @@ public class Autoriza extends MiFrame {
                 jtxAutorizoActionPerformed(evt);
             }
         });
-
-        try {
-            jtxFolioIncia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        jtxAutorizo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxAutorizoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxAutorizoKeyReleased(evt);
+            }
+        });
 
         jLabel8.setText(" a");
 
-        try {
-            jtxFolioFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel9.setText("Caduca dd/mm/AA");
 
-        jLabel10.setText("Folio Factura");
-
         jcCaduca.setDateFormatString("dd/MM/yyyy");
+
+        jLabel10.setText("Creada dd/mm/AA");
+
+        jcCreada.setDateFormatString("dd/MM/yyyy");
+
+        jtxFolioIncia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxFolioInciaActionPerformed(evt);
+            }
+        });
+        jtxFolioIncia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxFolioInciaFocusLost(evt);
+            }
+        });
+        jtxFolioIncia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxFolioInciaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxFolioInciaKeyReleased(evt);
+            }
+        });
+
+        jtxFolioFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxFolioFinActionPerformed(evt);
+            }
+        });
+        jtxFolioFin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxFolioFinFocusLost(evt);
+            }
+        });
+        jtxFolioFin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxFolioFinKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxFolioFinKeyReleased(evt);
+            }
+        });
 
         jMenu1.setText("Archivo");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -248,75 +289,73 @@ public class Autoriza extends MiFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97))
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jcbFactura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtxSolocitante, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                        .addComponent(jtxAutorizo, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jtxFolioIncia, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel8)
-                            .addGap(18, 18, 18)
-                            .addComponent(jtxFolioFin, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jtxNumAutoriza, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jcCaduca, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addComponent(jLabel9))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxSolocitante, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(jtxAutorizo, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(jcCreada, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(jcCaduca, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jtxFolioIncia)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel8))
+                                    .addComponent(jtxNumAutoriza, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jtxFolioFin, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxNumAutoriza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jtxNumAutoriza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
                     .addComponent(jtxFolioIncia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
                     .addComponent(jtxFolioFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxSolocitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jtxSolocitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxAutorizo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxAutorizo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcCreada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jcCaduca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jcbFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -330,7 +369,7 @@ public class Autoriza extends MiFrame {
 
         if (bEstado == true) {
             strAutoriza = jtxNumAutoriza.getText();
-            lista = srvAutoriza.obtieneListaAutorizacionFolio(Long.valueOf(strAutoriza));
+            lista = srvAutoriza.obtieneListaAutorizacionFolio(new BigDecimal(strAutoriza));
             if (lista != null) {
                 if (lista.isEmpty()) {
                     creaAutoriza();
@@ -343,58 +382,43 @@ public class Autoriza extends MiFrame {
         }
     }
 
-
-
     private void creaAutoriza() {
-        ServicioAutorizacion srvAutoriza = new ServicioAutorizacion();
-        ServicioFactura srvfFactura = new ServicioFactura();
-        Autorizaciones autoriza = null;
-        Facturas factura=null;
-        String strFac;
+        DetalleAutorizacion autoriza = null;
 
         if (bEstado == true) {
-            srvAutoriza = new ServicioAutorizacion();
-            autoriza = new Autorizaciones();
+            autoriza = new DetalleAutorizacion();
 
             autoriza.setAutorizo(jtxAutorizo.getText());
             autoriza.setFolioInicio(new BigInteger(jtxFolioIncia.getText()));
             autoriza.setFolioFinal(new BigInteger(jtxFolioFin.getText()));
             autoriza.setCaducidad(jcCaduca.getDate());
-            autoriza.setFechaCreacion(Calendar.getInstance().getTime());
-//            autoriza.setIdAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
+            autoriza.setFechaCreacion(jcCreada.getDate());
+            autoriza.setIdAutorizacion(new BigDecimal(jtxNumAutoriza.getText()));
             autoriza.setSolicitante(jtxSolocitante.getText());
-            autoriza.setExportado('N');
-            strFac = jcbFactura.getSelectedItem().toString();
-
-            srvAutoriza.insertaAutorizacion(autoriza);
-
-            factura= srvfFactura.obtieneFactura(new BigDecimal(strFac));
-            strFac = jtxNumAutoriza.getText();
-//            factura.setIdAutorizacion(Long.valueOf(strFac));
-            srvfFactura.modificaFactura(factura);
 
             JOptionPane.showMessageDialog(this, "Datos agregados Correctamente", "OK", JOptionPane.INFORMATION_MESSAGE);
+            this.buttonCellEditor.colocaAutorizacioVO(autoriza);
             this.dispose();
         }
     }
 
-     private void modificaAutoriza() {
+    private void modificaAutoriza() {
         ServicioAutorizacion srvAutoriza = new ServicioAutorizacion();
         Autorizaciones autoriza = null;
 
-            srvAutoriza = new ServicioAutorizacion();
+        srvAutoriza = new ServicioAutorizacion();
 
-            autoriza = srvAutoriza.obtieneAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
+        autoriza = srvAutoriza.obtieneAutorizacion(new BigDecimal(jtxNumAutoriza.getText()));
 
-            autoriza.setAutorizo(jtxAutorizo.getText());
-            autoriza.setFolioInicio(new BigInteger(jtxFolioIncia.getText()));
-            autoriza.setFolioFinal(new BigInteger(jtxFolioFin.getText()));
-            autoriza.setCaducidad(jcCaduca.getDate());
-            autoriza.setFechaCreacion(Calendar.getInstance().getTime());
+        autoriza.setAutorizo(jtxAutorizo.getText());
+        autoriza.setFolioInicio(new BigInteger(jtxFolioIncia.getText()));
+        autoriza.setFolioFinal(new BigInteger(jtxFolioFin.getText()));
+        autoriza.setCaducidad(jcCaduca.getDate());
+        autoriza.setFechaCreacion(Calendar.getInstance().getTime());
 //            autoriza.setIdAutorizacion(Long.valueOf(jtxNumAutoriza.getText()));
-            autoriza.setSolicitante(jtxSolocitante.getText());
-            autoriza.setExportado('N');
-            srvAutoriza.modificaAutorizacion(autoriza);
+        autoriza.setSolicitante(jtxSolocitante.getText());
+        autoriza.setExportado('N');
+        srvAutoriza.modificaAutorizacion(autoriza);
     }
 
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
@@ -430,8 +454,6 @@ public class Autoriza extends MiFrame {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         this.dispose();
-
-    // TODO add your handling code here:
 }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jtxSolocitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxSolocitanteActionPerformed
@@ -467,16 +489,111 @@ public class Autoriza extends MiFrame {
         }       // TODO add your handling code here:
     }//GEN-LAST:event_jtxNumAutorizaFocusLost
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    private void jtxFolioInciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxFolioInciaActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_jtxFolioInciaActionPerformed
 
-            public void run() {
-                new Autoriza().setVisible(true);
+    private void jtxFolioInciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxFolioInciaFocusLost
+        // TODO add your handling code here:
+}//GEN-LAST:event_jtxFolioInciaFocusLost
+
+    private void jtxFolioFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxFolioFinActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_jtxFolioFinActionPerformed
+
+    private void jtxFolioFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxFolioFinFocusLost
+        // TODO add your handling code here:
+}//GEN-LAST:event_jtxFolioFinFocusLost
+
+    private void jtxFolioInciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxFolioInciaKeyPressed
+        String cSubstring = jtxFolioIncia.getText();
+        if (jtxFolioIncia.getText().length() >= 5 && ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Folio inicial solo acepta 5 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxFolioIncia.setText(cSubstring.substring(0, 5));
+        }
+    }//GEN-LAST:event_jtxFolioInciaKeyPressed
+
+    private void jtxFolioFinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxFolioFinKeyPressed
+        String cSubstring = jtxFolioFin.getText();
+        if (jtxFolioFin.getText().length() >= 5 && ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Folio Final solo acepta 5 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxFolioFin.setText(cSubstring.substring(0, 5));
+        }
+    }//GEN-LAST:event_jtxFolioFinKeyPressed
+
+    private void jtxNumAutorizaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxNumAutorizaKeyPressed
+        String cSubstring = jtxNumAutoriza.getText();
+        if (jtxNumAutoriza.getText().length() >= 20 && ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Numero de Autorización solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxNumAutoriza.setText(cSubstring.substring(0, 20));
+        }
+    }//GEN-LAST:event_jtxNumAutorizaKeyPressed
+
+    private void jtxSolocitanteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxSolocitanteKeyPressed
+        String cSubstring = jtxSolocitante.getText();
+        if (jtxSolocitante.getText().length() >= 20 && ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Solicitante solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxSolocitante.setText(cSubstring.substring(0, 20));
+        }
+    }//GEN-LAST:event_jtxSolocitanteKeyPressed
+
+    private void jtxAutorizoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxAutorizoKeyPressed
+        String cSubstring = jtxAutorizo.getText();
+        if (jtxAutorizo.getText().length() >= 20 && ignoraKey(evt)) {
+            JOptionPane.showMessageDialog(this, "El campo Autorizo solo acepta 20 caracteres\n", "Demasiados caracteres", JOptionPane.ERROR_MESSAGE);
+            jtxAutorizo.setText(cSubstring.substring(0, 20));
+        }
+    }//GEN-LAST:event_jtxAutorizoKeyPressed
+
+    private void jtxNumAutorizaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxNumAutorizaKeyReleased
+        BigDecimal bdCantidad = null;
+        if (!jtxNumAutoriza.getText().equals("")) {
+            try {
+                bdCantidad = new BigDecimal(jtxNumAutoriza.getText());
+
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, "El Numero de Autorizacion debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+                jtxNumAutoriza.setText("");
             }
-        });
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_jtxNumAutorizaKeyReleased
+
+    private void jtxFolioInciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxFolioInciaKeyReleased
+        BigDecimal bdCantidad = null;
+        if (!jtxFolioIncia.getText().equals("")) {
+            try {
+                bdCantidad = new BigDecimal(jtxFolioIncia.getText());
+
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, "El Folio inicial debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+                jtxFolioIncia.setText("");
+            }
+        }           // TODO add your handling code here:
+    }//GEN-LAST:event_jtxFolioInciaKeyReleased
+
+    private void jtxFolioFinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxFolioFinKeyReleased
+        BigDecimal bdCantidad = null;
+        if (!jtxFolioFin.getText().equals("")) {
+            try {
+                bdCantidad = new BigDecimal(jtxFolioFin.getText());
+
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, "El Folio final debe de ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+                jtxFolioFin.setText("");
+            }
+        }             // TODO add your handling code here:
+    }//GEN-LAST:event_jtxFolioFinKeyReleased
+
+    private void jtxAutorizoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxAutorizoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxAutorizoKeyReleased
+
+    public boolean ignoraKey(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == 10 || evt.getKeyCode() == 18 || evt.getKeyCode() == 17 || evt.getKeyCode() == 8 || evt.getKeyCode() == 127 || evt.getKeyCode() == 155 || evt.getKeyCode() == 16 || evt.getKeyCode() == 20 || evt.getKeyCode() == 33 || evt.getKeyCode() == 34 || evt.getKeyCode() == 35 || evt.getKeyCode() == 36 || evt.getKeyCode() == 37 || evt.getKeyCode() == 38 || evt.getKeyCode() == 39 || evt.getKeyCode() == 40) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void estado() {
@@ -597,10 +714,10 @@ public class Autoriza extends MiFrame {
     private javax.swing.JButton jbAceptar;
     private javax.swing.JButton jbCancelar;
     private com.toedter.calendar.JDateChooser jcCaduca;
-    private javax.swing.JComboBox jcbFactura;
+    private com.toedter.calendar.JDateChooser jcCreada;
     private javax.swing.JTextField jtxAutorizo;
-    private javax.swing.JFormattedTextField jtxFolioFin;
-    private javax.swing.JFormattedTextField jtxFolioIncia;
+    private javax.swing.JTextField jtxFolioFin;
+    private javax.swing.JTextField jtxFolioIncia;
     private javax.swing.JTextField jtxNumAutoriza;
     private javax.swing.JTextField jtxSolocitante;
     // End of variables declaration//GEN-END:variables

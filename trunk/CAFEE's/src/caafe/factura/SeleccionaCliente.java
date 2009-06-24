@@ -18,12 +18,13 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import otro.MiJDialog;
 
 /**
  *
  * @author Edgar
  */
-public class SeleccionaCliente extends javax.swing.JFrame {
+public class SeleccionaCliente extends MiJDialog {
 
     private Factura factura;
     private Cliente frmCliente;
@@ -58,7 +59,7 @@ public class SeleccionaCliente extends javax.swing.JFrame {
         jbCancelar = new javax.swing.JButton();
         jbNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Cliente");
         setResizable(false);
 
@@ -243,4 +244,9 @@ if (frmCliente == null) {
     private javax.swing.JButton jbNuevo;
     private javax.swing.JTextField jtxBuscar;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void cbPasswprd() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
