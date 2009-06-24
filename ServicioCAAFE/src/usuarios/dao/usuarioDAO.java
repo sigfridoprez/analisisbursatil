@@ -7,6 +7,7 @@ package usuarios.dao;
 import caafes.def.Usuarios;
 import org.hibernate.Session;
 import infraestructura.dao.DAOGenerico;
+import java.math.BigDecimal;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class usuarioDAO extends DAOGenerico {
 
-    public Usuarios obtienUsuario(long idUsuario) {
+    public Usuarios obtienUsuario(BigDecimal idUsuario) {
         Session session = getSessionFactory().openSession();
 
         Usuarios usuarioVO = (Usuarios) session.createCriteria(Usuarios.class).add(Restrictions.eq("idUsuario", idUsuario)).uniqueResult();

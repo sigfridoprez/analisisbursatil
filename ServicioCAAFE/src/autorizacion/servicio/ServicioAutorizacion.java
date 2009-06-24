@@ -8,6 +8,7 @@ import autorizacion.dao.AutorizacionDAO;
 import caafes.def.Autorizaciones;
 import caafes.def.Facturas;
 import facturas.dao.FacturasDAO;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -16,11 +17,11 @@ import java.util.List;
  */
 public class ServicioAutorizacion {
 
-    public Autorizaciones obtieneAutorizacion(long idAutorizacion) {
+    public Autorizaciones obtieneAutorizacion(BigDecimal idAutorizacion) {
         AutorizacionDAO dao = new AutorizacionDAO();
         return dao.obtienAutorizacion(idAutorizacion);
     }
-    public List<Autorizaciones> obtieneListaAutorizacionFolio(long iDAutorizacion) {
+    public List<Autorizaciones> obtieneListaAutorizacionFolio(BigDecimal iDAutorizacion) {
         AutorizacionDAO dAoObtieneListaAutorizacion = new AutorizacionDAO();
         return dAoObtieneListaAutorizacion.obtieneListaAutorizacion(iDAutorizacion);
     }
@@ -33,6 +34,11 @@ public class ServicioAutorizacion {
     public List<Autorizaciones> obtieneListaAutorizaCaduca(){
         AutorizacionDAO dAobObtiene = new AutorizacionDAO();
         return dAobObtiene.obtienAutorizacionFechaCaduca();
+    }
+
+    public BigDecimal obtieneIDmaximo(){
+        AutorizacionDAO dAobObtieneIdMax = new AutorizacionDAO();
+        return dAobObtieneIdMax.obtieneIDmaximo();
     }
 
 

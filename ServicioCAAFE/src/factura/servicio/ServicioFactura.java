@@ -6,6 +6,7 @@ package factura.servicio;
 
 import caafes.def.Facturas;
 import facturas.dao.FacturasDAO;
+import facturas.util.FacturasUtil;
 import java.math.BigDecimal;
 import java.util.List;
 import utils.vo.UtilVO;
@@ -44,7 +45,7 @@ public class ServicioFactura {
         return dAoObtieneListaFactura.obtieneListaFacturasSinAutorizacion();
     }
 
-    public void insertaFactura(Facturas nuevo) {
+    public void insertaFactura(FacturasUtil nuevo) {
         FacturasDAO dAOInsertaFactura = new FacturasDAO();
         dAOInsertaFactura.insertaFactura(nuevo);
     }
@@ -52,7 +53,7 @@ public class ServicioFactura {
         FacturasDAO dAOInsertaFactura = new FacturasDAO();
         dAOInsertaFactura.modificaFactura(nuevo);
     }
-    public void eliminaFactura(Facturas nuevo) {
+    public void eliminaFactura(FacturasUtil nuevo) {
         FacturasDAO dAOeliminaFactura = new FacturasDAO();
         dAOeliminaFactura.eliminaFactura(nuevo);
     }

@@ -6,6 +6,7 @@
 package usuarios.servicio;
 
 import caafes.def.Usuarios;
+import java.math.BigDecimal;
 import usuarios.dao.usuarioDAO;
 
 /**
@@ -18,7 +19,7 @@ public class ServicioUsuario {
         usuarioDAO usuarioDAO = new usuarioDAO();
         usuarioDAO.modificaUsuario(nuevo);
     }
-    public Usuarios ObtieneUsuarios(long idUsuario) {
+    public Usuarios ObtieneUsuarios(BigDecimal idUsuario) {
         usuarioDAO dao = new usuarioDAO();
         return dao.obtienUsuario(idUsuario);
     }
