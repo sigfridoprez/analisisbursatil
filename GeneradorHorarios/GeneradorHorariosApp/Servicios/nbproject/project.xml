@@ -6,7 +6,10 @@
             <code-name-base>mx.com.servicios</code-name-base>
             <suite-component/>
             <module-dependencies/>
-            <public-packages/>
+            <public-packages>
+                <package>mx.com.servicios.explorador</package>
+                <package>mx.com.servicios.utilerias</package>
+            </public-packages>
         </data>
     </configuration>
 </project>
