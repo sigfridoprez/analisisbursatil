@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: mx.com.exploradorhorarios
+OpenIDE-Module-Layer: mx/com/exploradorhorarios/layer.xml
+OpenIDE-Module-Localizing-Bundle: mx/com/exploradorhorarios/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

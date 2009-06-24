@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="mx-com-exploradorhorarios-ExploradorHorariosAction.instance">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="mx.com.exploradorhorarios.Bundle"/>
+                <attr name="component" methodvalue="mx.com.exploradorhorarios.ExploradorHorariosTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="mx.com.exploradorhorarios.Bundle#CTL_ExploradorHorariosAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="ExploradorHorariosAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/mx-com-exploradorhorarios-ExploradorHorariosAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="ExploradorHorariosTopComponent.settings" url="ExploradorHorariosTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="explorer">
+                <file name="ExploradorHorariosTopComponent.wstcref" url="ExploradorHorariosTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
