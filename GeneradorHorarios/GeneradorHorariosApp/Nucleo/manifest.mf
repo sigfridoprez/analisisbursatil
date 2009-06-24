@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 OpenIDE-Module: mx.com.nucleo
+OpenIDE-Module-Layer: mx/com/nucleo/layer.xml
 OpenIDE-Module-Localizing-Bundle: mx/com/nucleo/Bundle.properties
 OpenIDE-Module-Specification-Version: 1.0
 
