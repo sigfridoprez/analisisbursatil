@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mode version="2.3">
+    <module name="org.netbeans.core.ui/1" spec="1.2" />
+    <name unique="mimodeexplorer" />
+  <kind type="view" />
+  <state type="joined" />
+  <constraints>
+    <path orientation="horizontal" number="20" weight="0.14623467600700527"/>
+    <path orientation="vertical" number="20" weight="0.5"/>
+  </constraints>
+  <bounds x="127" y="171" width="408" height="389" />
+  <frame state="0"/>
+    <active-tc  id="ExploradorHorariosTopComponent" />
+    <empty-behavior permanent="true"/>
+</mode>

@@ -53,12 +53,6 @@ public final class ExploradorHorariosTopComponent extends TopComponent implement
 
         explorerManager.setRootContext(new HorariosRootNode(Children.create(new HorariosChildFactory(lstResult), true)));
 
-        for (DommyClass dommyClass : lstResult) {
-            System.out.println("dommyClass::"+dommyClass);
-        }
-        System.out.println("exploradorSrv::"+exploradorSrv);
-
-
     }
 
     /** This method is called from within the constructor to

@@ -23,9 +23,10 @@
             <file name="ExploradorHorariosTopComponent.settings" url="ExploradorHorariosTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
-            <folder name="explorer">
+            <folder name="mimodeexplorer">
                 <file name="ExploradorHorariosTopComponent.wstcref" url="ExploradorHorariosTopComponentWstcref.xml"/>
-            </folder>
+                </folder>
+            <file name="mimodeexplorer.wsmode" url="mimodeexplorerWsmode.xml"/>
         </folder>
     </folder>
 </filesystem>
