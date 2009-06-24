@@ -6,6 +6,7 @@ package autorizacion.dao;
 
 import caafes.def.Autorizaciones;
 import infraestructura.dao.DAOGenerico;
+import java.math.BigDecimal;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -27,12 +28,25 @@ public class AutorizacionDAO extends DAOGenerico {
     public void ejecuta() {
     }
 
-    public Autorizaciones obtienAutorizacion(long idAutorizacion) {
+    public Autorizaciones obtienAutorizacion(BigDecimal idAutorizacion) {
         Session session = getSessionFactory().openSession();
         Autorizaciones AutorizacioneVO = (Autorizaciones) session.createCriteria(Autorizaciones.class).add(Restrictions.eq("idAutorizacion", idAutorizacion)).uniqueResult();
         session.close();
 
         return AutorizacioneVO;
+    }
+    public BigDecimal obtieneIDmaximo(){
+        List lista;
+        BigDecimal inte = new BigDecimal("0");
+        BigDecimal intlista;
+
+        Session session = getSessionFactory().openSession();
+        lista = session.createCriteria(Autorizaciones.class).list();
+        if (lista!=null){
+            intlista = new BigDecimal(lista.size());
+            inte = intlista.add(new BigDecimal("1"));
+        }
+        return inte;
     }
     
     public List<Autorizaciones> obtienAutorizacionFechacrea() {
@@ -70,14 +84,14 @@ public class AutorizacionDAO extends DAOGenerico {
         tx.commit();
         session.close();
     }
-     public List<Autorizaciones> obtieneListaAutorizacion(long iDAutoriza) {
+     public List<Autorizaciones> obtieneListaAutorizacion(BigDecimal iDAutoriza) {
         Session session = getSessionFactory().openSession();
         List<Autorizaciones> listaFacturas = null;
         Criteria criteria = null;
 
         criteria = session.createCriteria(Autorizaciones.class);
 
-        Criterion buscaIdFolio = Restrictions.eq("idAutorizacion",iDAutoriza);
+        Criterion buscaIdFolio = Restrictions.eq("autorizacionesPK.idAutorizacion",iDAutoriza);
         criteria.add(buscaIdFolio);
 
         listaFacturas = criteria.list();

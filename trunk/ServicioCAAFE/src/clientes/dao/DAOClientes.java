@@ -69,6 +69,9 @@ public class DAOClientes extends DAOGenerico {
     }
     }
      */
+
+        public void ejecuta() {
+    }
     public Clientes obtieneCliente(BigDecimal idCliente, String Rfc) {
         Session session = getSessionFactory().openSession();
         Clientes clientesVO = null;
@@ -90,9 +93,9 @@ public class DAOClientes extends DAOGenerico {
 
         criteria = session.createCriteria(Clientes.class);
 
-        Criterion nombre = Restrictions.ilike("nombre", consulta, MatchMode.START);
+        Criterion apellidos = Restrictions.ilike("apellidos", consulta, MatchMode.START);
         Criterion rfc  = Restrictions.ilike("rfc", consulta, MatchMode.START);
-        LogicalExpression orExp = Restrictions.or(nombre,rfc);
+        LogicalExpression orExp = Restrictions.or(apellidos,rfc);
         criteria.add(orExp);
         //criteria.add(Restrictions.eq("valido", 'S'));
         
@@ -100,13 +103,28 @@ public class DAOClientes extends DAOGenerico {
         return listaCliente;
     }
 
+
     public void insertaCliente(Clientes clientesVO) {
         Session session = getSessionFactory().openSession();
 
         Transaction tx = session.beginTransaction();
+        clientesVO.setIdCliente(obtieneIDmaximo());
         session.save(clientesVO);
         tx.commit();
         session.close();
+    }
+    public BigDecimal obtieneIDmaximo(){
+        List lista;
+        BigDecimal inte = new BigDecimal("0");
+        BigDecimal intlista;
+
+        Session session = getSessionFactory().openSession();
+        lista = session.createCriteria(Clientes.class).list();
+        if (lista!=null){
+            intlista = new BigDecimal(lista.size());
+            inte = intlista.add(new BigDecimal("1"));
+        }
+        return inte;
     }
 
     public void modificaCliente(Clientes clientesVO) {

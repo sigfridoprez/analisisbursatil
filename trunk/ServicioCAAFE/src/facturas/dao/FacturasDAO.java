@@ -4,9 +4,11 @@
  */
 package facturas.dao;
 
+import caafes.def.DetalleFactura;
 import infraestructura.dao.DAOGenerico;
-import java.sql.SQLException;
 import caafes.def.Facturas;
+import facturas.util.DetalleFacturaUtil;
+import facturas.util.FacturasUtil;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,12 +109,22 @@ public class FacturasDAO extends DAOGenerico {
         return listaFacturas;
     }
 
-    public void insertaFactura(Facturas facturasVO) {
+    public void insertaFactura(FacturasUtil facturasVO) {
         Session session = getSessionFactory().openSession();
+        DetalleFactura detalle;
 
         Transaction tx = session.beginTransaction();
-        session.save(facturasVO);
-        //session.delete(facturasVO);
+            session.save(facturasVO.getFacturas());
+            if(facturasVO.getDetalleFactura()!=null){
+
+                for (DetalleFacturaUtil detalleFactura : facturasVO.getDetalleFactura()) {
+                    detalle = detalleFactura.getDetalleFactura();
+                    session.save(detalle);
+                    if(detalleFactura.getAutorizaciones()!=null){
+                        session.save(detalleFactura.getAutorizaciones());
+                    }
+                }
+            }
         tx.commit();
         session.close();
     }
@@ -127,11 +139,11 @@ public class FacturasDAO extends DAOGenerico {
         session.close();
     }
 
-    public void eliminaFactura(Facturas facturasVO) {
+    public void eliminaFactura(FacturasUtil facturasVO) {
         Session session = getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
-        facturasVO = (Facturas) session.get(Facturas.class, facturasVO.getFacturasPK());
+        facturasVO = (FacturasUtil) session.get(Facturas.class, facturasVO.getFacturas().getFacturasPK());
         session.delete(facturasVO);
         tx.commit();
         session.close();

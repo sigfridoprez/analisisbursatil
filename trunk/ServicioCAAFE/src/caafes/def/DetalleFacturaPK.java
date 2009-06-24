@@ -6,6 +6,7 @@
 package caafes.def;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,44 +20,44 @@ import javax.persistence.Embeddable;
 public class DetalleFacturaPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_CLIENTE")
-    private BigInteger idCliente;
+    private BigDecimal idCliente;
     @Basic(optional = false)
     @Column(name = "ID_FOLIO_FACTURA")
-    private BigInteger idFolioFactura;
+    private BigDecimal idFolioFactura;
     @Basic(optional = false)
     @Column(name = "ID_DETALLE_FACTURA")
-    private BigInteger idDetalleFactura;
+    private BigDecimal idDetalleFactura;
 
     public DetalleFacturaPK() {
     }
 
-    public DetalleFacturaPK(BigInteger idCliente, BigInteger idFolioFactura, BigInteger idDetalleFactura) {
+    public DetalleFacturaPK(BigDecimal idCliente, BigDecimal idFolioFactura, BigDecimal idDetalleFactura) {
         this.idCliente = idCliente;
         this.idFolioFactura = idFolioFactura;
         this.idDetalleFactura = idDetalleFactura;
     }
 
-    public BigInteger getIdCliente() {
+    public BigDecimal getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(BigInteger idCliente) {
+    public void setIdCliente(BigDecimal idCliente) {
         this.idCliente = idCliente;
     }
 
-    public BigInteger getIdFolioFactura() {
+    public BigDecimal getIdFolioFactura() {
         return idFolioFactura;
     }
 
-    public void setIdFolioFactura(BigInteger idFolioFactura) {
+    public void setIdFolioFactura(BigDecimal idFolioFactura) {
         this.idFolioFactura = idFolioFactura;
     }
 
-    public BigInteger getIdDetalleFactura() {
+    public BigDecimal getIdDetalleFactura() {
         return idDetalleFactura;
     }
 
-    public void setIdDetalleFactura(BigInteger idDetalleFactura) {
+    public void setIdDetalleFactura(BigDecimal idDetalleFactura) {
         this.idDetalleFactura = idDetalleFactura;
     }
 

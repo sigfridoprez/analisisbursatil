@@ -73,8 +73,7 @@ public class Clientes implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Clientes(BigDecimal idCliente, String nombre, String apellidos, String rfc, String calleNumero, String colonia, String codigoPostal, String delegacionMunicipio, String ciudad, String telefono) {
-        this.idCliente = idCliente;
+    public Clientes( String nombre, String apellidos, String rfc, String calleNumero, String colonia, String codigoPostal, String delegacionMunicipio, String ciudad, String telefono, String numeroArchivo) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.rfc = rfc;
@@ -84,6 +83,7 @@ public class Clientes implements Serializable {
         this.delegacionMunicipio = delegacionMunicipio;
         this.ciudad = ciudad;
         this.telefono = telefono;
+        this.numeroArchivo = numeroArchivo;
     }
 
     public BigDecimal getIdCliente() {

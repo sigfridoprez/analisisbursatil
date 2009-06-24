@@ -36,8 +36,8 @@ public class DetalleFactura implements Serializable {
     @Basic(optional = false)
     @Column(name = "CANTIDAD")
     private long cantidad;
-    @Basic(optional = false)
-    @Column(name = "ANOTACIONES ")
+    @Basic(optional = true)
+    @Column(name = "ANOTACIONES")
     private String anotaciones;
     @Basic(optional = false)
     @Column(name = "TIPO_TRABAJO")
@@ -45,10 +45,11 @@ public class DetalleFactura implements Serializable {
     @Basic(optional = false)
     @Column(name = "COSTO_TRABAJO")
     private BigDecimal costoTrabajo;
+    
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detalleFactura")
 //    private Collection<Autorizaciones> autorizacionesCollection;
-//    @JoinColumns({@JoinColumn(name = "ID_FOLIO_FACTURA", referencedColumnName = "ID_FOLIO_FACTURA", insertable = false, updatable = false), @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", insertable = false, updatable = false)})
-//    @ManyToOne(optional = false)
+    @JoinColumns({@JoinColumn(name = "ID_FOLIO_FACTURA", referencedColumnName = "ID_FOLIO_FACTURA", insertable = false, updatable = false), @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
     private Facturas facturas;
 
     public DetalleFactura() {
@@ -66,8 +67,16 @@ public class DetalleFactura implements Serializable {
         this.costoTrabajo = costoTrabajo;
     }
 
-    public DetalleFactura(BigInteger idCliente, BigInteger idFolioFactura, BigInteger idDetalleFactura) {
+    public DetalleFactura(BigDecimal idCliente, BigDecimal idFolioFactura, BigDecimal idDetalleFactura) {
         this.detalleFacturaPK = new DetalleFacturaPK(idCliente, idFolioFactura, idDetalleFactura);
+    }
+
+    public DetalleFactura(BigDecimal idCliente, BigDecimal idFolioFactura, BigDecimal idDetalleFactura,long cantidad, String anotaciones, String tipoTrabajo, BigDecimal costoTrabajo) {
+        this.detalleFacturaPK = new DetalleFacturaPK(idCliente, idFolioFactura, idDetalleFactura);
+        this.cantidad = cantidad;
+        this.anotaciones = anotaciones;
+        this.tipoTrabajo = tipoTrabajo;
+        this.costoTrabajo = costoTrabajo;
     }
 
     public DetalleFacturaPK getDetalleFacturaPK() {
@@ -150,5 +159,4 @@ public class DetalleFactura implements Serializable {
     public String toString() {
         return "caafes.def.DetalleFactura[detalleFacturaPK=" + detalleFacturaPK + "]";
     }
-
 }

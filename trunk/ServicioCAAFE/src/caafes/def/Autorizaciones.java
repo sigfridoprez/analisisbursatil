@@ -6,6 +6,7 @@
 package caafes.def;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -73,8 +74,17 @@ public class Autorizaciones implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Autorizaciones(BigInteger idCliente, BigInteger idFolioFactura, BigInteger idDetalleFactura, BigInteger idAutorizacion) {
+    public Autorizaciones(BigDecimal idCliente, BigDecimal idFolioFactura, BigDecimal idDetalleFactura, BigDecimal idAutorizacion) {
         this.autorizacionesPK = new AutorizacionesPK(idCliente, idFolioFactura, idDetalleFactura, idAutorizacion);
+    }
+
+    public Autorizaciones(BigDecimal idCliente, BigDecimal idFolioFactura, BigDecimal idDetalleFactura, BigDecimal idAutorizacion, BigInteger folioInicio, BigInteger folioFinal, Date caducidad, String autorizo, Date fechaCreacion) {
+        this.autorizacionesPK = new AutorizacionesPK(idCliente, idFolioFactura, idDetalleFactura, idAutorizacion);
+        this.folioInicio = folioInicio;
+        this.folioFinal = folioFinal;
+        this.caducidad = caducidad;
+        this.autorizo = autorizo;
+        this.fechaCreacion = fechaCreacion;
     }
 
     public AutorizacionesPK getAutorizacionesPK() {

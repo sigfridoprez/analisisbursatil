@@ -6,6 +6,7 @@
 package caafes.def;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Usuarios implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_USUARIO")
-    private Short idUsuario;
+    private BigDecimal idUsuario;
     @Basic(optional = false)
     @Column(name = "PASSWORD")
     private String password;
@@ -36,20 +37,20 @@ public class Usuarios implements Serializable {
     public Usuarios() {
     }
 
-    public Usuarios(Short idUsuario) {
+    public Usuarios(BigDecimal idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuarios(Short idUsuario, String password) {
+    public Usuarios(BigDecimal idUsuario, String password) {
         this.idUsuario = idUsuario;
         this.password = password;
     }
 
-    public Short getIdUsuario() {
+    public BigDecimal getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Short idUsuario) {
+    public void setIdUsuario(BigDecimal idUsuario) {
         this.idUsuario = idUsuario;
     }
 
