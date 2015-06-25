@@ -1,0 +1,1 @@
+Fuentes del sistema de Análisis Bursátil Técnico
