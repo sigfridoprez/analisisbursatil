@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 import org.apache.log4j.BasicConfigurator;
 
 public class TestParcerTableHTML extends TestCase {
-	
+Nuevos Cambios	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -31,10 +31,11 @@ public class TestParcerTableHTML extends TestCase {
 	}
 
 	public void testParcer() throws BusinessException{
+		Es un ejemplo de cambio
 		ParserHTML parser = new ParserHTML();
 		ExtractorDatosTabla extractorDatosTabla = new ExtractorDatosTabla();
 		IpConfTablasHtmlParsear vo = getIpConfTablasHtmlParsear();
-		
+	No guardo nada	
 		SeriesOperadasMercadoCapitalesVO voDat;
 		
 		TableTag tableTag = parser.getTabla("http://www.bmv.com.mx/wb3/wb/BMV/BMV_resumen_del_mercado",vo.getNombreTabla());
