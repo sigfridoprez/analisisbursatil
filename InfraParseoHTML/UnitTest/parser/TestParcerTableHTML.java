@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 import org.apache.log4j.BasicConfigurator;
 
 public class TestParcerTableHTML extends TestCase {
-	
+Ajuste en master temporal	
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
